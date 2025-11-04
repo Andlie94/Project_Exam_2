@@ -1,3 +1,13 @@
+"use client";
+import React from "react";
+import { Loading, LoadingGlobal, LoadingSkeleton } from "../../components/ui/loading";
+
 export default function CartPage() {
-  return <div>Cart Page</div>;
+  return (
+    <>
+      <Loading />
+      <LoadingGlobal />
+      <LoadingSkeleton />
+    </>
+  );
 }
