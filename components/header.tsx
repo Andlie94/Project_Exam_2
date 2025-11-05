@@ -20,7 +20,7 @@ export function Header() {
           <div className="text-lg font-bold">
             <Link href="/">Holidaze</Link>
           </div>
-          <div className="flex space-x-4">
+          <div className="flex space-x-4 font-bold">
             {navigation.map((item) => (
               <Link
                 key={item.name}

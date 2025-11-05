@@ -34,14 +34,14 @@ export function LoadingGlobal() {
 export function LoadingSkeleton() {
   return (
     <div className="flex flex-row justify-center space-x-4 mt-4 ">
-      {/* Første skeleton */}
+
       <div className="skeleton-loading animate-pulse flex flex-col space-y-2">
         <div className="skeleton-header h-20 w-30 bg-amber-100 opacity-30"></div>
         <div className="skeleton-body h-5 w-30 bg-amber-100 opacity-30"></div>
         <div className="skeleton-footer h-5 w-30 bg-amber-100 opacity-30"></div>
       </div>
 
-      {/* Andre skeleton */}
+
       <div className="skeleton-loading animate-pulse flex flex-col space-y-2">
         <div className="skeleton-header h-20 w-30 bg-amber-100 opacity-30"></div>
         <div className="skeleton-body h-5 w-30 bg-amber-100 opacity-30"></div>
