@@ -1,3 +1,5 @@
+Link to the website: https://project-exam-2-lwpoiqxe0-andre-lier-stroms-projects.vercel.app/
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
