@@ -11,6 +11,7 @@
  
   --color-text: #FFFFFF;
   --color-text-2: #414141;
+  --color-text-3: #02B2DE;
   --color-text-button-2: #02B2DE;
 
   --color-border_button_1: #02B2DE;
@@ -66,4 +67,17 @@ footer {
   background-color: var(--color-hover-bg-button-2);
   color: var(--color-text);
   border: 3px solid var(--color-border_button_2);
+}
+.desktop-menu {
+  background-color: var(--background);
+  color: var(--color-text-3);
+}
+
+.mobile-menu {
+  background-color: var(--background-light_bule);
+  color: var(--color-text);
+}
+.mobile-menu-burger {
+  background-color: var(--background);
+  color: var(--color-text-3);
 }

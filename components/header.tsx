@@ -1,13 +1,15 @@
 'use client';
 import { useState } from 'react';
 import Link from 'next/link';
+import { ShoppingCartIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 
 const navigation = [
   { name: 'Home', href: '/' },
   { name: 'Feed', href: '/feed' },
   { name: 'Login', href: '/login' },
   { name: 'UserName', href: '/username' },
-  { name: 'Cart', href: '/cart' },
+  { name: '', href: '/search', icon: MagnifyingGlassIcon }, 
+  { name: '', href: '/cart', icon: ShoppingCartIcon },      
 ];
 
 export function Header() {
@@ -16,27 +18,31 @@ export function Header() {
     <header>
       {/* DESKTOP MENU */}
       <nav>
-        <div className="hidden md:flex items-center justify-between p-4 bg-white text-black">
+        <div className="desktop-menu hidden md:flex items-center justify-between p-4">
           <div className="text-lg font-bold">
-            <Link href="/">Holidaze</Link>
-          </div>
-          <div className="flex space-x-4 font-bold">
-            {navigation.map((item) => (
+            <Link href="/"><img src="/img/logo.png" alt="Logo" className="h-6 -mt-2" /></Link>
+          </div> 
+          <div className="flex items-center space-x-4 font-bold">
+            {navigation.map((item, index) => (
               <Link
-                key={item.name}
+                key={item.href + index} 
                 href={item.href}
-                className="hover:underline"
+                className="flex items-center hover:underline"
               >
-                {item.name}
+                {item.icon ? (
+                  <item.icon className="w-5 h-5" />
+                ) : (
+                  <span>{item.name}</span>
+                )}
               </Link>
             ))}
           </div>
         </div>
 
         {/* MOBILE MENU */}
-        <div className="md:hidden flex items-center justify-between p-4 bg-gray-800 text-white">
+        <div className="mobile-menu-burger md:hidden flex items-center justify-between p-4">
           <div className="text-lg font-bold">
-            <Link href="/">GameHub</Link>
+            <Link href="/"><img src="/img/logo.png" alt="Logo" className="h-6 -mt-2" /></Link>
           </div>
           <button
             onClick={() => setIsOpen(!isOpen)}
@@ -67,15 +73,16 @@ export function Header() {
             </svg>
           </button>
         </div>
+
         {isOpen && (
-          <div className="md:hidden bg-gray-700 text-white p-4 space-y-2">
-            {navigation.map((item) => (
+          <div className="mobile-menu md:hidden p-4 space-y-2">
+            {navigation.map((item, index) => (
               <Link
-                key={item.name}
+                key={item.href + index}
                 href={item.href}
-                className="block hover:underline"
+                className="flex items-center space-x-1 hover:underline"
               >
-                {item.name}
+                {item.icon ? <item.icon className="w-5 h-5" /> : <span>{item.name}</span>}
               </Link>
             ))}
           </div>
