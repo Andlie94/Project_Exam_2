@@ -7,7 +7,8 @@ const navigation = [
   { name: 'Home', href: '/' },
   { name: 'Feed', href: '/feed' },
   { name: 'Login', href: '/login' },
-  { name: 'UserName', href: '/username' },
+  { name: 'UserName', href: '/user' },
+{ name: 'Admin', href: '/admin' },
   { name: '', href: '/search', icon: MagnifyingGlassIcon }, 
   { name: '', href: '/cart', icon: ShoppingCartIcon },      
 ];

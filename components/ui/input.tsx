@@ -5,29 +5,55 @@ const baseInputStyle =
   const textStyle =
   "text-white text-sm mb-1";
 
-export function InputName() {
+interface InputProps {
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+export function InputName({ value, onChange }: InputProps) {
   return (
     <div>
       <h3 className={textStyle}>Name</h3>
-      <input type="text" name="name" placeholder="Enter your name" className={baseInputStyle} />
+      <input
+        type="text"
+        name="name"
+        placeholder="Enter your name"
+        value={value}
+        onChange={onChange}
+        className={baseInputStyle}
+      />
     </div>
   );
 }
 
-export function InputEmail() {
+export function InputEmail({ value, onChange }: InputProps) {
   return (
     <div>
       <h3 className={textStyle}>Email</h3>
-      <input type="email" name="email" placeholder="Enter your email" className={baseInputStyle} />
+      <input
+        type="email"
+        name="email"
+        placeholder="Enter your email"
+        value={value}
+        onChange={onChange}
+        className={baseInputStyle}
+      />
     </div>
   );
 }
 
-export function InputPassword() {
+export function InputPassword({ value, onChange }: InputProps) {
   return (
     <div>
       <h3 className={textStyle}>Password</h3>
-      <input type="password" name="password" placeholder="Enter your password" className={baseInputStyle} />
+      <input
+        type="password"
+        name="password"
+        placeholder="Enter your password"
+        value={value}
+        onChange={onChange}
+        className={baseInputStyle}
+      />
     </div>
   );
 }
