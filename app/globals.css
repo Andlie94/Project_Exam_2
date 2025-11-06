@@ -54,13 +54,12 @@ footer {
 .secundary-button {
   background-color: var(--buttonback);
   color: var(--color-text-button-2);
-  padding: 0.5rem 1rem;
-  border-radius: 0.5rem;
-  font-family: 'Montserrat', 'Roboto', Arial, Helvetica, sans-serif; /* Bruk fontene også her */
+  font-family: 'Montserrat', 'Roboto', Arial, Helvetica, sans-serif;
   font-weight: bold;
   transition: background-color 0.2s;
   cursor: pointer;
   border: 3px solid var(--color-border_button_1);
+  border-radius: 0.5rem;
 }
 
 .secundary-button:hover {
