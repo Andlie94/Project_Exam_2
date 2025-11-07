@@ -58,11 +58,18 @@ export function InputPassword({ value, onChange }: InputProps) {
   );
 }
 
-export function InputConfirmPassword() {
+export function InputConfirmPassword({ value, onChange }: InputProps) {
   return (
     <div>
       <h3 className={textStyle}>Confirm Password</h3>
-      <input type="password" name="confirmPassword" placeholder="Confirm your password" className={baseInputStyle} />
+      <input
+        type="password"
+        name="confirmPassword"
+        placeholder="Confirm your password"
+        value={value}
+        onChange={onChange}
+        className={baseInputStyle}
+      />
     </div>
   );
 }

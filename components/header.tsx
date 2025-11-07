@@ -1,40 +1,129 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { ShoppingCartIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 
-const navigation = [
+function getUserName() {
+  if (typeof window === 'undefined') return 'Login';
+  const userDataString = localStorage.getItem('User');
+  if (!userDataString) return 'Login';
+  try {
+    const userData = JSON.parse(userDataString);
+    return userData.name || 'Login';
+  } catch {
+    return 'Login';
+  }
+}
+
+export const UserMenu = () => {
+  const [userName, setUserName] = useState('Login');
+  const [open, setOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
+
+  useEffect(() => {
+    setUserName(getUserName());
+  }, []);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem('User');
+    setUserName('Login');
+    setOpen(false);
+    router.push('/'); 
+  };
+
+  if (userName === 'Login') {
+    return (
+      <Link href="/login" className="hover:underline font-bold">
+        Login
+      </Link>
+    );
+  }
+
+  return (
+    <div className="relative font-bold" ref={dropdownRef}>
+      <button onClick={() => setOpen(!open)} className="hover:underline">
+        {userName}
+      </button>
+
+      {open && (
+        <div className="absolute right-0 mt-2 w-32 bg-white border rounded shadow-md text-sm font-normal">
+          <Link
+            href="/user"
+            className="block px-3 py-2 hover:bg-gray-100"
+            onClick={() => setOpen(false)}
+          >
+            Profile
+          </Link>
+          <button
+            onClick={handleLogout}
+            className="block w-full text-left px-3 py-2 hover:bg-gray-100"
+          >
+            Logout
+          </button>
+        </div>
+      )}
+    </div>
+  );
+};
+
+
+const baseNavigation = [
   { name: 'Home', href: '/' },
   { name: 'Feed', href: '/feed' },
-  { name: 'Login', href: '/login' },
-  { name: 'UserName', href: '/user' },
-{ name: 'Admin', href: '/admin' },
-  { name: '', href: '/search', icon: MagnifyingGlassIcon }, 
-  { name: '', href: '/cart', icon: ShoppingCartIcon },      
+  { name: 'Admin', href: '/admin' },
+  { name: '', href: '/search', icon: MagnifyingGlassIcon },
+  { name: '', href: '/cart', icon: ShoppingCartIcon },
 ];
 
 export function Header() {
   const [isOpen, setIsOpen] = useState(false);
+
   return (
     <header>
-      {/* DESKTOP MENU */}
       <nav>
+        {/* DESKTOP MENU */}
         <div className="desktop-menu hidden md:flex items-center justify-between p-4">
           <div className="text-lg font-bold">
-            <Link href="/"><img src="/img/logo.png" alt="Logo" className="h-6 -mt-2" /></Link>
-          </div> 
+            <Link href="/">
+              <img src="/img/logo.png" alt="Logo" className="h-6 -mt-2" />
+            </Link>
+          </div>
+
           <div className="flex items-center space-x-4 font-bold">
-            {navigation.map((item, index) => (
+            {/* Første del: Home, Feed, Admin */}
+            {baseNavigation.slice(0, 3).map((item, index) => (
               <Link
-                key={item.href + index} 
+                key={item.href + index}
                 href={item.href}
                 className="flex items-center hover:underline"
               >
-                {item.icon ? (
-                  <item.icon className="w-5 h-5" />
-                ) : (
-                  <span>{item.name}</span>
-                )}
+                {item.icon ? <item.icon className="w-5 h-5" /> : <span>{item.name}</span>}
+              </Link>
+            ))}
+
+            {/* Login / UserMenu */}
+            <UserMenu />
+
+            {/* Siste del: Search og Cart */}
+            {baseNavigation.slice(3).map((item, index) => (
+              <Link
+                key={item.href + index}
+                href={item.href}
+                className="flex items-center hover:underline"
+              >
+                {item.icon ? <item.icon className="w-5 h-5" /> : <span>{item.name}</span>}
               </Link>
             ))}
           </div>
@@ -43,7 +132,9 @@ export function Header() {
         {/* MOBILE MENU */}
         <div className="mobile-menu-burger md:hidden flex items-center justify-between p-4">
           <div className="text-lg font-bold">
-            <Link href="/"><img src="/img/logo.png" alt="Logo" className="h-6 -mt-2" /></Link>
+            <Link href="/">
+              <img src="/img/logo.png" alt="Logo" className="h-6 -mt-2" />
+            </Link>
           </div>
           <button
             onClick={() => setIsOpen(!isOpen)}
@@ -77,7 +168,24 @@ export function Header() {
 
         {isOpen && (
           <div className="mobile-menu md:hidden p-4 space-y-2">
-            {navigation.map((item, index) => (
+            {/* Home, Feed, Admin */}
+            {baseNavigation.slice(0, 3).map((item, index) => (
+              <Link
+                key={item.href + index}
+                href={item.href}
+                className="flex items-center space-x-1 hover:underline"
+              >
+                {item.icon ? <item.icon className="w-5 h-5" /> : <span>{item.name}</span>}
+              </Link>
+            ))}
+
+            {/* Login / UserMenu */}
+            <div className="flex flex-col space-y-1">
+              <UserMenu />
+            </div>
+
+            {/* Search og Cart */}
+            {baseNavigation.slice(3).map((item, index) => (
               <Link
                 key={item.href + index}
                 href={item.href}
