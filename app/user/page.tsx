@@ -1,25 +1,18 @@
 'use client';
 import React, { useEffect } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 
-function CheckUserToken() {
+function CheckAdminToken() {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const fromLogin = searchParams.get("fromLogin");
 
   useEffect(() => {
-    const token = localStorage.getItem("token"); 
+    const token = localStorage.getItem("token"); // liten t
     console.log("Token from localStorage:", token);
 
     if (!token) {
       router.push("/login"); 
-      return;
     }
-
-    if (fromLogin) {
-      window.location.href = "/user";
-    }
-  }, [router, fromLogin]);
+  }, [router]);
 
   return null;
 }
@@ -27,8 +20,8 @@ function CheckUserToken() {
 export default function UserPage() {
   return (
     <div>
-      <CheckUserToken />
       <h1>User Page</h1>
+      <CheckAdminToken />
     </div>
   );
 }
