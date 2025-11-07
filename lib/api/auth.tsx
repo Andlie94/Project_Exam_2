@@ -1,7 +1,6 @@
 export const API_BASE = "https://v2.api.noroff.dev";
 export const X_NOROFF_API_KEY = "b47c1d2a-a0ba-4ff7-ac9b-339bb69dabe5";
 
-// Type for data du får tilbake fra Noroff API
 export interface LoginData {
   name: string;
   email: string;
@@ -37,6 +36,25 @@ export async function loginUser(email: string, password: string): Promise<LoginD
 
   if (!response.ok) {
     throw new Error(result?.data ? "Unexpected login error" : "Invalid credentials");
+  }
+
+  return result.data;
+}
+
+export async function fetchSignUp(email: string, password: string, name: string): Promise<LoginData> {
+  const response = await fetch(`${API_BASE}/auth/register`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "X-Noroff-API-Key": X_NOROFF_API_KEY,
+    },
+    body: JSON.stringify({ email, password, name }),
+  });
+
+  const result: LoginResponse = await response.json();
+
+  if (!response.ok) {
+    throw new Error(result?.data ? "Unexpected signup error" : "Signup failed");
   }
 
   return result.data;

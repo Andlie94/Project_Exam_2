@@ -19,25 +19,25 @@ export default function LoginPage() {
       return;
     }
 
-    try {
-      const userData = await loginUser(email, password);
-      console.log("✅ Login success:", userData);
+try {
+  const userData = await loginUser(email, password);
+      console.log("Login success:", userData);
 
-      localStorage.setItem("token", userData.accessToken);
-      localStorage.setItem("User", JSON.stringify(userData));
+  localStorage.setItem("token", userData.accessToken);
+  localStorage.setItem("User", JSON.stringify(userData));
 
-      if (userData.venueManager) {
-        router.push("/admin");
+  if (userData.venueManager) {
+    router.push("/admin");
+  } else {
+    router.push("/user");
+  }
+
+} catch (err) {
+  if (err instanceof Error) {
+    console.error("Login error:", err.message);
+    setError(err.message);
       } else {
-        router.push("/user");
-      }
-
-    } catch (err) {
-      if (err instanceof Error) {
-        console.error("❌ Login error:", err.message);
-        setError(err.message);
-      } else {
-        console.error("❌ Unknown login error:", err);
+        console.error("Unknown login error:", err);
         setError("Login failed due to an unknown error");
       }
     }
@@ -64,12 +64,12 @@ export default function LoginPage() {
           <InputPassword value={password} onChange={(e) => setPassword(e.target.value)} />
         </div>
 
-        <button
-          className="secundary-button mt-4 py-3 px-16 text-lg mx-auto block"
-          type="submit"
-        >
-          Login
-        </button>
+<button
+  className="secundary-button mt-4 py-3 px-16 text-lg mx-auto block"
+  type="submit"
+>
+  Login
+</button>
 
         <p className="text-center text-[var(--color-text)]">
           Don’t have an account?{" "}
