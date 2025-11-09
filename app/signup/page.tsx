@@ -7,6 +7,7 @@ import {
   InputPassword,
   InputConfirmPassword,
 } from "../../components/ui/input";
+import { Error } from "../../components/ui/message";
 import { fetchSignUp } from "../../lib/api/auth";
 import { LoadingGlobal } from "../../components/ui/loading";
 
@@ -24,6 +25,7 @@ export default function SignupPage() {
     event.preventDefault();
     setError(null);
 
+
     if (
       name.trim() === "" ||
       email.trim() === "" ||
@@ -33,23 +35,45 @@ export default function SignupPage() {
       setError("All fields are required");
       return;
     }
+
+    if (!email.endsWith("@noroff.no") && !email.endsWith("@stud.noroff.no")) {
+      setError("Email must be a Noroff email");
+      return;
+    }
+
+    if (password.length < 8) {
+      setError("Password must be at least 8 characters long");
+      return;
+    }
+
     if (password !== confirmPassword) {
       setError("Passwords do not match");
       return;
     }
+
     try {
       setLoading(true);
 
       const userData = await fetchSignUp(email, password, name, venueManager);
       console.log("Signup success:", userData);
+
       setTimeout(() => {
         setLoading(false);
         router.push("/login");
       }, 3000);
-    } catch (error) {
-      console.error(" Signup error:", error);
-      setError("Signup failed. Please try again.");
+    } catch (err: unknown) {
       setLoading(false);
+      const errorMessage = err instanceof Error ? err.message : "Signup failed";
+
+      if (errorMessage.includes("already exists")) {
+        setError("User already exists with this email");
+      } else if (errorMessage.includes("Invalid")) {
+        setError("Invalid input, please check your fields");
+      } else {
+        setError(errorMessage);
+      }
+
+      console.error("Signup error:", err);
     }
   }
 
@@ -61,34 +85,30 @@ export default function SignupPage() {
       {loading && (
         <div
           className="absolute inset-0 z-50 flex items-center justify-center 
-                  bg-[--background-dark_blue] bg-opacity-70 
-                  backdrop-blur-md"
+                     bg-[--background-dark_blue] bg-opacity-70 backdrop-blur-md"
         >
           <LoadingGlobal />
+          <h4 className="mt-4 text-[--color-text] p-4 text-center text-xl">
+            Creating your account, please wait...
+          </h4>
         </div>
       )}
 
       <form
         onSubmit={handleSignup}
-        className="mt-20 mb-20 space-y-6 p-10 sm:p-12 sm-mt-20 w-full max-w-2xl rounded-xl shadow-lg border border-white border-2 backdrop-blur-sm"
+        className="mt-20 mb-20 space-y-6 p-10 sm:p-12 w-full max-w-2xl rounded-xl shadow-lg border border-white border-2 backdrop-blur-sm"
         style={{ backgroundColor: "rgba(3, 107, 141, 0.5)" }}
       >
         <h2 className="text-3xl font-bold mb-6 text-center text-white">
           Create an Account
         </h2>
 
-        {error && <p className="text-red-500 text-center">{error}</p>}
+        {error && <Error text={error} />}
 
         <div className="w-full max-w-sm mx-auto space-y-4">
           <InputName value={name} onChange={(e) => setName(e.target.value)} />
-          <InputEmail
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <InputPassword
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
+          <InputEmail value={email} onChange={(e) => setEmail(e.target.value)} />
+          <InputPassword value={password} onChange={(e) => setPassword(e.target.value)} />
           <InputConfirmPassword
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
