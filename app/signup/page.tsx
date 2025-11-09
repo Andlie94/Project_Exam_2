@@ -62,19 +62,26 @@ export default function SignupPage() {
         router.push("/login");
       }, 3000);
     } catch (err: unknown) {
-      setLoading(false);
-      const errorMessage = err instanceof Error ? err.message : "Signup failed";
+  setLoading(false);
 
-      if (errorMessage.includes("already exists")) {
-        setError("User already exists with this email");
-      } else if (errorMessage.includes("Invalid")) {
-        setError("Invalid input, please check your fields");
-      } else {
-        setError(errorMessage);
-      }
+  // Sjekk om err er objekt og har 'message'
+  const errorMessage =
+    err && typeof err === "object" && "message" in err
+      ? (err as { message: string }).message
+      : "Signup failed";
 
-      console.error("Signup error:", err);
-    }
+  const lowerMessage = errorMessage.toLowerCase();
+
+  if (lowerMessage.includes("already exists")) {
+    setError("User already exists with this email");
+  } else if (lowerMessage.includes("invalid")) {
+    setError("Invalid input, please check your fields");
+  } else {
+    setError(errorMessage);
+  }
+
+  console.error("Signup error:", err);
+}
   }
 
   return (
