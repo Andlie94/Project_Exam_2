@@ -41,20 +41,30 @@ export async function loginUser(email: string, password: string): Promise<LoginD
   return result.data;
 }
 
-export async function fetchSignUp(email: string, password: string, name: string): Promise<LoginData> {
+export async function fetchSignUp(
+  email: string,
+  password: string,
+  name: string,
+  venueManager: boolean
+): Promise<LoginData> {
   const response = await fetch(`${API_BASE}/auth/register`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       "X-Noroff-API-Key": X_NOROFF_API_KEY,
     },
-    body: JSON.stringify({ email, password, name }),
+    body: JSON.stringify({ email, password, name, venueManager }),
   });
 
-  const result: LoginResponse = await response.json();
+  const result = await response.json();
+  console.log("Signup API result:", result);
 
   if (!response.ok) {
-    throw new Error(result?.data ? "Unexpected signup error" : "Signup failed");
+    const errorMessage =
+      result.errors?.[0]?.message ||
+      result.message ||
+      "Signup failed — check console for details";
+    throw new Error(errorMessage);
   }
 
   return result.data;
