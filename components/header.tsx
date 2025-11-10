@@ -81,7 +81,7 @@ export const UserMenu = () => {
 
 const baseNavigation = [
   { name: 'Home', href: '/' },
-  { name: 'Feed', href: '/feed' },
+  { name: 'Explore', href: '/explore' },
   { name: 'Admin', href: '/admin' },
   { name: '', href: '/search', icon: MagnifyingGlassIcon },
   { name: '', href: '/cart', icon: ShoppingCartIcon },
@@ -102,7 +102,7 @@ export function Header() {
           </div>
 
           <div className="flex items-center space-x-4 font-bold">
-            {/* Første del: Home, Feed, Admin */}
+            {/* Første del: Home, Explore, Admin */}
             {baseNavigation.slice(0, 3).map((item, index) => (
               <Link
                 key={item.href + index}
@@ -168,7 +168,7 @@ export function Header() {
 
         {isOpen && (
           <div className="mobile-menu md:hidden p-4 space-y-2">
-            {/* Home, Feed, Admin */}
+            {/* Home, Explore, Admin */}
             {baseNavigation.slice(0, 3).map((item, index) => (
               <Link
                 key={item.href + index}
