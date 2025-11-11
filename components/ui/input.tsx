@@ -8,6 +8,7 @@ const baseInputStyle =
 interface InputProps {
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onKeyPress?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
 }
 
 export function InputName({ value, onChange }: InputProps) {
@@ -73,12 +74,17 @@ export function InputConfirmPassword({ value, onChange }: InputProps) {
     </div>
   );
 }
-
-export function InputSearch() {
+export function InputSearch({ value, onChange }: InputProps) {
   return (
     <div>
-      <h3>Search</h3>
-      <input type="search" name="search" placeholder="Search..." className={baseInputStyle} />
+      <input 
+        type="search" 
+        name="search" 
+        placeholder="Search for venues..." 
+        value={value}
+        onChange={onChange}
+        className={baseInputStyle} 
+      />
     </div>
   );
 }
@@ -184,6 +190,34 @@ export function InputUrlImage2() {
     <div>
       <h3>Image URL 2</h3>
       <input type="url" name="urlImage2" placeholder="Enter image URL" className={baseInputStyle} />
+    </div>
+  );
+}
+
+export function DateTo ({ value, onChange }: InputProps) {
+  return (
+    <div>
+      <input
+        type="date"
+        name="dateTo"
+        value={value}
+        onChange={onChange}
+        className={baseInputStyle}
+      />
+    </div>
+  );
+}
+
+export function DateFrom ({ value, onChange }: InputProps) {
+  return (
+    <div>
+      <input
+        type="date"
+        name="dateFrom"
+        value={value}
+        onChange={onChange}
+        className={baseInputStyle}
+      />
     </div>
   );
 }

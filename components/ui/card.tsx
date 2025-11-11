@@ -1,4 +1,4 @@
-import React from "react";
+import Image from "next/image";
 import { StarIcon, HandThumbDownIcon } from "@heroicons/react/24/outline";
 
 interface Product {
@@ -20,21 +20,22 @@ interface Product {
 
 interface ProductCardProps {
   product: Product;
-  index?: number;
 }
 
-export function ProductCard({ product, index = 0 }: ProductCardProps) {
-  const cleanName = product.name.replace(/z{3,}/gi, "");
-  const displayName = cleanName.length > 15 ? cleanName.slice(0, 15) + "..." : cleanName;
+export function ProductCard({ product }: ProductCardProps) {
+  const cleanZ = product.name.replace(/z{3,}/gi, "");
+  const displayName = cleanZ.length > 15 ? cleanZ.slice(0, 15) + "..." : cleanZ;
 
   return (
     <div
       className={`rounded-md overflow-hidden shadow-md bg-[#F5F5F5] cursor-pointer hover:shadow-lg transition-shadow duration-300`}
     >
       {product.media && product.media[0]?.url && (
-        <img
+        <Image
           src={product.media[0].url}
           alt={product.media[0].alt || product.name}
+          width={500}
+          height={256}
           className="w-full h-64 p-4 object-cover"
         />
       )}
@@ -48,10 +49,10 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
           </p>
 
           <p className="text-base font-semibold mt-2">{product.price} kr</p>
-          <p className="text-xs">Max Guests: {product.maxGuests}</p>
+          <p className="text-xs">Capacity: {product.maxGuests}</p>
 
           <p className="text-[--color-text-2] mt-1 flex items-center gap-1 text-xs">
-            Rating:{" "}
+            Rating:
             {product.rating && product.rating > 0 ? (
               Array.from({ length: Math.round(product.rating) }).map((_, i) => (
                 <StarIcon
@@ -66,17 +67,15 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
 
           <div className="mt-2 flex flex-wrap gap-1 text-xs">
             <p className="text-xs text-[--color-text-2] font-bold uppercase">
-              {" "}
               {product.meta.wifi ? "WiFi" : ""}{" "}
               {product.meta.parking ? "Parking" : ""}{" "}
               {product.meta.breakfast ? "Breakfast" : ""}{" "}
               {product.meta.pets ? "Pets" : ""}{" "}
+
             </p>
           </div>
         </div>
-
-        <div className="hidden md:block w-[2px] bg-[#02B2DE] h-full mx-auto rounded-full" />
-
+        <div className="hidden md:block w-0.5 bg-[#02B2DE] h-full mx-auto rounded-full" />
         {/*right side*/}
         <div className="text-gray-700 text-xs leading-relaxed">
           <p>
