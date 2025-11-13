@@ -6,7 +6,6 @@ import { DatePicker } from "../searchfunction";
 export default function HeroSection() {
   const handleDateSearch = (fromDate: string, toDate: string) => {
     console.log("Searching for dates:", fromDate, "to", toDate);
-    // Her kan du legge til logikk for å filtrere venues basert på datoer
   };
 
   return (
@@ -18,7 +17,6 @@ export default function HeroSection() {
         height={1826}
         className="w-full h-48 md:h-96 object-cover"
       />
-      {/* form section need to be replaced with date picker and location picker */}
       <div className="absolute top-20 md:top-40 left-4 md:left-1/4 transform md:-translate-x-1/2 md:-translate-y-1/2 px-4 md:px-8 py-3 md:py-4 rounded-lg w-11/12 md:w-auto">
         <div className="absolute inset-0 bg-[#02B2DE] opacity-50 rounded-lg"></div>
         <div className="relative z-10">
