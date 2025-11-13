@@ -1,7 +1,7 @@
-import Image from "next/image";
 import HeroSection from "@/components/ladningpage/herosection";
-import { PopulareStays, FeaturedPlaces } from "@/components/ladningpage/cardinfosection";
+import { PopulareStays, FeaturedPlaces } from "@/components/ladningpage/productcardsection";
 import KvoteSection from "@/components/ladningpage/kvote";
+import InfoCardSection from "@/components/ladningpage/InfocardSection";
 
 
 export default function Home() {
@@ -18,7 +18,7 @@ export default function Home() {
       <FeaturedPlaces />
     </div>
     <div className="bg-[#036B8D]">
-      <h4> Some card info </h4>
+      <InfoCardSection />
     </div>
   </div>
   );
