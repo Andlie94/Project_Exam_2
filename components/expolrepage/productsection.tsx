@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import { fetchProducts } from "../../lib/api/product";
 import { ProductCard } from "../ui/card";
 import { SearchProduct } from "../searchfunction";
@@ -48,7 +49,9 @@ export default function ProductSection() {
       <SearchProduct Search={setSearchTerm} />
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-20 max-w-6xl mx-auto mt-10">
         {filteredProducts.map((venue) => (
-          <ProductCard key={venue.id} product={venue} />
+          <Link key={venue.id} href={`/individual/${venue.id}`} className="block">
+            <ProductCard product={venue} />
+          </Link>
         ))}
       </div>
     </div>
