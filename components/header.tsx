@@ -23,7 +23,7 @@ export const UserMenu = () => {
   const router = useRouter();
 
   useEffect(() => {
-    setUserName(getUserName());
+    setTimeout(() => setUserName(getUserName()), 0);
   }, []);
 
   useEffect(() => {
@@ -38,6 +38,7 @@ export const UserMenu = () => {
 
   const handleLogout = () => {
     localStorage.removeItem('User');
+    localStorage.removeItem('token');
     setUserName('Login');
     setOpen(false);
     router.push('/'); 

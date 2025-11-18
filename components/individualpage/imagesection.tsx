@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 import { fetchProductById } from "../../lib/api/product";
 import Image from "next/image";
-import { LoadingGlobal } from "../ui/loading";
 
 interface venue {
   id: string;
@@ -13,7 +12,6 @@ interface venue {
 export default function ProductImage() {
   const params = useParams();
   const [product, setProduct] = useState<venue | null>(null);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const loadProduct = async () => {
@@ -26,17 +24,10 @@ export default function ProductImage() {
       }
     };
 
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 2000);
-
     loadProduct();
-
-    return () => clearTimeout(timer);
   }, [params.id]);
 
-  if (loading) return <LoadingGlobal />;
-  if (!product) return <div>Product not found</div>;
+  if (!product) return null;
 
   return (
     <div className="py-12 px-4 md:px-16 lg:px-32 xl:px-48">
