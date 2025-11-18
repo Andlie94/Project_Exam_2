@@ -17,13 +17,13 @@ export default function HeroSection() {
         height={1826}
         className="w-full h-48 md:h-96 object-cover"
       />
-      <div className="absolute top-20 md:top-40 left-4 md:left-1/4 transform md:-translate-x-1/2 md:-translate-y-1/2 px-4 md:px-8 py-3 md:py-4 rounded-lg w-11/12 md:w-auto">
-        <div className="absolute inset-0 bg-[#02B2DE] opacity-50 rounded-lg"></div>
-        <div className="relative z-10">
-          <h1 className="text-lg md:text-2xl lg:text-4xl font-bold text-center text-white">
+      <div className="absolute top-[50%] md:top-[45%] left-[50%] md:left-[25%] transform -translate-x-1/2 -translate-y-1/2 w-[70%] max-w-xs md:max-w-sm lg:max-w-md rounded-lg overflow-hidden">
+        <div className="absolute inset-0 bg-[#02B2DE] opacity-50"></div>
+        <div className="relative z-10 px-1.5 md:px-3 pt-1.5 pb-0 md:pt-2 md:pb-1 text-xs md:text-sm">
+          <h1 className="text-xs md:text-base lg:text-xl font-bold text-center text-white mb-1 md:mb-2">
             Find a date to stay with us
           </h1>
-          <div className="flex flex-col gap-2 md:gap-4 mt-4 md:mt-10">
+          <div className="flex flex-col gap-0.5 md:gap-1 scale-75 md:scale-90 lg:scale-100 origin-top">
             <DatePicker onDateSearch={handleDateSearch} />
           </div>
         </div>

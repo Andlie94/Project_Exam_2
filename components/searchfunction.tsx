@@ -38,9 +38,9 @@ export function DatePicker({ onDateSearch }: DatePickerProps) {
   };
 
   return (
-    <div className="flex flex-col gap-4 justify-center">
+    <div className="flex flex-col gap-2 md:gap-4 justify-center">
       <div>
-        <label className="block text-sm mb-1">
+        <label className="block text-xs md:text-sm mb-0.5 md:mb-1">
           <p className="text-white">From</p>
         </label>
         <DateFrom
@@ -49,13 +49,13 @@ export function DatePicker({ onDateSearch }: DatePickerProps) {
         />
       </div>
       <div>
-        <label className="block text-sm mb-1 text-[#FFFFF]">
+        <label className="block text-xs md:text-sm mb-0.5 md:mb-1 text-[#FFFFF]">
           {" "}
           <p className="text-white">To</p>
         </label>
         <DateTo value={toDate} onChange={(e) => setToDate(e.target.value)} />
       </div>
-      <div className="flex justify-end">
+      <div className="flex justify-end -mb-6 md:mb-2">
         <button className="secundary-button w-24" onClick={handleSearch}>
           Search
         </button>
