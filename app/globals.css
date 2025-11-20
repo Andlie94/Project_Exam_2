@@ -51,7 +51,7 @@ footer {
   border: 3px solid var(--color-border_button_1);
 }
 
-.secundary-button {
+ .secundary-button{
   background-color: var(--buttonback);
   color: var(--color-text-button-2);
   font-family: 'Montserrat', 'Roboto', Arial, Helvetica, sans-serif;
