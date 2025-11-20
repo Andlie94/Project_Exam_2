@@ -1,9 +1,7 @@
-
 const baseInputStyle =
   "bg-[#ffffff] border border-gray-300 rounded-lg p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition";
 
-  const textStyle =
-  "text-white text-sm mb-1";
+const textStyle = "text-white text-sm mb-1";
 
 interface InputProps {
   value: string;
@@ -77,13 +75,13 @@ export function InputConfirmPassword({ value, onChange }: InputProps) {
 export function InputSearch({ value, onChange }: InputProps) {
   return (
     <div>
-      <input 
-        type="search" 
-        name="search" 
-        placeholder="Search for venues..." 
+      <input
+        type="search"
+        name="search"
+        placeholder="Search for venues..."
         value={value}
         onChange={onChange}
-        className={baseInputStyle} 
+        className={baseInputStyle}
       />
     </div>
   );
@@ -92,7 +90,12 @@ export function InputPhone() {
   return (
     <div>
       <h3>Phone</h3>
-      <input type="tel" name="phone" placeholder="Enter your phone number" className={baseInputStyle} />
+      <input
+        type="tel"
+        name="phone"
+        placeholder="Enter your phone number"
+        className={baseInputStyle}
+      />
     </div>
   );
 }
@@ -101,7 +104,12 @@ export function InputPersonalID() {
   return (
     <div>
       <h3>Personal ID</h3>
-      <input type="text" name="personalID" placeholder="Enter your personal ID" className={baseInputStyle} />
+      <input
+        type="text"
+        name="personalID"
+        placeholder="Enter your personal ID"
+        className={baseInputStyle}
+      />
     </div>
   );
 }
@@ -110,7 +118,12 @@ export function InputAddress() {
   return (
     <div>
       <h3>Address</h3>
-      <input type="text" name="address" placeholder="Enter your address" className={baseInputStyle} />
+      <input
+        type="text"
+        name="address"
+        placeholder="Enter your address"
+        className={baseInputStyle}
+      />
     </div>
   );
 }
@@ -118,7 +131,12 @@ export function InputCountryCheckout() {
   return (
     <div>
       <h3>Country</h3>
-      <input type="text" name="country" placeholder="Enter your country" className={baseInputStyle} />
+      <input
+        type="text"
+        name="country"
+        placeholder="Enter your country"
+        className={baseInputStyle}
+      />
     </div>
   );
 }
@@ -126,7 +144,12 @@ export function InputPostalCode() {
   return (
     <div>
       <h3>Postal Code</h3>
-      <input type="text" name="postalCode" placeholder="Enter your postal code" className={baseInputStyle} />
+      <input
+        type="text"
+        name="postalCode"
+        placeholder="Enter your postal code"
+        className={baseInputStyle}
+      />
     </div>
   );
 }
@@ -137,7 +160,12 @@ function inputtitle() {
   return (
     <div>
       <h3>Title</h3>
-      <input type="text" name="title" placeholder="Enter title" className={baseInputStyle} />
+      <input
+        type="text"
+        name="title"
+        placeholder="Enter title"
+        className={baseInputStyle}
+      />
     </div>
   );
 }
@@ -146,7 +174,12 @@ export function inputdescription() {
   return (
     <div>
       <h3>Description</h3>
-      <input type="text" name="description" placeholder="Enter description" className={baseInputStyle} />
+      <input
+        type="text"
+        name="description"
+        placeholder="Enter description"
+        className={baseInputStyle}
+      />
     </div>
   );
 }
@@ -154,7 +187,12 @@ export function inputprice() {
   return (
     <div>
       <h3>Price</h3>
-      <input type="number" name="price" placeholder="Enter price" className={baseInputStyle} />
+      <input
+        type="number"
+        name="price"
+        placeholder="Enter price"
+        className={baseInputStyle}
+      />
     </div>
   );
 }
@@ -162,7 +200,12 @@ export function inputmaxGuests() {
   return (
     <div>
       <h3>Max Guests</h3>
-      <input type="number" name="maxGuests" placeholder="Enter max guests" className={baseInputStyle} />
+      <input
+        type="number"
+        name="maxGuests"
+        placeholder="Enter max guests"
+        className={baseInputStyle}
+      />
     </div>
   );
 }
@@ -171,30 +214,47 @@ export function InputCountry() {
   return (
     <div>
       <h3>Country</h3>
-      <input type="text" name="country" placeholder="Enter your country" className={baseInputStyle} />
+      <input
+        type="text"
+        name="country"
+        placeholder="Enter your country"
+        className={baseInputStyle}
+      />
     </div>
   );
 }
 
-export function InputUrlImage() {
+export function InputUrlImage({ value, onChange }: InputProps) {
   return (
     <div>
-      <h3>Image URL</h3>
-      <input type="url" name="urlImage" placeholder="Enter image URL" className={baseInputStyle} />
+      <input
+        type="url"
+        name="urlImage"
+        placeholder="Enter image URL"
+        value={value}
+        onChange={onChange}
+        className={baseInputStyle}
+      />
     </div>
   );
 }
 
-export function InputUrlImage2() {
+export function InputUrlImage2({ value, onChange }: InputProps) {
   return (
     <div>
-      <h3>Image URL 2</h3>
-      <input type="url" name="urlImage2" placeholder="Enter image URL" className={baseInputStyle} />
+      <input
+        type="url"
+        name="urlImage2"
+        placeholder="Enter image URL"
+        value={value}
+        onChange={onChange}
+        className={baseInputStyle}
+      />
     </div>
   );
 }
 
-export function DateTo ({ value, onChange }: InputProps) {
+export function DateTo({ value, onChange }: InputProps) {
   return (
     <div>
       <input
@@ -208,7 +268,7 @@ export function DateTo ({ value, onChange }: InputProps) {
   );
 }
 
-export function DateFrom ({ value, onChange }: InputProps) {
+export function DateFrom({ value, onChange }: InputProps) {
   return (
     <div>
       <input
