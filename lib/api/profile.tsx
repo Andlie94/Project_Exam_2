@@ -78,7 +78,7 @@ export async function updateProfile(
 export async function fetchProfileBookings(token: string, name: string) {
   try {
     const response = await fetch(
-      `${API_BASE}/holidaze/profiles/${name}/bookings`,
+      `${API_BASE}/holidaze/profiles/${name}/bookings?_venue=true`,
       {
         headers: {
           "X-Noroff-Api-Key": X_NOROFF_API_KEY,
