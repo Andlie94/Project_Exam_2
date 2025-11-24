@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { Loading } from "../ui/loading";
 import UpdateForm from "./settings";
 import { PencilIcon } from "@heroicons/react/24/outline";
+import Bookings from "./bookings";
 
 interface Profile {
   name: string;
@@ -60,7 +61,7 @@ export default function AccountInformation() {
           className="w-full h-48 object-cover rounded-lg mb-6"
         />
       )}
-      <div className="relative w-40 mx-auto md:ml-10 -mt-28 mb-4">
+      <div className="relative w-40 mx-auto lg:ml-10 -mt-28 mb-4">
         {profile.avatar?.url && profile.avatar.url !== "string" ? (
           <img
             src={profile.avatar.url}
@@ -78,24 +79,28 @@ export default function AccountInformation() {
           <PencilIcon className="w-5 h-5" />
         </button>
       </div>
-      <div className="text-center md:hidden">
+      <div className="text-center lg:hidden">
         <h2>{profile.name}</h2>
         <p>{profile.email}</p>
       </div>
-      <div className="h-px w-full bg-[#414141] my-4 block md:hidden"></div>
-      <h2 className="text-[#414141] text-2xl sm:text-3xl ml-0 md:ml-10 text-center">
+      <div className="h-px w-full bg-[#414141] my-4 block lg:hidden"></div>
+      <h2 className="text-[#414141] text-2xl sm:text-3xl ml-0 md:ml-10 text-center lg:ml-80">
         MY BOOKINGS
       </h2>
-      <div className="h-px w-full bg-[#414141] my-4 block md:hidden"></div>
-      <div className="h-px w-full bg-[#414141] my-4 hidden md:block"></div>
-      <div className="flex min-h-screen">
-        <div className="pr-6 mr-6 hidden md:block">
+      <div className="h-px w-full bg-[#414141] my-4 block lg:hidden"></div>
+      <div className="h-px w-full bg-[#414141] my-4 hidden lg:block"></div>
+      <div className="flex mb-10">
+        
+        <div className="pr-6 mr-6 hidden lg:block">
           <h2 className="text-2xl font-bold text-[#414141] mb-2 ml-10">
             {profile.name}
           </h2>
           <p className="text-[#414141] ml-10">{profile.email}</p>
         </div>
-        <div className="w-px bg-[#414141] hidden md:block"></div>
+        <div className="w-px bg-[#414141] hidden lg:block"></div>
+        <div className="flex justify-center w-full">
+          <Bookings />
+        </div>
       </div>
 
       <UpdateForm showForm={showEditForm} setShowForm={setShowEditForm} />

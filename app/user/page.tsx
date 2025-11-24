@@ -5,9 +5,12 @@ import Bookings from "../../components/user/bookings";
 
 export default function UserPage() {
   return (
-    <div>
-      <AccountInformation />
-      <Bookings />
+    <div className="">
+      <div className="">
+        <AccountInformation />
+      </div>
+      <div >
+      </div>
     </div>
   );
 }
