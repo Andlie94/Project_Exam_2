@@ -1,3 +1,11 @@
+import React from "react";
+
+interface BookingDateInputProps {
+  dateFrom: string;
+  dateTo: string;
+  onChange: (field: "dateFrom" | "dateTo", value: string) => void;
+}
+
 const baseInputStyle =
   "bg-[#ffffff] border border-gray-300 rounded-lg p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition";
 
@@ -140,6 +148,20 @@ export function InputCountryCheckout() {
     </div>
   );
 }
+
+export function InputCity() {
+  return (
+    <div>
+      <h3>City</h3>
+      <input
+        type="text"
+        name="city"
+        placeholder="Enter your city"
+        className={baseInputStyle}
+      />
+    </div>
+  );
+}
 export function InputPostalCode() {
   return (
     <div>
@@ -277,6 +299,52 @@ export function DateFrom({ value, onChange }: InputProps) {
         value={value}
         onChange={onChange}
         className={baseInputStyle}
+      />
+    </div>
+  );
+}
+
+export function InputGuests({
+  value,
+  onChange,
+  min = 1,
+  max,
+  ...props
+}: {
+  value: number | string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  min?: number;
+  max?: number;
+} & React.InputHTMLAttributes<HTMLInputElement>) {
+  return (
+    <input
+      type="number"
+      value={value}
+      onChange={onChange}
+      min={min}
+      max={max}
+      className={baseInputStyle}
+      {...props}
+    />
+  );
+}
+
+export function BookingDateInput({ dateFrom, dateTo, onChange }: BookingDateInputProps) {
+  return (
+    <div className="flex gap-2 w-full justify-center items-center">
+      <input
+        type="date"
+        name="dateFrom"
+        value={dateFrom}
+        onChange={e => onChange("dateFrom", e.target.value)}
+        className="bg-[#ffffff] border border-gray-300 rounded-lg p-2 w-full"
+      />
+      <input
+        type="date"
+        name="dateTo"
+        value={dateTo}
+        onChange={e => onChange("dateTo", e.target.value)}
+        className="bg-[#ffffff] border border-gray-300 rounded-lg p-2 w-full"
       />
     </div>
   );

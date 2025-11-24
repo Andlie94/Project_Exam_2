@@ -16,12 +16,15 @@ export interface UpdateProfileData {
 
 export async function fetchProfile(token: string, name: string) {
   try {
-    const response = await fetch(`${API_BASE}/holidaze/profiles/${name}?_venues=true&_bookings=true`, {
-      headers: {
-        "X-Noroff-Api-Key": X_NOROFF_API_KEY,
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const response = await fetch(
+      `${API_BASE}/holidaze/profiles/${name}?_venues=true&_bookings=true`,
+      {
+        headers: {
+          "X-Noroff-Api-Key": X_NOROFF_API_KEY,
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
 
     if (!response.ok) {
       throw new Error("Failed to fetch profile");
@@ -39,7 +42,11 @@ export async function fetchProfile(token: string, name: string) {
   }
 }
 
-export async function updateProfile(token: string, name: string, profileData: UpdateProfileData) {
+export async function updateProfile(
+  token: string,
+  name: string,
+  profileData: UpdateProfileData
+) {
   try {
     const response = await fetch(`${API_BASE}/holidaze/profiles/${name}`, {
       method: "PUT",
@@ -47,13 +54,13 @@ export async function updateProfile(token: string, name: string, profileData: Up
         "Content-Type": "application/json",
         "X-Noroff-Api-Key": X_NOROFF_API_KEY,
         Authorization: `Bearer ${token}`,
-      },   
+      },
       body: JSON.stringify(profileData),
     });
 
-   if (!response.ok) {
-  const errorData = await response.json();
-  throw new Error(errorData.message || "Failed to update profile");
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || "Failed to update profile");
     }
 
     const result = await response.json();
@@ -63,6 +70,73 @@ export async function updateProfile(token: string, name: string, profileData: Up
       console.error("Error updating profile:", error.message);
     } else {
       console.error("Unexpected error updating profile:", error);
+    }
+    throw error;
+  }
+}
+
+export async function fetchProfileBookings(token: string, name: string) {
+  try {
+    const response = await fetch(
+      `${API_BASE}/holidaze/profiles/${name}/bookings`,
+      {
+        headers: {
+          "X-Noroff-Api-Key": X_NOROFF_API_KEY,
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch bookings");
+    }
+
+    const result = await response.json();
+    return result;
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      console.error("Error fetching bookings:", error.message);
+    } else {
+      console.error("Unexpected error fetching bookings:", error);
+    }
+    throw error;
+  }
+}
+
+export interface CreateBookingData {
+  dateFrom: string;
+  dateTo: string;
+  guests: number;
+  venueId: string;
+}
+
+export async function createBooking(
+  token: string,
+  bookingData: CreateBookingData
+) {
+  try {
+    const response = await fetch(`${API_BASE}/holidaze/bookings`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-Noroff-Api-Key": X_NOROFF_API_KEY,
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(bookingData),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || "Failed to create booking");
+    }
+
+    const result = await response.json();
+    return result;
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      console.error("Error creating booking:", error.message);
+    } else {
+      console.error("Unexpected error creating booking:", error);
     }
     throw error;
   }
