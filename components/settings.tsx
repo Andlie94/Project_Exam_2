@@ -1,6 +1,6 @@
-import { updateProfile, UpdateProfileData } from "../../lib/api/profile";
+import { updateProfile, UpdateProfileData } from "../lib/api/profile";
 import { useState } from "react";
-import { InputUrlImage, InputUrlImage2 } from "../ui/input";
+import { InputUrlImage, InputUrlImage2 } from "./ui/input";
 
 interface UpdateFormProps {
   showForm: boolean;
