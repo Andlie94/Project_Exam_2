@@ -17,7 +17,6 @@ export default function LoginPage() {
     event.preventDefault();
     setError(null);
 
-    // Frontend-validering
     if (email.trim() === "" || password.trim() === "") {
       setError("All fields are required");
       return;
@@ -31,37 +30,35 @@ export default function LoginPage() {
       return;
     }
 
-try {
-  setLoading(true);
-  const userData = await loginUser(email, password);
+    try {
+      setLoading(true);
+      const userData = await loginUser(email, password);
+      localStorage.setItem("token", userData.accessToken);
+      localStorage.setItem("User", JSON.stringify(userData));
 
-  localStorage.setItem("token", userData.accessToken);
-  localStorage.setItem("User", JSON.stringify(userData));
+      setTimeout(() => {
+        setLoading(false);
+        if (userData.venueManager) router.push("/admin");
+        else router.push("/user");
+      }, 1000);
+    } catch (err: unknown) {
+      setLoading(false);
 
-  setTimeout(() => {
-    setLoading(false);
-    if (userData.venueManager) router.push("/admin");
-    else router.push("/user");
-  }, 3000);
+      const errorMessage =
+        err && typeof err === "object" && "message" in err
+          ? (err as { message: string }).message
+          : String(err);
 
-} catch (err: unknown) {
-  setLoading(false);
+      const lowerMessage = errorMessage.toLowerCase();
 
-  // Konverter unknown til string trygt
-  const errorMessage = err && typeof err === "object" && "message" in err
-    ? (err as { message: string }).message
-    : String(err);
-
-  const lowerMessage = errorMessage.toLowerCase();
-
-  if (lowerMessage.includes("invalid credentials")) {
-    setError("Email and password do not match");
-  } else if (lowerMessage.includes("not found")) {
-    setError("User does not exist");
-  } else {
-    setError(errorMessage);
-  }
-}
+      if (lowerMessage.includes("invalid credentials")) {
+        setError("Email and password do not match");
+      } else if (lowerMessage.includes("not found")) {
+        setError("User does not exist");
+      } else {
+        setError(errorMessage);
+      }
+    }
   }
 
   return (
@@ -69,11 +66,10 @@ try {
       className="min-h-screen flex items-center justify-center bg-cover bg-center relative"
       style={{ backgroundImage: "url('/img/Earth_blue.png')" }}
     >
-      {/* Loader overlay */}
       {loading && (
         <div className="absolute inset-0 z-50 flex flex-col items-center justify-center bg-[--background-dark_blue] bg-opacity-70 backdrop-blur-md">
           <LoadingGlobal />
-          <h4 className="mt-4 text-[--color-text] p-4 text-center text-xl">
+          <h4 className="mt-10 text-[--color-text] p-4 text-center text-xl">
             We found your account {email}. Sending you to your profile...
           </h4>
         </div>
@@ -89,8 +85,14 @@ try {
         </h2>
 
         <div className="w-full max-w-sm mx-auto space-y-4">
-          <InputEmail value={email} onChange={(e) => setEmail(e.target.value)} />
-          <InputPassword value={password} onChange={(e) => setPassword(e.target.value)} />
+          <InputEmail
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <InputPassword
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
           {error && <Error text={error} />}
         </div>
 
