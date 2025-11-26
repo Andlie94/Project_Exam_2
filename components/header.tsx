@@ -1,23 +1,47 @@
-'use client';
-import { useState, useEffect, useRef } from 'react';
-import { useRouter } from 'next/navigation';
-import Link from 'next/link';
-import { ShoppingCartIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline';
+"use client";
+import { useState, useEffect, useRef } from "react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { fetchProfile } from "@/lib/api/profile";
+import { ShoppingCartIcon } from "@heroicons/react/24/outline";
 
 function getUserName() {
-  if (typeof window === 'undefined') return 'Login';
-  const userDataString = localStorage.getItem('User');
-  if (!userDataString) return 'Login';
+  if (typeof window === "undefined") return "Login";
+  const userDataString = localStorage.getItem("User");
+  if (!userDataString) return "Login";
   try {
     const userData = JSON.parse(userDataString);
-    return userData.name || 'Login';
+    return userData.name || "Login";
   } catch {
-    return 'Login';
+    return "Login";
   }
 }
 
 export const UserMenu = () => {
-  const [userName, setUserName] = useState('Login');
+  const [userName, setUserName] = useState("Login");
+  const [venueManager, setVenueManager] = useState(false);
+
+  useEffect(() => {
+    const checkVenueManager = async () => {
+      if (typeof window !== "undefined") {
+        const token = localStorage.getItem("token");
+        const userDataString = localStorage.getItem("User");
+        if (!token || !userDataString) {
+          setVenueManager(false);
+          return;
+        }
+        try {
+          const userData = JSON.parse(userDataString);
+          const name = userData.name;
+          const result = await fetchProfile(token, name);
+          setVenueManager(!!result.data.venueManager);
+        } catch {
+          setVenueManager(false);
+        }
+      }
+    };
+    checkVenueManager();
+  }, [userName]);
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
@@ -28,30 +52,33 @@ export const UserMenu = () => {
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
         setOpen(false);
       }
     };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   const handleLogout = () => {
-    localStorage.removeItem('User');
-    localStorage.removeItem('token');
-    setUserName('Login');
+    localStorage.removeItem("User");
+    localStorage.removeItem("token");
+    setUserName("Login");
+    setVenueManager(false);
     setOpen(false);
-    router.push('/'); 
+    router.push("/");
   };
 
-  if (userName === 'Login') {
+  if (userName === "Login") {
     return (
       <Link href="/login" className="hover:underline font-bold">
         Login
       </Link>
     );
   }
-
   return (
     <div className="relative font-bold" ref={dropdownRef}>
       <button onClick={() => setOpen(!open)} className="hover:underline">
@@ -60,13 +87,24 @@ export const UserMenu = () => {
 
       {open && (
         <div className="absolute right-0 mt-2 w-32 bg-white border rounded shadow-md text-sm font-normal z-50">
-          <Link
-            href="/user"
-            className="block px-3 py-2 hover:bg-gray-100"
-            onClick={() => setOpen(false)}
-          >
-            Profile
-          </Link>
+          {venueManager === true && (
+            <Link
+              href="/admin"
+              className="block px-3 py-2 hover:bg-gray-100"
+              onClick={() => setOpen(false)}
+            >
+              Admin
+            </Link>
+          )}
+          {venueManager === false && (
+            <Link
+              href="/user"
+              className="block px-3 py-2 hover:bg-gray-100"
+              onClick={() => setOpen(false)}
+            >
+              Profile
+            </Link>
+          )}
           <button
             onClick={handleLogout}
             className="block w-full text-left px-3 py-2 hover:bg-gray-100"
@@ -79,13 +117,11 @@ export const UserMenu = () => {
   );
 };
 
-
 const baseNavigation = [
-  { name: 'Home', href: '/' },
-  { name: 'Explore', href: '/explore' },
-  { name: 'Admin', href: '/admin' },
-  { name: '', href: '/search', icon: MagnifyingGlassIcon },
-  { name: '', href: '/cart', icon: ShoppingCartIcon },
+  { name: "Home", href: "/" },
+  { name: "Explore", href: "/explore" },
+  { name: "UserMenu", component: UserMenu },
+  { name: "", href: "/cart", icon: ShoppingCartIcon },
 ];
 
 export function Header() {
@@ -103,30 +139,23 @@ export function Header() {
           </div>
 
           <div className="flex items-center space-x-4 font-bold">
-            {/* Første del: Home, Explore, Admin */}
-            {baseNavigation.slice(0, 3).map((item, index) => (
-              <Link
-                key={item.href + index}
-                href={item.href}
-                className="flex items-center hover:underline"
-              >
-                {item.icon ? <item.icon className="w-5 h-5" /> : <span>{item.name}</span>}
-              </Link>
-            ))}
-
-            {/* Login / UserMenu */}
-            <UserMenu />
-
-            {/* Siste del: Search og Cart */}
-            {baseNavigation.slice(3).map((item, index) => (
-              <Link
-                key={item.href + index}
-                href={item.href}
-                className="flex items-center hover:underline"
-              >
-                {item.icon ? <item.icon className="w-5 h-5" /> : <span>{item.name}</span>}
-              </Link>
-            ))}
+            {baseNavigation.map((item, index) =>
+              item.component ? (
+                <item.component key={item.name + index} />
+              ) : item.href ? (
+                <Link
+                  key={item.href + index}
+                  href={item.href}
+                  className="flex items-center hover:underline"
+                >
+                  {item.icon ? (
+                    <item.icon className="w-5 h-5" />
+                  ) : (
+                    <span>{item.name}</span>
+                  )}
+                </Link>
+              ) : null
+            )}
           </div>
         </div>
 
@@ -170,31 +199,30 @@ export function Header() {
         {isOpen && (
           <div className="mobile-menu md:hidden p-4 space-y-2">
             {/* Home, Explore, Admin */}
-            {baseNavigation.slice(0, 3).map((item, index) => (
-              <Link
-                key={item.href + index}
-                href={item.href}
-                className="flex items-center space-x-1 hover:underline"
-              >
-                {item.icon ? <item.icon className="w-5 h-5" /> : <span>{item.name}</span>}
-              </Link>
-            ))}
-
-            {/* Login / UserMenu */}
+            {baseNavigation.slice(0, 4).map((item, index) =>
+              item.href ? (
+                <Link
+                  key={item.href + index}
+                  href={item.href}
+                  className="flex items-center space-x-1 hover:underline"
+                >
+                  {item.icon ? (
+                    <item.icon className="w-5 h-5" />
+                  ) : (
+                    <span>{item.name}</span>
+                  )}
+                </Link>
+              ) : null
+            )}
             <div className="flex flex-col space-y-1">
               <UserMenu />
             </div>
-
-            {/* Search og Cart */}
-            {baseNavigation.slice(3).map((item, index) => (
-              <Link
-                key={item.href + index}
-                href={item.href}
-                className="flex items-center space-x-1 hover:underline"
-              >
-                {item.icon ? <item.icon className="w-5 h-5" /> : <span>{item.name}</span>}
-              </Link>
-            ))}
+            <Link
+              href="/cart"
+              className="flex items-center space-x-1 hover:underline"
+            >
+              <ShoppingCartIcon className="w-5 h-5" />
+            </Link>
           </div>
         )}
       </nav>
