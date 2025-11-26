@@ -4,6 +4,7 @@ import { fetchProfile } from "../../lib/api/profile";
 import { useState, useEffect } from "react";
 import { Loading } from "../ui/loading";
 import { PencilIcon } from "@heroicons/react/24/outline";
+import UpdateForm from "../settings";
 
 interface Profile {
   name: string;
@@ -106,6 +107,7 @@ export default function AccountInformation() {
         </div>
         <div className="w-px bg-[#414141] hidden lg:block"></div>
         <div className="flex justify-center w-full"></div>
+        <UpdateForm showForm={showEditForm} setShowForm={setShowEditForm} />
       </div>
     </div>
   );

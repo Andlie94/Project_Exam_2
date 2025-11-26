@@ -3,7 +3,7 @@ import { useRouter } from "next/navigation";
 import { fetchProfile } from "../../lib/api/profile";
 import { useState, useEffect } from "react";
 import { Loading } from "../ui/loading";
-import UpdateForm from "./settings";
+import UpdateForm from "../settings";
 import { PencilIcon } from "@heroicons/react/24/outline";
 import Bookings from "./bookings";
 
@@ -90,7 +90,6 @@ export default function AccountInformation() {
       <div className="h-px w-full bg-[#414141] my-4 block lg:hidden"></div>
       <div className="h-px w-full bg-[#414141] my-4 hidden lg:block"></div>
       <div className="flex mb-10">
-        
         <div className="pr-6 mr-6 hidden lg:block">
           <h2 className="text-2xl font-bold text-[#414141] mb-2 ml-10">
             {profile.name}
