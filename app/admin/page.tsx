@@ -1,11 +1,12 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { Loading } from '@/components/ui/loading';
-import { fetchProfile } from '@/lib/api/profile';
-import AccountInformation from '@/components/admin/layout';
-import {MakeANewVenue} from '@/components/admin/forms';
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { Loading } from "@/components/ui/loading";
+import { fetchProfile } from "@/lib/api/profile";
+import AccountInformation from "@/components/admin/layout";
+import { MakeANewVenue } from "@/components/admin/forms";
+import { UserVenue } from "@/components/admin/UserVenue";
 
 interface Profile {
   name: string;
@@ -27,11 +28,11 @@ export default function AdminPage() {
 
   useEffect(() => {
     const loadProfile = async () => {
-      const token = localStorage.getItem('token');
-      const userDataString = localStorage.getItem('User');
+      const token = localStorage.getItem("token");
+      const userDataString = localStorage.getItem("User");
 
       if (!token || !userDataString) {
-        router.push('/login');
+        router.push("/login");
         return;
       }
 
@@ -41,13 +42,13 @@ export default function AdminPage() {
         const result = await fetchProfile(token, name);
 
         if (!result.data.venueManager) {
-          router.push('/login');
+          router.push("/login");
           return;
         }
 
         setProfile(result.data);
       } catch (error) {
-        console.error('Failed to load profile:', error);
+        console.error("Failed to load profile:", error);
       }
     };
 
@@ -62,6 +63,7 @@ export default function AdminPage() {
     <div className="">
       <AccountInformation />
       <MakeANewVenue />
+      <UserVenue venueId={profile.name} />
     </div>
   );
 }

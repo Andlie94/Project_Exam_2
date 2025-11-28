@@ -109,3 +109,29 @@ export async function deleteVenues(id: string) {
     throw error;
   }
 }
+
+export async function fetchVenueCreated(id: string) {
+  const token = localStorage.getItem("token");
+
+  try {
+    const response = await fetch(`${API_BASE}/holidaze/venues/${id}`, {
+      headers: token
+        ? {
+            "Authorization": `Bearer ${token}`,
+          }
+        : {},
+    });
+
+    if (!response.ok) throw new Error("Failed to fetch venue");
+
+    const result = await response.json();
+    return result.data;
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      console.error(`Error fetching venue with id ${id}:`, error.message);
+    } else {
+      console.error(`Unexpected error fetching venue with id ${id}:`, error);
+    }
+    throw error;
+  }
+}

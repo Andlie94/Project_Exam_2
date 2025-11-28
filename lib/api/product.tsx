@@ -1,7 +1,7 @@
 export const API_BASE = "https://v2.api.noroff.dev";
 export async function fetchProducts() {
   try {
-    const response = await fetch(`${API_BASE}/holidaze/venues`);
+    const response = await fetch(`${API_BASE}/holidaze/venues?sort=created&sortOrder=desc`);
     if (!response.ok) throw new Error("Failed to fetch products");
 
     const result = await response.json();
