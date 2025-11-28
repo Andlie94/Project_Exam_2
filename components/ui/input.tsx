@@ -6,6 +6,11 @@ interface BookingDateInputProps {
   onChange: (field: "dateFrom" | "dateTo", value: string) => void;
 }
 
+interface AuthInputProps {
+  value: string | number;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
 const baseInputStyle =
   "bg-[#ffffff] border border-gray-300 rounded-lg p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition";
 
@@ -17,7 +22,7 @@ interface InputProps {
   onKeyPress?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
 }
 
-export function InputName({ value, onChange }: InputProps) {
+export function InputName({ value, onChange }: AuthInputProps) {
   return (
     <div>
       <h3 className={textStyle}>Name</h3>
@@ -33,7 +38,7 @@ export function InputName({ value, onChange }: InputProps) {
   );
 }
 
-export function InputEmail({ value, onChange }: InputProps) {
+export function InputEmail({ value, onChange }: AuthInputProps) {
   return (
     <div>
       <h3 className={textStyle}>Email</h3>
@@ -49,7 +54,7 @@ export function InputEmail({ value, onChange }: InputProps) {
   );
 }
 
-export function InputPassword({ value, onChange }: InputProps) {
+export function InputPassword({ value, onChange }: AuthInputProps) {
   return (
     <div>
       <h3 className={textStyle}>Password</h3>
@@ -65,7 +70,7 @@ export function InputPassword({ value, onChange }: InputProps) {
   );
 }
 
-export function InputConfirmPassword({ value, onChange }: InputProps) {
+export function InputConfirmPassword({ value, onChange }: AuthInputProps) {
   return (
     <div>
       <h3 className={textStyle}>Confirm Password</h3>
@@ -80,7 +85,7 @@ export function InputConfirmPassword({ value, onChange }: InputProps) {
     </div>
   );
 }
-export function InputSearch({ value, onChange }: InputProps) {
+export function InputSearch({ value, onChange }: AuthInputProps) {
   return (
     <div>
       <input
@@ -94,91 +99,13 @@ export function InputSearch({ value, onChange }: InputProps) {
     </div>
   );
 }
-export function InputPhone() {
-  return (
-    <div>
-      <h3>Phone</h3>
-      <input
-        type="tel"
-        name="phone"
-        placeholder="Enter your phone number"
-        className={baseInputStyle}
-      />
-    </div>
-  );
-}
 
-export function InputPersonalID() {
-  return (
-    <div>
-      <h3>Personal ID</h3>
-      <input
-        type="text"
-        name="personalID"
-        placeholder="Enter your personal ID"
-        className={baseInputStyle}
-      />
-    </div>
-  );
-}
 
-export function InputAddress() {
-  return (
-    <div>
-      <h3>Address</h3>
-      <input
-        type="text"
-        name="address"
-        placeholder="Enter your address"
-        className={baseInputStyle}
-      />
-    </div>
-  );
-}
-export function InputCountryCheckout() {
-  return (
-    <div>
-      <h3>Country</h3>
-      <input
-        type="text"
-        name="country"
-        placeholder="Enter your country"
-        className={baseInputStyle}
-      />
-    </div>
-  );
-}
 
-export function InputCity() {
-  return (
-    <div>
-      <h3>City</h3>
-      <input
-        type="text"
-        name="city"
-        placeholder="Enter your city"
-        className={baseInputStyle}
-      />
-    </div>
-  );
-}
-export function InputPostalCode() {
-  return (
-    <div>
-      <h3>Postal Code</h3>
-      <input
-        type="text"
-        name="postalCode"
-        placeholder="Enter your postal code"
-        className={baseInputStyle}
-      />
-    </div>
-  );
-}
 
 // Input for adminuser *//
 
-function inputtitle() {
+export function InputTitle({ value, onChange }: InputProps) {
   return (
     <div>
       <h3>Title</h3>
@@ -186,13 +113,15 @@ function inputtitle() {
         type="text"
         name="title"
         placeholder="Enter title"
+        value={value}
+        onChange={onChange}
         className={baseInputStyle}
       />
     </div>
   );
 }
 
-export function inputdescription() {
+export function InputDescription({ value, onChange }: InputProps) {
   return (
     <div>
       <h3>Description</h3>
@@ -200,12 +129,15 @@ export function inputdescription() {
         type="text"
         name="description"
         placeholder="Enter description"
+        value={value}
+        onChange={onChange}
         className={baseInputStyle}
       />
     </div>
   );
 }
-export function inputprice() {
+
+export function InputPrice({ value, onChange }: InputProps) {
   return (
     <div>
       <h3>Price</h3>
@@ -213,12 +145,15 @@ export function inputprice() {
         type="number"
         name="price"
         placeholder="Enter price"
+        value={value}
+        onChange={onChange}
         className={baseInputStyle}
       />
     </div>
   );
 }
-export function inputmaxGuests() {
+
+export function InputMaxGuests({ value, onChange }: InputProps) {
   return (
     <div>
       <h3>Max Guests</h3>
@@ -226,20 +161,24 @@ export function inputmaxGuests() {
         type="number"
         name="maxGuests"
         placeholder="Enter max guests"
+        value={value}
+        onChange={onChange}
         className={baseInputStyle}
       />
     </div>
   );
 }
 
-export function InputCountry() {
+export function InputCountry({ value, onChange }: InputProps) {
   return (
     <div>
       <h3>Country</h3>
       <input
         type="text"
         name="country"
-        placeholder="Enter your country"
+        placeholder="Enter country"
+        value={value}
+        onChange={onChange}
         className={baseInputStyle}
       />
     </div>
@@ -249,6 +188,7 @@ export function InputCountry() {
 export function InputUrlImage({ value, onChange }: InputProps) {
   return (
     <div>
+      <h3>Image URL</h3>
       <input
         type="url"
         name="urlImage"
@@ -337,14 +277,14 @@ export function BookingDateInput({ dateFrom, dateTo, onChange }: BookingDateInpu
         name="dateFrom"
         value={dateFrom}
         onChange={e => onChange("dateFrom", e.target.value)}
-        className="bg-[#ffffff] border border-gray-300 rounded-lg p-2 w-full"
+        className={baseInputStyle}
       />
       <input
         type="date"
         name="dateTo"
         value={dateTo}
         onChange={e => onChange("dateTo", e.target.value)}
-        className="bg-[#ffffff] border border-gray-300 rounded-lg p-2 w-full"
+        className={baseInputStyle}
       />
     </div>
   );

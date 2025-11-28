@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { Loading } from '@/components/ui/loading';
 import { fetchProfile } from '@/lib/api/profile';
 import AccountInformation from '@/components/admin/layout';
+import {MakeANewVenue} from '@/components/admin/forms';
 
 interface Profile {
   name: string;
@@ -60,6 +61,7 @@ export default function AdminPage() {
   return (
     <div className="">
       <AccountInformation />
+      <MakeANewVenue />
     </div>
   );
 }

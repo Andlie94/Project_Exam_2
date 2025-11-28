@@ -136,6 +136,9 @@ export default function CartPage() {
                     <span className="text-xl font-bold mb-2 block">
                       {item.price} kr/night
                     </span>
+                    <span>
+                      Capacity: {item.maxGuests} max guests
+                    </span>
                   </div>
                   <div className="relative w-32 h-32 md:w-40 md:h-40 rounded-lg overflow-hidden ml-4 flex items-start justify-end">
                     <Image
