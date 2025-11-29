@@ -6,7 +6,6 @@ import { Loading } from "@/components/ui/loading";
 import { fetchProfile } from "@/lib/api/profile";
 import AccountInformation from "@/components/admin/layout";
 import { MakeANewVenue } from "@/components/admin/forms";
-import { UserVenueList } from "@/components/admin/UserVenue";
 
 interface Profile {
   name: string;
@@ -63,7 +62,6 @@ export default function AdminPage() {
     <div className="">
       <AccountInformation />
       <MakeANewVenue />
-      <UserVenueList profileName={profile.name} />
     </div>
   );
 }
