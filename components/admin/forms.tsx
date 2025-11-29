@@ -110,3 +110,51 @@ export function MakeANewVenue() {
     </form>
   );
 }
+
+export function UpdateVenue() {
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [price, setPrice] = useState("");
+  const [maxGuests, setMaxGuests] = useState("");
+  const [country, setCountry] = useState("");
+  const [address, setAddress] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
+  const [dateFrom, setDateFrom] = useState("");
+  const [dateTo, setDateTo] = useState("");
+
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className="space-y-4">
+      <h2 className="text-2xl font-bold mb-4">Update Venue</h2>
+      <InputTitle value={title} onChange={(e) => setTitle(e.target.value)} />
+      <InputDescription value={description} onChange={(e) => setDescription(e.target.value)} />
+      <InputPrice value={price} onChange={(e) => setPrice(e.target.value)} />
+      <InputMaxGuests value={maxGuests} onChange={(e) => setMaxGuests(e.target.value)} />
+      <InputCountry value={country} onChange={(e) => setCountry(e.target.value)} />
+      <InputUrlImage value={imageUrl} onChange={(e) => setImageUrl(e.target.value)} />
+      <DateFrom value={dateFrom} onChange={(e) => setDateFrom(e.target.value)} />
+      <DateTo value={dateTo} onChange={(e) => setDateTo(e.target.value)} />
+      <div>
+        <input
+          type="text"
+          placeholder="Address"
+          value={address}
+          onChange={(e) => setAddress(e.target.value)}
+          className="bg-[#ffffff] border border-gray-300 rounded-lg p-2 w-full"
+          required
+        />
+      </div>
+      <button
+        type="submit"
+        className="px-4 py-2 bg-green-600 text-white rounded-md"
+      >
+        Update Venue
+      </button>
+    </form>
+  );
+}

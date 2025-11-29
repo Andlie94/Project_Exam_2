@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { fetchVenueCreated } from "../../lib/api/venues";
+import  Image  from "next/image";
 
 interface Venue {
   id: string;
@@ -12,47 +13,57 @@ interface Venue {
   media?: { url: string; alt?: string }[];
 }
 
-export function UserVenue({ venueId }: { venueId: string }) {
-  const [venue, setVenue] = useState<Venue | null>(null);
+export function UserVenueList({ profileName }: { profileName: string }) {
+  const [venues, setVenues] = useState<Venue[]>([]);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const load = async () => {
       try {
-        const result = await fetchVenueCreated(venueId);
-        setVenue(result);
+        const result = await fetchVenueCreated(profileName);
+        setVenues(Array.isArray(result) ? result : []);
       } catch (err) {
-        setError("fnot found venue");
+        setError("could not load venues");
         console.error(err);
-      }
+      } 
     };
     load();
-  }, [venueId]);
+  }, [profileName]);
 
   if (error) return <div>{error}</div>;
-  if (!venue) return <div>No venue found</div>;
 
   return (
     <div>
-      <div key={venue.id}>
-        <h3>{venue.name}</h3>
-        <p>
-          Created:{" "}
-          {venue.created
-            ? new Date(venue.created).toLocaleDateString()
-            : "Ukjent"}
-        </p>
-        {venue.description && <p>{venue.description}</p>}
-        {venue.price && <p>Pris: {venue.price}</p>}
-        {venue.maxGuests && <p>Maks gjester: {venue.maxGuests}</p>}
-        {venue.media && venue.media[0]?.url && (
-          <img
-            src={venue.media[0].url}
-            alt={venue.media[0].alt || venue.name}
-            style={{ width: 100, height: 100, objectFit: "cover" }}
-          />
-        )}
-      </div>
+      <h2>{profileName}</h2>
+
+      {venues.map((venue) => (
+        <div key={venue.id} style={{ marginBottom: "1rem" }}>
+          <h3>{venue.name}</h3>
+
+          <p>
+            Opprettet:{" "}
+            {venue.created
+              ? new Date(venue.created).toLocaleDateString()
+              : "Ukjent"}
+          </p>
+
+          {venue.description && <p>{venue.description}</p>}
+          {venue.price !== undefined && <p>Pris: {venue.price}</p>}
+          {venue.maxGuests !== undefined && (
+            <p>Maks gjester: {venue.maxGuests}</p>
+          )}
+
+          {venue.media?.[0]?.url && (
+            <Image
+              src={venue.media[0].url}
+              alt={venue.media[0].alt || venue.name}
+              width={120}
+              height={120}
+              style={{ objectFit: "cover" }}
+            />
+          )}
+        </div>
+      ))}
     </div>
   );
 }

@@ -110,27 +110,32 @@ export async function deleteVenues(id: string) {
   }
 }
 
-export async function fetchVenueCreated(id: string) {
-  const token = localStorage.getItem("token");
+export async function fetchVenueCreated(name: string) {
+  const token = localStorage.getItem('token');
 
   try {
-    const response = await fetch(`${API_BASE}/holidaze/venues/${id}`, {
-      headers: token
-        ? {
-            "Authorization": `Bearer ${token}`,
-          }
-        : {},
-    });
+    const response = await fetch(
+      `${API_BASE}/holidaze/profiles/${name}/venues`,
+      {
+        headers: token
+          ? {
+              'Content-Type': 'application/json',
+              'X-Noroff-Api-Key': X_NOROFF_API_KEY,
+              Authorization: `Bearer ${token}`,
+            }
+          : {},
+      }
+    );
 
-    if (!response.ok) throw new Error("Failed to fetch venue");
+    if (!response.ok) throw new Error('Failed to fetch venue');
 
     const result = await response.json();
     return result.data;
   } catch (error: unknown) {
     if (error instanceof Error) {
-      console.error(`Error fetching venue with id ${id}:`, error.message);
+      console.error(`Error fetching venue with name ${name}:`, error.message);
     } else {
-      console.error(`Unexpected error fetching venue with id ${id}:`, error);
+      console.error(`Unexpected error fetching venue with name ${name}:`, error);
     }
     throw error;
   }
