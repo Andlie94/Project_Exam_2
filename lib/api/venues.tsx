@@ -83,7 +83,7 @@ export async function updateVenues(id: string, venueData: VenuesData) {
   }
 }
 
-export async function deleteVenues(id: string) {
+export async function DeleteVenues(id: string) {
     const token = localStorage.getItem("token");
   if (!token) throw new Error("User is not authenticated");
   try {
