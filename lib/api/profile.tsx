@@ -1,3 +1,5 @@
+import { error } from "console";
+
 export const API_BASE = "https://v2.api.noroff.dev";
 export const X_NOROFF_API_KEY = "b47c1d2a-a0ba-4ff7-ac9b-339bb69dabe5";
 
@@ -137,6 +139,49 @@ export async function createBooking(
       console.error("Error creating booking:", error.message);
     } else {
       console.error("Unexpected error creating booking:", error);
+    }
+    throw error;
+  }
+}
+
+interface Booking {
+  id: number;
+  dateFrom: string;
+  dateTo: string;
+  venue: {
+    id: number;
+    name: string;
+  };
+}
+export async function fetchUpcomingBookings(
+  token: string,
+  name: string
+): Promise<Booking[]> {
+  try {
+    const response = await fetch(
+      `${API_BASE}/holidaze/profiles/${name}/bookings`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "X-Noroff-Api-Key": X_NOROFF_API_KEY,
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch upcoming bookings");
+    }
+
+    const result = await response.json();
+    console.log("API response for upcoming bookings:", result);
+    return result.data;
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      console.error("Error fetching upcoming bookings:", error.message);
+    } else {
+      console.error("Unexpected error fetching upcoming bookings:", error);
     }
     throw error;
   }

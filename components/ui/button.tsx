@@ -2,6 +2,10 @@
 import React, { useState } from "react";
 import { DeleteVenues } from "../../lib/api/venues";
 
+interface EditButtonProps {
+  onClick?: () => void;
+}
+
 export function DeleteButton({
   venueId,
   onDeleted,
@@ -37,10 +41,13 @@ try {
   );
 };
 
-export function EditButton() {
-    return (
-        <button className="button-primary">
-        Edit
-        </button>
-    );
-    }
+export function EditButton({ onClick }: EditButtonProps) {
+  return (
+    <button
+      onClick={onClick}
+      className="button-primary"
+    >
+      Edit
+    </button>
+  );
+}
