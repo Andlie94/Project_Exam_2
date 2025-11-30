@@ -22,6 +22,11 @@ interface InputProps {
   onKeyPress?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
 }
 
+interface TextareaProps {
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+}
+
 export function InputName({ value, onChange }: AuthInputProps) {
   return (
     <div>
@@ -100,15 +105,12 @@ export function InputSearch({ value, onChange }: AuthInputProps) {
   );
 }
 
-
-
-
 // Input for adminuser *//
 
 export function InputTitle({ value, onChange }: InputProps) {
   return (
     <div>
-      <h3>Title</h3>
+      <h3 className="text-[#FFFFFF]">Title</h3>
       <input
         type="text"
         name="title"
@@ -121,17 +123,16 @@ export function InputTitle({ value, onChange }: InputProps) {
   );
 }
 
-export function InputDescription({ value, onChange }: InputProps) {
+export function InputDescription({ value, onChange }: TextareaProps) {
   return (
     <div>
-      <h3>Description</h3>
-      <input
-        type="text"
+      <h3 className="text-[#FFFFFF]">Description</h3>
+      <textarea
         name="description"
         placeholder="Enter description"
         value={value}
+        className="bg-[#ffffff] border border-gray-300 rounded-lg p-2 w-full min-h-[100px] resize-y"
         onChange={onChange}
-        className={baseInputStyle}
       />
     </div>
   );
@@ -140,7 +141,7 @@ export function InputDescription({ value, onChange }: InputProps) {
 export function InputPrice({ value, onChange }: InputProps) {
   return (
     <div>
-      <h3>Price</h3>
+      <h3 className="text-[#FFFFFF]">Price</h3>
       <input
         type="number"
         name="price"
@@ -156,7 +157,7 @@ export function InputPrice({ value, onChange }: InputProps) {
 export function InputMaxGuests({ value, onChange }: InputProps) {
   return (
     <div>
-      <h3>Max Guests</h3>
+      <h3 className="text-[#FFFFFF]">Max Guests</h3>
       <input
         type="number"
         name="maxGuests"
@@ -172,7 +173,7 @@ export function InputMaxGuests({ value, onChange }: InputProps) {
 export function InputCountry({ value, onChange }: InputProps) {
   return (
     <div>
-      <h3>Country</h3>
+      <h3 className="text-[#FFFFFF]">Country</h3>
       <input
         type="text"
         name="country"
@@ -188,7 +189,7 @@ export function InputCountry({ value, onChange }: InputProps) {
 export function InputUrlImage({ value, onChange }: InputProps) {
   return (
     <div>
-      <h3>Image URL</h3>
+      <h3 className="text-[#FFFFFF]">Image URL</h3>
       <input
         type="url"
         name="urlImage"
@@ -269,21 +270,25 @@ export function InputGuests({
   );
 }
 
-export function BookingDateInput({ dateFrom, dateTo, onChange }: BookingDateInputProps) {
+export function BookingDateInput({
+  dateFrom,
+  dateTo,
+  onChange,
+}: BookingDateInputProps) {
   return (
     <div className="flex gap-2 w-full justify-center items-center">
       <input
         type="date"
         name="dateFrom"
         value={dateFrom}
-        onChange={e => onChange("dateFrom", e.target.value)}
+        onChange={(e) => onChange("dateFrom", e.target.value)}
         className={baseInputStyle}
       />
       <input
         type="date"
         name="dateTo"
         value={dateTo}
-        onChange={e => onChange("dateTo", e.target.value)}
+        onChange={(e) => onChange("dateTo", e.target.value)}
         className={baseInputStyle}
       />
     </div>

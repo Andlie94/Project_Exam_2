@@ -6,6 +6,7 @@ import { Loading } from "../ui/loading";
 import UpdateForm from "../settings";
 import { PencilIcon } from "@heroicons/react/24/outline";
 import Bookings from "./bookings";
+import Image from "next/image";
 
 interface Profile {
   name: string;
@@ -29,9 +30,7 @@ export default function AccountInformation() {
     const loadProfile = async () => {
       const token = localStorage.getItem("token");
       const userDataString = localStorage.getItem("User");
-
       if (!token || !userDataString) {
-        router.push("/login");
         return;
       }
 
@@ -55,17 +54,21 @@ export default function AccountInformation() {
   return (
     <div className="max-w-6xl mx-auto p-6">
       {profile.banner?.url && profile.banner.url !== "string" && (
-        <img
+        <Image
           src={profile.banner.url}
           alt="Profile banner"
+          width={900}
+          height={192}
           className="w-full h-48 object-cover rounded-lg mb-6"
         />
       )}
       <div className="relative w-40 mx-auto lg:ml-10 -mt-28 mb-4">
         {profile.avatar?.url && profile.avatar.url !== "string" ? (
-          <img
+          <Image
             src={profile.avatar.url}
             alt={profile.name}
+            width={160}
+            height={160}
             className="relative z-50 w-40 h-40 rounded-full object-cover border-4 border-white"
           />
         ) : (
