@@ -61,7 +61,6 @@ export default function AdminPage() {
   return (
     <div className="">
       <AccountInformation />
-      <MakeANewVenue />
     </div>
   );
 }
