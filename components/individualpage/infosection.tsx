@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 import { fetchProductById } from "../../lib/api/product";
 import { StarIcon, HandThumbDownIcon } from "@heroicons/react/24/outline";
+import Booking from "./booking";
 
 interface Venue {
   id: string;
@@ -59,15 +60,10 @@ export default function InfoIndividual() {
         </div>
 
         {/* Right side */}
-        <div className="md:ml-auto md:max-w-md flex flex-col items-center md:items-start">
+        <div className="md:ml-auto md:max-w-md text-[#414141] flex flex-col items-center md:items-start">
           <div className="mb-4 flex flex-wrap gap-2 justify-center md:justify-start -mt-10 md:mt-0">
             {venue.meta.wifi && (
               <span className="secundary-button px-3 py-1 text-xs">WiFi</span>
-            )}
-            {venue.meta.parking && (
-              <span className="secundary-button px-3 py-1 text-xs">
-                Parking
-              </span>
             )}
             {venue.meta.breakfast && (
               <span className="secundary-button px-3 py-1 text-xs">
@@ -79,7 +75,7 @@ export default function InfoIndividual() {
             )}
           </div>
           <div className="flex flex-row md:flex-col gap-4 md:gap-2 ml-6 md:ml-0">
-            <p className="text-[--color-text-2] flex flex-col md:flex-row justify-center md:justify-start items-center gap-1">
+            <p className="flex flex-col md:flex-row justify-center md:justify-start items-center gap-1">
               <span>Rating:</span>
               <span className="flex items-center gap-1 ">
                 {venue.rating && venue.rating > 0 ? (
@@ -96,13 +92,19 @@ export default function InfoIndividual() {
                 )}
               </span>
             </p>
-            <p className="text-[#414141]">Max Guests: {venue.maxGuests}</p>
-            <p className="text-[#414141]">Price: {venue.price}</p>
+            <p>Max Guests: {venue.maxGuests}</p>
+            <p>Price: {venue.price}</p>
+            <div className="hidden md:block">
+            <Booking/>
+            </div>
           </div>
           <div>
             <p className="text-[#414141] block md:hidden mt-4 mr-2 ml-2">
               {venue.description}
             </p>
+            <div className=" md:hidden flex justify-center mt-8">
+            <Booking/>
+            </div>
           </div>
         </div>
       </div>

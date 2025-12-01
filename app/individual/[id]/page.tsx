@@ -22,7 +22,6 @@ export default function IndividualPage() {
     <div>
       <ProductImage />
       <InfoIndividual />
-      <Booking />
     </div>
   );
 }

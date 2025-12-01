@@ -58,29 +58,22 @@ export default function Booking() {
       media: venue.media,
       description: venue.description,
     });
-
     localStorage.setItem("cart", JSON.stringify(cart));
     router.push("/cart");
   };
 
   if (!venue) return null;
-
-  // Don't show button if not logged in or not on client side
   if (!isClient || !loginToBuy()) return null;
-
-  return (
-    <div className="md:px-16 lg:px-32 xl:px-48">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div></div>
-        <div className="md:ml-auto md:max-w-md flex justify-center md:justify-start">
-          <button
-            onClick={addToCart}
-            className="button-primary py-2 px-4 rounded-lg font-bold text-white transition-all hover:scale-105"
-          >
-            Add to Cart
-          </button>
-        </div>
-      </div>
+return (
+  <div className="">
+    <div className="flex flex-col items-start gap-2 md:ml-auto md:max-w-md">
+      <button
+        onClick={addToCart}
+        className="button-primary py-2 px-4 rounded-lg font-bold text-white transition-all hover:scale-105"
+      >
+        Add to Cart
+      </button>
     </div>
-  );
+  </div>
+);
 }
