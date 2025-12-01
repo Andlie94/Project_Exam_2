@@ -27,7 +27,7 @@ export function ProductCard({ product }: ProductCardProps) {
   const displayName = cleanZ.length > 15 ? cleanZ.slice(0, 15) + "..." : cleanZ;
   const shortDescription =
     product.description && product.description.length > 0
-      ? product.description.slice(0, 150) + "..."
+      ? product.description.slice(0, 75) + "..."
       : "No description available.";
 
   return (
@@ -44,48 +44,53 @@ export function ProductCard({ product }: ProductCardProps) {
         />
       )}
 
-      <div className="p-4 grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-4 items-start flex-grow">
-        {/*left side*/}
-        <div className="min-h-[200px]">
-          <h3 className="text-xl font-bold uppercase text-[#414141]">
-            {displayName}
-          </h3>
-          <p className="text-sm text-gray-600">
-            {product.location.city} {product.location.country}
-          </p>
+     <div className="p-4 flex h-full">
+  {/* Venstre side */}
+  <div className="flex-1 min-h-[200px]">
+    <h3 className="text-xl font-bold uppercase text-[#414141]">
+      {displayName}
+    </h3>
+    <p className="text-sm text-gray-600">
+      {product.location.city} {product.location.country}
+    </p>
 
-          <p className="text-base font-semibold mt-2">{product.price} kr</p>
-          <p className="text-xs">Capacity: {product.maxGuests}</p>
+    <p className="text-base font-semibold mt-2">{product.price} kr</p>
+    <p className="text-xs">Capacity: {product.maxGuests}</p>
 
-          <p className="text-[--color-text-2] mt-1 flex items-center gap-1 text-xs">
-            Rating:
-            {product.rating && product.rating > 0 ? (
-              Array.from({ length: Math.round(product.rating) }).map((_, i) => (
-                <StarIcon
-                  key={i}
-                  className="h-4 w-4 text-[#02B2DE] fill-[#02B2DE]"
-                />
-              ))
-            ) : (
-              <HandThumbDownIcon className="h-4 w-4 text-[#02B2DE]" />
-            )}
-          </p>
-
-          <div className="mt-2 flex flex-wrap gap-1 text-xs">
-            <p className="text-xs text-[--color-text-2] font-bold uppercase">
-              {product.meta.wifi ? "WiFi" : ""}{" "}
-              {product.meta.parking ? "Parking" : ""}{" "}
-              {product.meta.breakfast ? "Breakfast" : ""}{" "}
-              {product.meta.pets ? "Pets" : ""}{" "}
-            </p>
-          </div>
-        </div>
-        <div className="hidden md:block w-0.5 bg-[#02B2DE] h-full mx-auto rounded-full" />
-        {/*right side*/}
-        <div className="text-gray-700 text-xs leading-relaxed">
-          <p>{shortDescription}</p>
-        </div>
+    <div className="flex flex-col">
+      <p className="text-[--color-text-2] mt-1 text-xs">Rating:</p>
+      <div className="flex gap-1 mt-1">
+        {product.rating && product.rating > 0 ? (
+          Array.from({ length: Math.round(product.rating) }).map((_, i) => (
+            <StarIcon
+              key={i}
+              className="h-4 w-4 text-[#02B2DE] fill-[#02B2DE]"
+            />
+          ))
+        ) : (
+          <HandThumbDownIcon className="h-4 w-4 text-[#02B2DE]" />
+        )}
       </div>
+    </div>
+
+    <div className="mt-2 flex flex-wrap gap-1 text-xs">
+      <p className="text-xs text-[--color-text-2] font-bold uppercase">
+        {product.meta.wifi ? "WiFi " : ""}
+        {product.meta.parking ? "Parking " : ""}
+        {product.meta.breakfast ? "Breakfast " : ""}
+        {product.meta.pets ? "Pets " : ""}
+      </p>
+    </div>
+  </div>
+
+  {/* Midtstreken */}
+  <div className="w-0.5 bg-[#02B2DE] mx-4" />
+
+  {/* Høyre side */}
+  <div className="flex-1 text-gray-700 text-xs flex items-start">
+    <p>{shortDescription}</p>
+  </div>
+</div>
     </div>
   );
 }
