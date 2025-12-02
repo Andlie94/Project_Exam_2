@@ -159,7 +159,7 @@ export async function fetchUpcomingBookings(
 ): Promise<Booking[]> {
   try {
     const response = await fetch(
-      `${API_BASE}/holidaze/profiles/${name}/bookings`,
+      `${API_BASE}`,
       {
         method: "GET",
         headers: {
