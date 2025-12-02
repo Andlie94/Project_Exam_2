@@ -13,17 +13,14 @@ interface Booking {
 export function UserUpcomingBookings({ profileName }: { profileName: string }) {
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const loadBookings = async () => {
-      setLoading(true);
       try {
         const token =
           typeof window !== "undefined" ? localStorage.getItem("token") : null;
         if (!token || !profileName) {
           setError("Mangler brukerdata eller token");
-          setLoading(false);
           return;
         }
 
@@ -49,12 +46,10 @@ export function UserUpcomingBookings({ profileName }: { profileName: string }) {
         setError("Could not load bookings");
         console.error(err);
       }
-      setLoading(false);
     };
     loadBookings();
   }, [profileName]);
 
-  if (loading) return <div className="text-white">Laster bookinger...</div>;
   if (error) return <div className="text-white">{error}</div>;
 
   return (

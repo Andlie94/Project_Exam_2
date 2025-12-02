@@ -3,7 +3,6 @@ import { useRouter } from "next/navigation";
 import { fetchProfile } from "../../lib/api/profile";
 import { UserUpcomingBookings } from "./upcoming";
 import { useState, useEffect } from "react";
-import { Loading } from "../ui/loading";
 import { PencilIcon } from "@heroicons/react/24/outline";
 
 
@@ -60,7 +59,7 @@ export default function AccountInformation() {
   }, [router]);
 
   if (!profile) {
-    return <Loading />;
+    return null;
   }
 
   return (
