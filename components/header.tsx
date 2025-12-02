@@ -86,11 +86,11 @@ export const UserMenu = () => {
       </button>
 
       {open && (
-        <div className="absolute right-0 mt-2 w-32 bg-white border rounded shadow-md text-sm font-normal z-50">
+        <div className="w-auto bg-[#02B2DE] text-white md:border md:rounded md:bg-white md:absolute text-sm z-50 flex flex-col">
           {venueManager === true && (
             <Link
               href="/admin"
-              className="block px-3 py-2 hover:bg-gray-100"
+              className=" px-3 py-2 hover:underline md:text-[#02B2DE]"
               onClick={() => setOpen(false)}
             >
               Admin
@@ -99,7 +99,7 @@ export const UserMenu = () => {
           {venueManager === false && (
             <Link
               href="/user"
-              className="block px-3 py-2 hover:bg-gray-100"
+              className=" px-3 py-2 hover:underline md:text-[#02B2DE]"
               onClick={() => setOpen(false)}
             >
               Profile
@@ -107,7 +107,7 @@ export const UserMenu = () => {
           )}
           <button
             onClick={handleLogout}
-            className="block w-full text-left px-3 py-2 hover:bg-gray-100"
+            className=" px-3 py-2 hover:underline text-left md:text-[#02B2DE]"
           >
             Logout
           </button>
@@ -216,12 +216,6 @@ export function Header() {
             <div className="flex flex-col space-y-1">
               <UserMenu />
             </div>
-            <Link
-              href="/cart"
-              className="flex items-center space-x-1 hover:underline"
-            >
-              <ShoppingCartIcon className="w-5 h-5" />
-            </Link>
           </div>
         )}
       </nav>

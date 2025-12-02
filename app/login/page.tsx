@@ -66,11 +66,8 @@ export default function LoginPage() {
       style={{ backgroundImage: "url('/img/Earth_blue.png')" }}
     >
       {loading && (
-        <div className="absolute inset-0 z-50 flex flex-col items-center justify-center bg-[--background-dark_blue] bg-opacity-70 backdrop-blur-md">
+        <div className="absolute inset-0 z-50 flex flex-col items-center justify-center bg-opacity-70 backdrop-blur-md">
           <LoadingGlobal />
-          <h4 className="mt-10 text-[--color-text] p-4 text-center text-xl">
-            We found your account {email}. Sending you to your profile...
-          </h4>
         </div>
       )}
 
