@@ -38,8 +38,7 @@ export default function LoginPage() {
 
       setTimeout(() => {
         setLoading(false);
-        if (userData.venueManager) router.push("/admin");
-        else router.push("/user");
+        window.location.href = "/";
       }, 1000);
     } catch (err: unknown) {
       setLoading(false);

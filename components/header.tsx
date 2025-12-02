@@ -198,7 +198,6 @@ export function Header() {
 
         {isOpen && (
           <div className="mobile-menu md:hidden p-4 space-y-2">
-            {/* Home, Explore, Admin */}
             {baseNavigation.slice(0, 4).map((item, index) =>
               item.href ? (
                 <Link
