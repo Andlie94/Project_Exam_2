@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Loading } from "@/components/ui/loading";
+import { LoadingGlobal } from "@/components/ui/loading";
 import { fetchProfile } from "@/lib/api/profile";
 import AccountInformation from "@/components/admin/layout";
 
@@ -54,7 +54,7 @@ export default function AdminPage() {
   }, [router]);
 
   if (!profile) {
-    return <Loading />;
+    return <LoadingGlobal />;
   }
 
   return (
