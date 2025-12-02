@@ -12,6 +12,7 @@ import {
 } from "../ui/input";
 import { createVenues, VenuesData, updateVenues } from "../../lib/api/venues";
 import { SuccessMessage } from "../ui/message";
+import { DefaultButton } from "../ui/button";
 
 interface MakeANewVenueProps {
   onCreated?: () => void;
@@ -74,7 +75,6 @@ export function MakeANewVenue({ onCreated }: MakeANewVenueProps) {
       setWifi(false);
       setBreakfast(false);
       setPets(false);
-
 
       if (onCreated) onCreated();
       setTimeout(() => setShowSuccess(false), 1000);
@@ -156,12 +156,10 @@ export function MakeANewVenue({ onCreated }: MakeANewVenueProps) {
           </button>
         </div>
         <div className="flex justify-center">
-          <button type="submit" className="secundary-button p-2">
-            Create Venue
-          </button>
+          <DefaultButton type="submit" text="Publish" />
         </div>
         <div className="text-center">
-        {showSuccess && <SuccessMessage text="Venue created successfully!" />}
+          {showSuccess && <SuccessMessage text="Venue created successfully!" />}
         </div>
       </form>
     </>
@@ -300,12 +298,10 @@ export function EditVenueForm({ venue, onUpdated }: EditVenueFormProps) {
           </button>
         </div>
         <div className="flex justify-center ">
-          <button type="submit" className="secundary-button p-2">
-            Update Venue
-          </button>
+          <DefaultButton type="submit" text="Update Venue" />
         </div>
-                <div className="text-center">
-        {showSuccess && <SuccessMessage text="Venue updated" />}
+        <div className="text-center">
+          {showSuccess && <SuccessMessage text="Venue updated" />}
         </div>
       </form>
     </>

@@ -20,12 +20,12 @@ export function DeleteButton({
 
     setIsDeleting(true);
 
-try {
-  await DeleteVenues(venueId);
-  if (onDeleted) setTimeout(onDeleted, 1000);
-} catch (error) {
-  console.error("Failed to delete venue:", error);
-}
+    try {
+      await DeleteVenues(venueId);
+      if (onDeleted) setTimeout(onDeleted, 1000);
+    } catch (error) {
+      console.error("Failed to delete venue:", error);
+    }
   };
 
   return (
@@ -39,15 +39,30 @@ try {
       </button>
     </div>
   );
-};
+}
 
 export function EditButton({ onClick }: EditButtonProps) {
   return (
-    <button
-      onClick={onClick}
-      className="button-primary"
-    >
+    <button onClick={onClick} className="button-primary">
       Edit
+    </button>
+  );
+}
+
+interface DefaultButtonProps {
+  type?: "button" | "submit" | "reset";
+  text?: string;
+  onClick?: () => void;
+}
+
+export function DefaultButton({
+  type = "button",
+  text = "",
+  onClick,
+}: DefaultButtonProps) {
+  return (
+    <button className="button-primary" type={type} onClick={onClick}>
+      {text}
     </button>
   );
 }

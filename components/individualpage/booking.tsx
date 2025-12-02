@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { fetchProductById } from "../../lib/api/product";
+import { DefaultButton } from "../ui/button";
 
 interface Venue {
   id: string;
@@ -67,12 +68,7 @@ export default function Booking() {
 return (
   <div className="">
     <div className="flex flex-col items-start gap-2 md:ml-auto md:max-w-md">
-      <button
-        onClick={addToCart}
-        className="button-primary py-2 px-4 rounded-lg font-bold text-white transition-all hover:scale-105"
-      >
-        Add to Cart
-      </button>
+      <DefaultButton type="submit" text="Book Now" onClick={addToCart} /> 
     </div>
   </div>
 );
