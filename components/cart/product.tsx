@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { createBooking } from "../../lib/api/profile";
 import { BookingDateInput, InputGuests } from "../../components/ui/input";
 import { Error } from "../ui/message";
+import { DefaultButton } from "../ui/button";
 
 interface CartItem {
   id: string;
@@ -116,12 +117,11 @@ export default function CartPage() {
       {cart.length === 0 ? (
         <div className="text-center py-16">
           <p className="text-xl text-[#414141] mb-6">Your cart is empty</p>
-          <button
+          <DefaultButton
+            type="button"
+            text="Browse Venues"
             onClick={() => router.push("/explore")}
-            className="button-primary px-6 py-3 rounded-lg"
-          >
-            Browse Venues
-          </button>
+          />
         </div>
       ) : (
         <div className="space-y-6">
@@ -183,20 +183,16 @@ export default function CartPage() {
           <div className="bg-[#F5F5F5] rounded-lg p-6 md:p-8 mt-8 flex flex-col items-center">
             {error && <Error text={error} />}
             <div className="flex flex-row gap-4 w-full justify-center">
-              <button
-                className="button-primary px-6 py-3 rounded-lg disabled:opacity-50"
+              <DefaultButton
+                type="button"
+                text="Clear Cart"
                 onClick={clearCart}
-                disabled={booking}
-              >
-                Clear Cart
-              </button>
-              <button
-                className="button-primary px-6 py-3 rounded-lg disabled:opacity-50"
+              />
+              <DefaultButton
+                type="submit"
+                text={booking ? "Booking..." : "Checkout"}
                 onClick={handleCheckout}
-                disabled={booking}
-              >
-                {booking ? "Booking..." : "Checkout"}
-              </button>
+              />
             </div>
           </div>
         </div>
