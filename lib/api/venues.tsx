@@ -1,5 +1,4 @@
-export const API_BASE = "https://v2.api.noroff.dev";
-export const X_NOROFF_API_KEY = "b47c1d2a-a0ba-4ff7-ac9b-339bb69dabe5";
+import { API_BASE, X_NOROFF_API_KEY } from "./config";
 
 export interface VenuesData {
   name: string;
