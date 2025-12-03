@@ -1,4 +1,4 @@
-export const API_BASE = "https://v2.api.noroff.dev";
+import { API_BASE } from "./config";
 export async function fetchProducts() {
   try {
     const response = await fetch(`${API_BASE}/holidaze/venues?sort=created&sortOrder=desc`);
