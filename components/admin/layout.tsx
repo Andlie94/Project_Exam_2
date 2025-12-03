@@ -1,14 +1,11 @@
 "use client";
 import { useRouter } from "next/navigation";
 import { fetchProfile } from "../../lib/api/profile";
-import { UserUpcomingBookings } from "./upcoming";
+import  VenueBookings  from "./upcoming";
 import { useState, useEffect } from "react";
 import { PencilIcon } from "@heroicons/react/24/outline";
 
-
-import {
-  UserVenueList,
-} from "@/components/admin/UserVenue";
+import { UserVenueList } from "@/components/admin/UserVenue";
 import { MakeANewVenue } from "@/components/admin/forms";
 import Image from "next/image";
 
@@ -106,7 +103,7 @@ export default function AccountInformation() {
 
       <div className="h-px w-full bg-[#414141] my-4 block lg:hidden"></div>
 
-  <div className="text-[#414141] gap-6 flex flex-row text-l sm:text-3xl justify-center text-center">
+      <div className="text-[#414141] gap-6 flex flex-row text-l sm:text-3xl justify-center text-center">
         <button onClick={() => setActiveTab("addVenue")}>ADD VENUE</button>
         <button onClick={() => setActiveTab("venues")}>MY VENUES</button>
         <button onClick={() => setActiveTab("orders")}>MY BOOKINGS</button>
@@ -132,7 +129,7 @@ export default function AccountInformation() {
             <UserVenueList profileName={profile.name} />
           )}
           {activeTab === "orders" && (
-            <UserUpcomingBookings profileName={profile.name} />
+            <VenueBookings name={profile.name} />
           )}
         </div>
       </div>
