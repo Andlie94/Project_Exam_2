@@ -1,93 +1,58 @@
+"use client";
+import Image from "next/image";
 import { useEffect, useState } from "react";
-import { fetchUpcomingBookings } from "../../lib/api/profile";
+import { fetchAdminVenueBookings, AdminVenueBooking } from "../../lib/api/venues";
 
-interface Booking {
-  id: string;
-  venue?: {
-    id: string;
-    name: string;
-  };
-  dateFrom?: string;
-  dateTo?: string;
+
+interface VenueBookingsProps {
+  name: string;
 }
-export function UserUpcomingBookings({ profileName }: { profileName: string }) {
-  const [bookings, setBookings] = useState<Booking[]>([]);
+
+export default function VenueBookings({ name }: VenueBookingsProps) {
+  const [bookings, setBookings] = useState<AdminVenueBooking[]>([]);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const loadBookings = async () => {
-      try {
-        const token =
-          typeof window !== "undefined" ? localStorage.getItem("token") : null;
-        if (!token || !profileName) {
-          setError("Mangler brukerdata eller token");
-          return;
-        }
+    if (!name) {
+      return;
+    }
 
-        const result = await fetchUpcomingBookings(token, profileName);
-        console.log("API response:", result);
-        if (Array.isArray(result)) {
-          setBookings(
-            result.map((booking) => ({
-              ...booking,
-              id: String(booking.id),
-              venue: booking.venue
-                ? {
-                    ...booking.venue,
-                    id: String(booking.venue.id),
-                  }
-                : undefined,
-            }))
-          );
-        } else {
-          setBookings([]);
-        }
-      } catch (err) {
-        setError("Could not load bookings");
-        console.error(err);
+    const getBookings = async () => {
+      try {
+        const result = await fetchAdminVenueBookings(name);
+        setBookings(result);
+      } catch {
+        setError("Kunne ikke hente bookings.");
       }
     };
-    loadBookings();
-  }, [profileName]);
+    getBookings();
+  }, [name]);
 
-  if (error) return <div className="text-white">{error}</div>;
+  if (error) return <p>{error}</p>;
+  if (!bookings.length) return <p>Ingen kommende bookings</p>;
 
   return (
-    <div className="w-full md:w-lvh p-4 bg-[#036B8D] rounded-lg shadow-lg mt-4 md:mt-10">
-      <h2 className="text-2xl font-bold text-white mb-8 mt-4 text-center">
-        UPCOMING BOOKINGS
-      </h2>
-      <div className="space-y-4">
-        {bookings.length === 0 ? (
-          <div className="p-4 bg-[#02B2DE] rounded text-white text-center">
-            <p>No upcoming bookings found.</p>
-          </div>
-        ) : (
-          bookings.map((booking) => (
-            <div
-              key={booking.id}
-              className="p-4 bg-[#02B2DE] rounded text-white"
-            >
-              <h3 className="font-bold text-xl">Booking ID: {booking.id}</h3>
-              <p className="text-sm">
-                Venue: {booking.venue?.name || "Unknown Venue"}
-              </p>
-              <p className="text-sm">
-                Date From:{" "}
-                {booking.dateFrom
-                  ? new Date(booking.dateFrom).toLocaleDateString()
-                  : "Unknown"}
-              </p>
-              <p className="text-sm">
-                Date To:{" "}
-                {booking.dateTo
-                  ? new Date(booking.dateTo).toLocaleDateString()
-                  : "Unknown"}
-              </p>
-            </div>
-          ))
-        )}
-      </div>
+    <div>
+      {bookings.map((booking, idx) => (
+        <div key={idx} className="booking-card">
+          <h3>{booking.venue.name}</h3>
+          {booking.venue.media[0]?.url && (
+            <Image
+              src={booking.venue.media[0].url}
+              alt={booking.venue.media[0].alt || booking.venue.name}
+              width={200}
+              height={120}
+              style={{ objectFit: "cover" }}
+            />
+          )}
+          <p>
+            Fra: {new Date(booking.dateFrom).toLocaleDateString()} - Til: {new Date(booking.dateTo).toLocaleDateString()}
+          </p>
+          <p>
+            <strong>Kunde:</strong> {booking.customer.name} <br />
+          </p>
+        </div>
+      ))}
     </div>
   );
 }

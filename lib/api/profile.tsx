@@ -153,36 +153,4 @@ interface Booking {
     name: string;
   };
 }
-export async function fetchUpcomingBookings(
-  token: string,
-  name: string
-): Promise<Booking[]> {
-  try {
-    const response = await fetch(
-      `${API_BASE}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          "X-Noroff-Api-Key": X_NOROFF_API_KEY,
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
 
-    if (!response.ok) {
-      throw new Error("Failed to fetch upcoming bookings");
-    }
-
-    const result = await response.json();
-    console.log("API response for upcoming bookings:", result);
-    return result.data;
-  } catch (error: unknown) {
-    if (error instanceof Error) {
-      console.error("Error fetching upcoming bookings:", error.message);
-    } else {
-      console.error("Unexpected error fetching upcoming bookings:", error);
-    }
-    throw error;
-  }
-}
