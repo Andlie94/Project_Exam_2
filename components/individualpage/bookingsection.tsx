@@ -77,7 +77,7 @@ export default function Booking() {
       });
 
       router.push("/user");
-    } catch (err) {
+    } catch (error) {
       setError("Kunne ikke opprette booking. Prøv igjen.");
       setBooking(false);
     }

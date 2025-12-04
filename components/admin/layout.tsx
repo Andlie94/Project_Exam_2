@@ -39,7 +39,7 @@ export default function AccountInformation() {
       const token = localStorage.getItem("token");
       const userDataString = localStorage.getItem("User");
 
-      if (!token || !userDataString) {
+      if (token === null || userDataString === null) {
         return;
       }
       try {
@@ -55,7 +55,7 @@ export default function AccountInformation() {
     loadProfile();
   }, [router]);
 
-  if (!profile) {
+  if (profile === null) {
     return null;
   }
 

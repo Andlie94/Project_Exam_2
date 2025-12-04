@@ -61,6 +61,8 @@ export function LoadingGlobal() {
   );
 }
 
+
+// ikke i bruk kan fjernes senere
 export function LoadingSkeleton() {
   return (
     <div className="flex flex-row justify-center space-x-4 mt-4 ">

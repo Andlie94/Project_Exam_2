@@ -13,6 +13,19 @@ export interface UpdateProfileData {
   bio?: string;
 }
 
+export interface CreateBookingData {
+  dateFrom: string;
+  dateTo: string;
+  guests: number;
+  venueId: string;
+}
+export interface CreateBookingData {
+  dateFrom: string;
+  dateTo: string;
+  guests: number;
+  venueId: string;
+}
+
 export async function fetchProfile(token: string, name: string) {
   try {
     const response = await fetch(
@@ -139,14 +152,4 @@ export async function createBooking(
     }
     throw error;
   }
-}
-
-interface Booking {
-  id: number;
-  dateFrom: string;
-  dateTo: string;
-  venue: {
-    id: number;
-    name: string;
-  };
 }

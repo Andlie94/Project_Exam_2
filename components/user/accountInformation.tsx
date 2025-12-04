@@ -47,7 +47,7 @@ export default function AccountInformation() {
     loadProfile();
   }, [router]);
 
-  if (!profile) {
+  if (profile === null) {
     return <Loading />;
   }
 
