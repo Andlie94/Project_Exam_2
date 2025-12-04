@@ -2,16 +2,20 @@
 import { useState, useEffect } from "react";
 import ProductImage from "../../../components/individualpage/imagesection";
 import InfoIndividual from "../../../components/individualpage/infosection";
-import Booking from "../../../components/individualpage/booking";
 import { LoadingGlobal } from "../../../components/ui/loading";
+import Booking from "../../../components/individualpage/bookingsection";
 
 export default function IndividualPage() {
   const [loading, setLoading] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 500);
+    const timer = setTimeout(() => setLoading(false), 500);
+
+    if (typeof window !== "undefined") {
+      const token = localStorage.getItem("token");
+      setTimeout(() => setIsLoggedIn(!!token), 0);
+    }
 
     return () => clearTimeout(timer);
   }, []);
@@ -22,6 +26,7 @@ export default function IndividualPage() {
     <div>
       <ProductImage />
       <InfoIndividual />
+      {isLoggedIn && <Booking />}
     </div>
   );
 }

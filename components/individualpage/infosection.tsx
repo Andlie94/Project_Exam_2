@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 import { fetchProductById } from "../../lib/api/product";
 import { StarIcon, HandThumbDownIcon } from "@heroicons/react/24/outline";
-import Booking from "./booking";
 
 interface Venue {
   id: string;
@@ -46,7 +45,8 @@ export default function InfoIndividual() {
   return (
     <div className="md:px-16 lg:px-32 xl:px-48 text-center md:text-left">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {/* Left side */}
+        
+        {/* LEFT SIDE */}
         <div>
           <div className="flex flex-col md:flex-row md:items-baseline text-center md:text-left gap-2 md:gap-4 mb-6">
             <h2 className="text-[#414141] font-bold text-xl md:text-2xl lg:text-4xl">
@@ -56,11 +56,16 @@ export default function InfoIndividual() {
               {venue.location.city}, {venue.location.country}
             </h3>
           </div>
-          <p className="text-[#414141] hidden md:block">{venue.description}</p>
+
+          <p className="text-[#414141] hidden md:block">
+            {venue.description}
+          </p>
         </div>
 
-        {/* Right side */}
+        {/* RIGHT SIDE */}
         <div className="md:ml-auto md:max-w-md text-[#414141] flex flex-col items-center md:items-start">
+
+          {/* TAGS */}
           <div className="mb-4 flex flex-wrap gap-2 justify-center md:justify-start -mt-10 md:mt-0">
             {venue.meta.wifi && (
               <span className="secundary-button px-3 py-1 text-xs">WiFi</span>
@@ -74,10 +79,12 @@ export default function InfoIndividual() {
               <span className="secundary-button px-3 py-1 text-xs">Pets</span>
             )}
           </div>
+
+          {/* INFO */}
           <div className="flex flex-row md:flex-col gap-4 md:gap-2 ml-6 md:ml-0">
             <p className="flex flex-col md:flex-row justify-center md:justify-start items-center gap-1">
               <span>Rating:</span>
-              <span className="flex items-center gap-1 ">
+              <span className="flex items-center gap-1">
                 {venue.rating && venue.rating > 0 ? (
                   Array.from({ length: Math.round(venue.rating) }).map(
                     (_, i) => (
@@ -92,20 +99,15 @@ export default function InfoIndividual() {
                 )}
               </span>
             </p>
+
             <p>Max Guests: {venue.maxGuests}</p>
             <p>Price: {venue.price}</p>
-            <div className="hidden md:block">
-            <Booking/>
-            </div>
           </div>
-          <div>
-            <p className="text-[#414141] block md:hidden mt-4 mr-2 ml-2">
-              {venue.description}
-            </p>
-            <div className=" md:hidden flex justify-center mt-8">
-            <Booking/>
-            </div>
-          </div>
+
+          {/* Description for mobile */}
+          <p className="text-[#414141] block md:hidden mt-4 mx-2">
+            {venue.description}
+          </p>
         </div>
       </div>
     </div>

@@ -16,10 +16,9 @@ interface Venue {
 function loginToBuy() {
   if (typeof window === "undefined") return false;
   const token = localStorage.getItem("token");
-  console.log("Token:", token);
   if (!token) {
     return false;
-  }
+  }else 
   return true;
 }
 

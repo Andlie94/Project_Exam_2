@@ -7,7 +7,6 @@ import { LoadingGlobal } from "@/components/ui/loading";
 interface Profile {
   name: string;
   email: string;
-  // legg til andre felt etter behov
 }
 
 export default function UserPage() {
@@ -27,9 +26,7 @@ export default function UserPage() {
 
       try {
         const userData = JSON.parse(userDataString);
-        // Hvis du har en API-kall, bruk fetch her
-        // const result = await fetchProfile(token, userData.name);
-        setProfile(userData); // Simulert profile
+        setProfile(userData); 
       } catch (error) {
         console.error(error);
         router.push("/login");
