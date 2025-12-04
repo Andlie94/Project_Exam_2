@@ -45,11 +45,11 @@ export default function UpdateForm({ showForm, setShowForm }: UpdateFormProps) {
           <div className="bg-[#036B8D] p-6 rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-lg">
             <div className="flex justify-between items-center mb-6">
               <h2 className="text-2xl font-bold text-[#F5F5F5]">
-                Update Profile Images
+                UPDATE PROFILE IMAGES
               </h2>
               <button
                 onClick={() => setShowForm(false)}
-                className="text-gray-500 hover:text-gray-700 text-2xl"
+                className="text-white hover:text-[#DE0236] text-4xl cursor-pointer"
               >
                 ×
               </button>
@@ -64,10 +64,10 @@ export default function UpdateForm({ showForm, setShowForm }: UpdateFormProps) {
             <form onSubmit={handleSubmit} className="space-y-6">
               {/* Avatar Section */}
               <div>
-                <h3 className="text-lg font-bold text-[#F5F5F5] mb-3">
+                <h3 className="text-lg text-[#F5F5F5]">
                   Avatar
                 </h3>
-                <div className="space-y-3">
+                <div>
                   <InputUrlImage
                     value={avatarUrl}
                     onChange={(e) => setAvatarUrl(e.target.value)}
@@ -77,10 +77,10 @@ export default function UpdateForm({ showForm, setShowForm }: UpdateFormProps) {
 
               {/* Banner Section */}
               <div>
-                <h3 className="text-lg font-bold text-[#F5F5F5] mb-3">
+                <h3 className="text-lg text-[#F5F5F5]">
                   Banner
                 </h3>
-                <div className="space-y-3">
+                <div>
                   <InputUrlImage2
                     value={bannerUrl}
                     onChange={(e) => setBannerUrl(e.target.value)}
@@ -89,11 +89,11 @@ export default function UpdateForm({ showForm, setShowForm }: UpdateFormProps) {
               </div>
 
               {/* Submit Buttons */}
-              <div className="flex gap-3">
+              <div className="flex justify-end gap-3">
                 <button
                   type="submit"
                   disabled={saving || (avatarUrl === "" && bannerUrl === "")}
-                  className="secundary-button flex-1"
+                  className="secundary-button flex items-center gap-2 pl-3 pr-3"
                 >
                   <p>Save</p>
                 </button>

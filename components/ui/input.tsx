@@ -189,7 +189,6 @@ export function InputCountry({ value, onChange }: InputProps) {
 export function InputUrlImage({ value, onChange }: InputProps) {
   return (
     <div>
-      <h3 className="text-[#FFFFFF]">Image URL</h3>
       <input
         type="url"
         name="urlImage"

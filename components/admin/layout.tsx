@@ -1,13 +1,14 @@
 "use client";
 import { useRouter } from "next/navigation";
 import { fetchProfile } from "../../lib/api/profile";
-import  VenueBookings  from "./upcoming";
+import VenueBookings from "./upcoming";
 import { useState, useEffect } from "react";
 import { PencilIcon } from "@heroicons/react/24/outline";
 
 import { UserVenueList } from "@/components/admin/UserVenue";
 import { MakeANewVenue } from "@/components/admin/forms";
 import Image from "next/image";
+import UpdateForm from "../settings";
 
 interface Profile {
   name: string;
@@ -91,6 +92,10 @@ export default function AccountInformation() {
         >
           <PencilIcon className="w-5 h-5" />
         </button>
+
+        {showEditForm && (
+          <UpdateForm showForm={showEditForm} setShowForm={setShowEditForm} />
+        )}
       </div>
 
       {/* Mobile user info */}
@@ -128,9 +133,7 @@ export default function AccountInformation() {
           {activeTab === "venues" && (
             <UserVenueList profileName={profile.name} />
           )}
-          {activeTab === "orders" && (
-            <VenueBookings name={profile.name} />
-          )}
+          {activeTab === "orders" && <VenueBookings name={profile.name} />}
         </div>
       </div>
     </div>
