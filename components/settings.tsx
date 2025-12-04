@@ -13,9 +13,9 @@ export default function UpdateForm({ showForm, setShowForm }: UpdateFormProps) {
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!avatarUrl && !bannerUrl) return;
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+    if (avatarUrl === "" && bannerUrl === "") return;
 
     setSaving(true);
     setError(null);
@@ -30,8 +30,8 @@ export default function UpdateForm({ showForm, setShowForm }: UpdateFormProps) {
 
       await updateProfile(token, userData.name, profileData);
       window.location.reload();
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to update profile");
+    } catch (error) {
+      setError(error instanceof Error ? error.message : "Failed to update profile");
     } finally {
       setSaving(false);
     }
@@ -92,7 +92,7 @@ export default function UpdateForm({ showForm, setShowForm }: UpdateFormProps) {
               <div className="flex gap-3">
                 <button
                   type="submit"
-                  disabled={saving || (!avatarUrl && !bannerUrl)}
+                  disabled={saving || (avatarUrl === "" && bannerUrl === "")}
                   className="secundary-button flex-1"
                 >
                   <p>Save</p>

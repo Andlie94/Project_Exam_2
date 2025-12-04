@@ -36,8 +36,8 @@ export default function SignupPage() {
       return;
     }
 
-    if (!email.endsWith("@noroff.no") && !email.endsWith("@stud.noroff.no")) {
-      setError("Email must be a Noroff email");
+    if (!email.endsWith("@stud.noroff.no")) {
+      setError("Email must be a stud.noroff.no email");
       return;
     }
 

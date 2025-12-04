@@ -21,8 +21,8 @@ export default function LoginPage() {
       setError("All fields are required");
       return;
     }
-    if (!email.endsWith("@noroff.no") && !email.endsWith("@stud.noroff.no")) {
-      setError("Email must be a Noroff email");
+    if (!email.endsWith("@stud.noroff.no")) {
+      setError("Email must be a stud.noroff.no email");
       return;
     }
     if (password.length < 8) {

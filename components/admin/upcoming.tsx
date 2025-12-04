@@ -16,7 +16,7 @@ export default function VenueBookings({ name }: VenueBookingsProps) {
   const [openIdx, setOpenIdx] = useState<number | null>(null);
 
   useEffect(() => {
-    if (!name) {
+    if (name === null) {
       return;
     }
 
@@ -32,7 +32,7 @@ export default function VenueBookings({ name }: VenueBookingsProps) {
   }, [name]);
 
   if (error) return <p>{error}</p>;
-  if (!bookings.length) return <p>No upcoming bookings</p>;
+  if (bookings.length === 0) return <p>No upcoming bookings</p>;
 
   return (
     <div className="w-full md:w-lvh p-4 bg-[#036B8D] rounded-lg shadow-lg mt-4 md:mt-10">
