@@ -1,6 +1,7 @@
 "use client";
-import React, { useState, useCallback } from "react";
-import { InputSearch, DateTo, DateFrom } from "./ui/input";
+import React, { useState } from "react";
+import { InputSearch } from "./ui/input";
+import { DefaultButton } from "./ui/button";
 
 interface SearchProductProps {
   Search: (term: string) => void;
@@ -9,57 +10,22 @@ interface SearchProductProps {
 export function SearchProduct({ Search }: SearchProductProps) {
   const [searchTerm, setSearchTerm] = useState("");
 
-  const searchProducts = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      const term = e.target.value;
-      setSearchTerm(term);
-      Search(term);
-    },
-    [Search]
-  );
+  const handleInputChange = (venue: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(venue.target.value);
+  };
 
-  return (
-    <div className="max-w-md mx-auto mb-8">
-      <InputSearch value={searchTerm} onChange={searchProducts} />
-    </div>
-  );
-}
-
-interface DatePickerProps {
-  onDateSearch: (fromDate: string, toDate: string) => void;
-}
-
-export function DatePicker({ onDateSearch }: DatePickerProps) {
-  const [fromDate, setFromDate] = useState("");
-  const [toDate, setToDate] = useState("");
-
-  const handleSearch = () => {
-    onDateSearch(fromDate, toDate);
+  const handleSearchClick = () => {
+    Search(searchTerm);
   };
 
   return (
-    <div className="flex flex-col gap-2 md:gap-4 justify-center">
+    <div className=" flex flex-col max-w-md mx-auto mb-8 gap-2">
       <div>
-        <label className="block text-xs md:text-sm mb-0.5 md:mb-1">
-          <p className="text-white">From</p>
-        </label>
-        <DateFrom
-          value={fromDate}
-          onChange={(e) => setFromDate(e.target.value)}
-        />
+      <InputSearch value={searchTerm} onChange={handleInputChange} />
       </div>
-      <div>
-        <label className="block text-xs md:text-sm mb-0.5 md:mb-1 text-[#FFFFF]">
-          {" "}
-          <p className="text-white">To</p>
-        </label>
-        <DateTo value={toDate} onChange={(e) => setToDate(e.target.value)} />
-      </div>
-      <div className="flex justify-end -mb-6 md:mb-2">
-        <button className="secundary-button w-24" onClick={handleSearch}>
-          Search
-        </button>
+      <div className="flex items-center justify-end">
+        <DefaultButton text="Search" onClick={handleSearchClick} />
       </div>
     </div>
   );
-}
+};

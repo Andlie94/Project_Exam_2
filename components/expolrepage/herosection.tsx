@@ -1,12 +1,8 @@
 "use client";
 import React from "react";
 import Image from "next/image";
-import { DatePicker } from "../searchfunction";
 
 export default function HeroSection() {
-  const handleDateSearch = (fromDate: string, toDate: string) => {
-    console.log("Searching for dates:", fromDate, "to", toDate);
-  };
 
   return (
     <div className="relative">
@@ -23,9 +19,6 @@ export default function HeroSection() {
           <h1 className="text-xs md:text-base lg:text-xl font-bold text-center text-white mb-1 md:mb-2">
             Find a date to stay with us
           </h1>
-          <div className="flex flex-col gap-0.5 md:gap-1 scale-75 md:scale-90 lg:scale-100 origin-top">
-            <DatePicker onDateSearch={handleDateSearch} />
-          </div>
         </div>
       </div>
     </div>

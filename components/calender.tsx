@@ -3,6 +3,7 @@ import { DivideIcon } from "@heroicons/react/24/outline";
 import { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { fetchVenueWithBookings } from "../lib/api/venues";
 
 interface VenueCalendarProps {
   venueId: string;
@@ -28,19 +29,24 @@ export default function VenueCalendar({
   useEffect(() => {
     async function fetchVenueAndBookings() {
       try {
-        const res = await fetch(
-          `https://v2.api.noroff.dev/holidaze/venues/${venueId}?_bookings=true`
-        );
-        if (!res.ok) throw new Error("Failed to fetch venue");
-        const result = await res.json();
-        const venue = result.data;
+        const venue = await fetchVenueWithBookings(venueId);
         const bookings = venue.bookings || [];
         const dates: Date[] = [];
         bookings.forEach((booking: Booking) => {
           const from = new Date(booking.dateFrom);
           const to = new Date(booking.dateTo);
-          for (let d = new Date(from); d <= to; d.setDate(d.getDate() + 1)) {
-            dates.push(new Date(d.getFullYear(), d.getMonth(), d.getDate()));
+          for (
+            let currentDate = new Date(from);
+            currentDate <= to;
+            currentDate.setDate(currentDate.getDate() + 1)
+          ) {
+            dates.push(
+              new Date(
+                currentDate.getFullYear(),
+                currentDate.getMonth(),
+                currentDate.getDate()
+              )
+            );
           }
         });
         setBookedDates(dates);

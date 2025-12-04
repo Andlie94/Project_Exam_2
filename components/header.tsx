@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { fetchProfile } from "@/lib/api/profile";
-import { ShoppingCartIcon } from "@heroicons/react/24/outline";
+import Image from "next/image";
 
 function getUserName() {
   if (typeof window === "undefined") return "Login";
@@ -19,6 +19,7 @@ function getUserName() {
 
 export const UserMenu = () => {
   const [userName, setUserName] = useState("Login");
+  const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
   const [venueManager, setVenueManager] = useState(false);
 
   useEffect(() => {
@@ -47,14 +48,33 @@ export const UserMenu = () => {
   const router = useRouter();
 
   useEffect(() => {
-    setTimeout(() => setUserName(getUserName()), 0);
+    setTimeout(() => {
+      setUserName(getUserName());
+      if (typeof window !== "undefined") {
+        const userDataString = localStorage.getItem("User");
+        if (userDataString) {
+          try {
+            const userData = JSON.parse(userDataString);
+            if (userData.avatar && userData.avatar.url) {
+              setAvatarUrl(userData.avatar.url);
+            } else {
+              setAvatarUrl(null);
+            }
+          } catch {
+            setAvatarUrl(null);
+          }
+        } else {
+          setAvatarUrl(null);
+        }
+      }
+    }, 0);
   }, []);
 
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
+    const handleClickOutside = (mouseEvent: MouseEvent) => {
       if (
         dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
+        !dropdownRef.current.contains(mouseEvent.target as Node)
       ) {
         setOpen(false);
       }
@@ -74,19 +94,32 @@ export const UserMenu = () => {
 
   if (userName === "Login") {
     return (
-      <Link href="/login" className="hover:underline font-bold">
+      <Link href="/login" className="hover:underline">
         Login
       </Link>
     );
   }
   return (
-    <div className="relative font-bold" ref={dropdownRef}>
-      <button onClick={() => setOpen(!open)} className="hover:underline">
-        {userName}
+    <div className="relative" ref={dropdownRef}>
+      <button
+        onClick={() => setOpen(!open)}
+        className="hover:underline flex items-center gap-2"
+      >
+        {avatarUrl ? (
+          <Image
+            src={avatarUrl}
+            alt="Avatar"
+            width={32}
+            height={32}
+            className="w-8 h-8 rounded-full object-cover border"
+          />
+        ) : (
+          <span>{userName}</span>
+        )}
       </button>
 
       {open && (
-        <div className="w-auto bg-[#02B2DE] text-white md:border md:rounded md:bg-white md:absolute text-sm z-50 flex flex-col">
+        <div className="w-auto bg-[#02B2DE] text-white md:border md:rounded md:bg-white md:absolute md:right-0 md:mr-4 text-sm z-50 flex flex-col">
           {venueManager === true && (
             <Link
               href="/admin"
@@ -121,7 +154,6 @@ const baseNavigation = [
   { name: "Home", href: "/" },
   { name: "Explore", href: "/explore" },
   { name: "UserMenu", component: UserMenu },
-  { name: "", href: "/cart", icon: ShoppingCartIcon },
 ];
 
 export function Header() {
@@ -132,13 +164,13 @@ export function Header() {
       <nav>
         {/* DESKTOP MENU */}
         <div className="desktop-menu hidden md:flex items-center justify-between p-4">
-          <div className="text-lg font-bold">
+          <div className="text-lg">
             <Link href="/">
-              <img src="/img/logo.png" alt="Logo" className="h-6 -mt-2" />
+              <Image src="/img/logo.png" alt="Logo" width={96} height={24} className="h-6 -mt-2" />
             </Link>
           </div>
 
-          <div className="flex items-center space-x-4 font-bold">
+          <div className="flex items-center space-x-4">
             {baseNavigation.map((item, index) =>
               item.component ? (
                 <item.component key={item.name + index} />
@@ -148,11 +180,7 @@ export function Header() {
                   href={item.href}
                   className="flex items-center hover:underline"
                 >
-                  {item.icon ? (
-                    <item.icon className="w-5 h-5" />
-                  ) : (
-                    <span>{item.name}</span>
-                  )}
+                  <span>{item.name}</span>
                 </Link>
               ) : null
             )}
@@ -161,9 +189,9 @@ export function Header() {
 
         {/* MOBILE MENU */}
         <div className="mobile-menu-burger md:hidden flex items-center justify-between p-4">
-          <div className="text-lg font-bold">
+          <div className="text-lg">
             <Link href="/">
-              <img src="/img/logo.png" alt="Logo" className="h-6 -mt-2" />
+              <Image src="/img/logo.png" alt="Logo" width={96} height={24} className="h-6 -mt-2" />
             </Link>
           </div>
           <button
@@ -205,11 +233,7 @@ export function Header() {
                   href={item.href}
                   className="flex items-center space-x-1 hover:underline"
                 >
-                  {item.icon ? (
-                    <item.icon className="w-5 h-5" />
-                  ) : (
-                    <span>{item.name}</span>
-                  )}
+                  <span>{item.name}</span>
                 </Link>
               ) : null
             )}

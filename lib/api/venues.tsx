@@ -23,6 +23,19 @@ export interface VenuesData {
   dateTo?: string;
 }
 
+export interface AdminVenueBooking {
+  dateFrom: string;
+  dateTo: string;
+  customer: {
+    name: string;
+    email?: string;
+  };
+  venue: {
+    name: string;
+    media: { url: string; alt?: string }[];
+  };
+}
+
 export async function createVenues(venueData: VenuesData) {
   const token = localStorage.getItem("token");
   if (!token) throw new Error("User is not authenticated");
@@ -37,7 +50,7 @@ export async function createVenues(venueData: VenuesData) {
       body: JSON.stringify(venueData),
     });
 
-    if (!response.ok) {
+    if (response.ok === false) {
       throw new Error("Failed to create venue");
     }
 
@@ -55,7 +68,7 @@ export async function createVenues(venueData: VenuesData) {
 
 export async function updateVenues(id: string, venueData: VenuesData) {
   const token = localStorage.getItem("token");
-  if (!token) throw new Error("User is not authenticated");
+  if (token === null) throw new Error("User is not authenticated");
   try {
     const response = await fetch(`${API_BASE}/holidaze/venues/${id}`, {
       method: "PUT",
@@ -85,7 +98,7 @@ export async function updateVenues(id: string, venueData: VenuesData) {
 
 export async function DeleteVenues(id: string) {
   const token = localStorage.getItem("token");
-  if (!token) throw new Error("User is not authenticated");
+  if (token === null) throw new Error("User is not authenticated");
   try {
     const response = await fetch(`${API_BASE}/holidaze/venues/${id}`, {
       method: "DELETE",
@@ -144,25 +157,11 @@ export async function fetchVenueCreated(name: string) {
   }
 }
 
-// Fetch all bookings for venues owned by admin profile
-export interface AdminVenueBooking {
-  dateFrom: string;
-  dateTo: string;
-  customer: {
-    name: string;
-    email?: string;
-  };
-  venue: {
-    name: string;
-    media: { url: string; alt?: string }[];
-  };
-}
-
 export async function fetchAdminVenueBookings(
   name: string
 ): Promise<AdminVenueBooking[]> {
   const token = localStorage.getItem("token");
-  if (!token) throw new Error("Ingen token funnet. Vennligst logg inn.");
+  if (token === null) throw new Error("No token found. Please log in.");
   try {
     const res = await fetch(
       `${API_BASE}/holidaze/profiles/${name}/venues?_owner=true&_bookings=true`,
@@ -173,7 +172,7 @@ export async function fetchAdminVenueBookings(
         },
       }
     );
-    if (!res.ok) throw new Error(`Kunne ikke hente bookings (${res.status})`);
+    if (!res.ok) throw new Error(`could not fetch admin venue bookings (${res.status})`);
     const data = await res.json();
     const allBookings: AdminVenueBooking[] = [];
     const now = new Date().toISOString();
@@ -196,9 +195,15 @@ export async function fetchAdminVenueBookings(
         });
       }
     );
-    // Only return future bookings
     return allBookings.filter((b) => b.dateFrom > now);
   } catch (error) {
-    throw new Error("Kunne ikke hente bookings.");
+    throw new Error("Could not fetch bookings.");
   }
+}
+
+export async function fetchVenueWithBookings(venueId: string) {
+  const res = await fetch(`https://v2.api.noroff.dev/holidaze/venues/${venueId}?_bookings=true`);
+  if (!res.ok) throw new Error("Failed to fetch venue");
+  const result = await res.json();
+  return result.data;
 }
