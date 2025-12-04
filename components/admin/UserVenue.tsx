@@ -5,6 +5,7 @@ import Image from "next/image";
 import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/outline";
 import { DeleteButton, EditButton } from "../ui/button";
 import { EditVenueForm } from "@/components/admin/forms";
+import {CloseButton} from "../ui/button";
 
 interface Venue {
   id: string;
@@ -125,12 +126,9 @@ export function UserVenueList({ profileName }: { profileName: string }) {
                   {isEditing && (
                     <div className="fixed inset-0 backdrop-blur-sm flex items-center justify-center z-50">
                       <div className="bg-[#036B8D] p-6 rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-lg relative text-[#414141]">
-                        <button
-                          className="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-2xl"
-                          onClick={() => setEditingId(null)}
-                        >
-                          ×
-                        </button>
+                        <div className="flex justify-end">
+                        <CloseButton onClick={() => setEditingId(null)} />
+                          </div>
                         <EditVenueForm
                           venue={{
                             ...venue,

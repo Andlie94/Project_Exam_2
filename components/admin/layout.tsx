@@ -23,7 +23,7 @@ interface Profile {
   };
   venueManager: boolean;
   _count: {
-    bookings: number;
+    venues: number;
   };
 }
 
@@ -103,15 +103,15 @@ export default function AccountInformation() {
         <h2>{profile.name}</h2>
         <p>{profile.email}</p>
         <p className="text-[#414141]">Venue Manager ✅</p>
-        <p className="">Bookings: {profile._count.bookings}</p>
+        <p className="">venues: {profile._count.venues}</p>
       </div>
 
       <div className="h-px w-full bg-[#414141] my-4 block lg:hidden"></div>
 
-      <div className="text-[#414141] gap-6 flex flex-row text-l sm:text-3xl justify-center text-center">
-        <button onClick={() => setActiveTab("addVenue")}>ADD VENUE</button>
-        <button onClick={() => setActiveTab("venues")}>MY VENUES</button>
-        <button onClick={() => setActiveTab("orders")}>MY BOOKINGS</button>
+      <div className="text-[#414141] gap-6 flex flex-row text-l sm:text-3xl justify-center text-center lg:ml-80 mb-6">
+        <button onClick={() => setActiveTab("addVenue")} className="cursor-pointer hover:scale-105">ADD VENUE</button>
+        <button onClick={() => setActiveTab("venues")} className="cursor-pointer hover:scale-105">MY VENUES</button>
+        <button onClick={() => setActiveTab("orders")} className="cursor-pointer hover:scale-105">MY BOOKINGS</button>
       </div>
 
       <div className="h-px w-full bg-[#414141] my-4"></div>
@@ -123,7 +123,7 @@ export default function AccountInformation() {
           </h2>
           <p className="text-[#414141] ml-10">{profile.email}</p>
           <p className="text-[#414141] ml-10">Venue Manager ✅</p>
-          <p className="ml-10">Bookings: {profile._count.bookings}</p>
+          <p className="ml-10">venues: {profile._count.venues}</p>
         </div>
 
         <div className="w-px bg-[#414141] hidden lg:block"></div>
