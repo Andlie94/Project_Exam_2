@@ -2,6 +2,11 @@
 import React, { useState } from "react";
 import { DeleteVenues } from "../../lib/api/venues";
 
+interface CloseButtonProps {
+  onClick?: () => void;
+  className?: string;
+}
+
 interface EditButtonProps {
   onClick?: () => void;
 }
@@ -63,6 +68,18 @@ export function DefaultButton({
   return (
     <button className="button-primary" type={type} onClick={onClick}>
       {text}
+    </button>
+  );
+}
+
+export function CloseButton({ onClick, className = "" }: CloseButtonProps) {
+  return (
+    <button
+      onClick={onClick}
+      className={`text-white hover:text-[#DE0236] text-4xl cursor-pointer ${className}`}
+      aria-label="Close"
+    >
+      ×
     </button>
   );
 }

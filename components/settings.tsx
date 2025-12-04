@@ -1,6 +1,8 @@
 import { updateProfile, UpdateProfileData } from "../lib/api/profile";
 import { useState } from "react";
 import { InputUrlImage, InputUrlImage2 } from "./ui/input";
+import React from "react";
+import { CloseButton } from "./ui/button";
 
 interface UpdateFormProps {
   showForm: boolean;
@@ -47,12 +49,7 @@ export default function UpdateForm({ showForm, setShowForm }: UpdateFormProps) {
               <h2 className="text-2xl font-bold text-[#F5F5F5]">
                 UPDATE PROFILE IMAGES
               </h2>
-              <button
-                onClick={() => setShowForm(false)}
-                className="text-white hover:text-[#DE0236] text-4xl cursor-pointer"
-              >
-                ×
-              </button>
+              < CloseButton onClick={() => setShowForm(false)} />
             </div>
 
             {error && (

@@ -7,12 +7,13 @@ import {
   InputMaxGuests,
   InputCountry,
   InputUrlImage,
-  DateFrom,
-  DateTo,
 } from "../ui/input";
+import { StarIcon } from "@heroicons/react/24/outline";
 import { createVenues, VenuesData, updateVenues } from "../../lib/api/venues";
-import { SuccessMessage } from "../ui/message";
+import { SuccessMessage, Error } from "../ui/message";
 import { DefaultButton } from "../ui/button";
+
+
 
 interface MakeANewVenueProps {
   onCreated?: () => void;
@@ -27,25 +28,31 @@ export function MakeANewVenue({ onCreated }: MakeANewVenueProps) {
   const [price, setPrice] = useState("");
   const [maxGuests, setMaxGuests] = useState("");
   const [country, setCountry] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
-  const [dateFrom, setDateFrom] = useState("");
-  const [dateTo, setDateTo] = useState("");
+  const [imageUrls, setImageUrls] = useState<string[]>([""]);
   const [showSuccess, setShowSuccess] = useState(false);
+  const [rating, setRating] = useState(0);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleImageUrlChange = (index: number, value: string) => {
+    const newUrls = [...imageUrls];
+    newUrls[index] = value;
+    setImageUrls(newUrls);
+  };
+
+  const addImageField = () => {
+    setImageUrls([...imageUrls, ""]);
+  };
+
+  const handleSubmit = async (formEvent: React.FormEvent) => {
+    formEvent.preventDefault();
 
     const venueData: VenuesData = {
       name: title,
       description,
       price: Number(price) || 0,
       maxGuests: Number(maxGuests) || 0,
-      media: [
-        {
-          url: imageUrl || "",
-          alt: description || "",
-        },
-      ],
+      media: imageUrls
+        .filter((url) => url.trim() !== "")
+        .map((url) => ({ url, alt: description || "" })),
       meta: {
         wifi,
         breakfast,
@@ -55,8 +62,7 @@ export function MakeANewVenue({ onCreated }: MakeANewVenueProps) {
         address: "",
         country: country || "",
       },
-      dateFrom,
-      dateTo,
+      rating,
     };
 
     try {
@@ -69,12 +75,11 @@ export function MakeANewVenue({ onCreated }: MakeANewVenueProps) {
       setPrice("");
       setMaxGuests("");
       setCountry("");
-      setImageUrl("");
-      setDateFrom("");
-      setDateTo("");
+      setImageUrls([""]);
       setWifi(false);
       setBreakfast(false);
       setPets(false);
+      setRating(0);
 
       if (onCreated) onCreated();
       setTimeout(() => setShowSuccess(false), 1000);
@@ -87,76 +92,115 @@ export function MakeANewVenue({ onCreated }: MakeANewVenueProps) {
     <>
       <form
         onSubmit={handleSubmit}
-        className="space-y-4 bg-[#036B8D] p-4 rounded-lg w-full max-w-xl"
+        className="space-y-2 bg-[#036B8D] p-4 rounded-lg w-full max-w-xl"
       >
         <h2 className=" text-[#FFFFFF] text-center text-2xl font-bold mt-6">
           ADD NEW LISTING
         </h2>
-        <InputTitle value={title} onChange={(e) => setTitle(e.target.value)} />
-        <InputPrice value={price} onChange={(e) => setPrice(e.target.value)} />
-        <InputMaxGuests
-          value={maxGuests}
-          onChange={(e) => setMaxGuests(e.target.value)}
+        <InputTitle
+          value={title}
+          onChange={(newEvent) => setTitle(newEvent.target.value)}
         />
-        <InputCountry
-          value={country}
-          onChange={(e) => setCountry(e.target.value)}
+        <InputPrice
+          value={price}
+          onChange={(newEvent) => setPrice(newEvent.target.value)}
         />
-        <InputUrlImage
-          value={imageUrl}
-          onChange={(e) => setImageUrl(e.target.value)}
-        />
-        <div className="flex flex-row justify-center gap-4">
-          <DateFrom
-            value={dateFrom}
-            onChange={(e) => setDateFrom(e.target.value)}
+        {imageUrls.map((url, idx) => (
+          <InputUrlImage
+            key={idx}
+            value={url}
+            onChange={(newEvent) => handleImageUrlChange(idx, newEvent.target.value)}
           />
-          <DateTo value={dateTo} onChange={(e) => setDateTo(e.target.value)} />
+        ))}
+        <button
+          type="button"
+          className="secundary-button flex items-center gap-2 mt-2 px-4 py-2 rounded-lg shadow-sm border border-[#02B2DE] text-[#02B2DE] bg-white hover:bg-[#E6F7FB] transition-colors duration-150"
+          onClick={addImageField}
+        >
+          <p className="font-medium text-xs"> + Add More Images</p>
+        </button>
+        <div className=" flex flex-row gap-4">
+          <div className="w-1/2">
+            <InputMaxGuests
+              value={maxGuests}
+              onChange={(newEvent) => setMaxGuests(newEvent.target.value)}
+            />
+          </div>
+          <div className="w-1/2">
+            <InputCountry
+              value={country}
+              onChange={(newEvent) => setCountry(newEvent.target.value)}
+            />
+          </div>
         </div>
+
         <InputDescription
           value={description}
-          onChange={(e) => setDescription(e.target.value)}
+          onChange={(newEvent) => setDescription(newEvent.target.value)}
         />
-        <div className="flex flex-row gap-2 justify-center">
-          <button
-            type="button"
-            className="secundary-button flex items-center gap-2 pl-3 pr-3"
-            onClick={() => setWifi((prev) => !prev)}
-            aria-pressed={wifi}
-            style={{
-              backgroundColor: wifi ? "#02B2DE" : "#FFFFFF",
-              color: wifi ? "#FFFFFF" : "#02B2DE",
-            }}
-          >
-            <p>Wifi</p>
-          </button>
-          <button
-            type="button"
-            className="secundary-button flex items-center gap-2 transition-all pl-2 pr-2"
-            onClick={() => setBreakfast((prev) => !prev)}
-            aria-pressed={breakfast}
-            style={{
-              backgroundColor: breakfast ? "#02B2DE" : "#FFFFFF",
-              color: breakfast ? "#FFFFFF" : "#02B2DE",
-            }}
-          >
-            <p>Breakfast</p>
-          </button>
-          <button
-            type="button"
-            className="secundary-button flex items-center gap-2 pl-2 pr-2"
-            onClick={() => setPets((prev) => !prev)}
-            aria-pressed={pets}
-            style={{
-              backgroundColor: pets ? "#02B2DE" : "#FFFFFF",
-              color: pets ? "#FFFFFF" : "#02B2DE",
-            }}
-          >
-            <p>Pets</p>
-          </button>
+        <div className="flex flex-col items-start mt-2">
+          <label className="text-white text-sm mb-1">Rating</label>
+          <div className="flex gap-1">
+            {Array.from({ length: 5 }).map((_, i) => (
+              <button
+                key={i}
+                type="button"
+                onClick={() => setRating(i + 1)}
+                aria-label={`Set rating to ${i + 1}`}
+                className="bg-transparent border-none p-0 m-0"
+              >
+                <StarIcon
+                  className={`h-6 w-6 ${
+                    i < rating ? "text-[#02B2DE]" : "text-[#F5F5F5]"
+                  }`}
+                  fill={i < rating ? "#02B2DE" : "none"}
+                />
+              </button>
+            ))}
+          </div>
         </div>
-        <div className="flex justify-center">
-          <DefaultButton type="submit" text="Publish" />
+        <div className="flex flex-row w-full justify-between items-center mt-4">
+          <div className="flex flex-row gap-2">
+            <button
+              type="button"
+              className="secundary-button flex items-center gap-2 pl-3 pr-3"
+              onClick={() => setWifi((prev) => !prev)}
+              aria-pressed={wifi}
+              style={{
+                backgroundColor: wifi ? "#02B2DE" : "#FFFFFF",
+                color: wifi ? "#FFFFFF" : "#02B2DE",
+              }}
+            >
+              <p>Wifi</p>
+            </button>
+            <button
+              type="button"
+              className="secundary-button flex items-center gap-2 transition-all pl-2 pr-2"
+              onClick={() => setBreakfast((prev) => !prev)}
+              aria-pressed={breakfast}
+              style={{
+                backgroundColor: breakfast ? "#02B2DE" : "#FFFFFF",
+                color: breakfast ? "#FFFFFF" : "#02B2DE",
+              }}
+            >
+              <p>Breakfast</p>
+            </button>
+            <button
+              type="button"
+              className="secundary-button flex items-center gap-2 pl-2 pr-2"
+              onClick={() => setPets((prev) => !prev)}
+              aria-pressed={pets}
+              style={{
+                backgroundColor: pets ? "#02B2DE" : "#FFFFFF",
+                color: pets ? "#FFFFFF" : "#02B2DE",
+              }}
+            >
+              <p>Pets</p>
+            </button>
+          </div>
+          <div>
+            <DefaultButton type="submit" text="Publish" />
+          </div>
         </div>
         <div className="text-center">
           {showSuccess && <SuccessMessage text="Venue created successfully!" />}
@@ -180,13 +224,20 @@ export function EditVenueForm({ venue, onUpdated }: EditVenueFormProps) {
   const [price, setPrice] = useState(venue.price?.toString() || "");
   const [maxGuests, setMaxGuests] = useState(venue.maxGuests?.toString() || "");
   const [country, setCountry] = useState(venue.location?.country || "");
-  const [imageUrl, setImageUrl] = useState(venue.media?.[0]?.url || "");
-  const [dateFrom, setDateFrom] = useState(venue.dateFrom || "");
-  const [dateTo, setDateTo] = useState(venue.dateTo || "");
+  const [imageUrls, setImageUrls] = useState<string[]>(
+    venue.media?.map((m) => m.url) || [""]
+  );
+  const [rating, setRating] = useState(venue.rating || 0);
   const [showSuccess, setShowSuccess] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleImageUrlChange = (index: number, value: string) => {
+    const newUrls = [...imageUrls];
+    newUrls[index] = value;
+    setImageUrls(newUrls);
+  };
+
+  const handleSubmit = async (formEvent: React.FormEvent) => {
+    formEvent.preventDefault();
 
     const updatedVenue: VenuesData = {
       ...venue,
@@ -194,12 +245,9 @@ export function EditVenueForm({ venue, onUpdated }: EditVenueFormProps) {
       description,
       price: Number(price) || 0,
       maxGuests: Number(maxGuests) || 0,
-      media: [
-        {
-          url: imageUrl || "",
-          alt: description || "",
-        },
-      ],
+      media: imageUrls
+        .filter((url) => url.trim() !== "")
+        .map((url) => ({ url, alt: description || "" })),
       meta: {
         wifi,
         breakfast,
@@ -209,8 +257,7 @@ export function EditVenueForm({ venue, onUpdated }: EditVenueFormProps) {
         address: "",
         country: country || "",
       },
-      dateFrom,
-      dateTo,
+      rating,
     };
 
     try {
@@ -229,76 +276,102 @@ export function EditVenueForm({ venue, onUpdated }: EditVenueFormProps) {
     <>
       <form
         onSubmit={handleSubmit}
-        className="space-y-4 bg-[#036B8D] p-4 rounded-lg w-full max-w-xl"
+        className="space-y-2 bg-[#036B8D] p-4 rounded-lg w-full max-w-xl mr-2 ml-2"
       >
-        <h2 className=" text-[#FFFFFF] text-center text-2xl font-bold mt-6">
+        <h2 className=" text-[#FFFFFF] text-center text-2xl font-bold">
           EDIT LISTING
         </h2>
-        <InputTitle value={title} onChange={(e) => setTitle(e.target.value)} />
-        <InputPrice value={price} onChange={(e) => setPrice(e.target.value)} />
-        <InputMaxGuests
-          value={maxGuests}
-          onChange={(e) => setMaxGuests(e.target.value)}
-        />
-        <InputCountry
-          value={country}
-          onChange={(e) => setCountry(e.target.value)}
-        />
-        <InputUrlImage
-          value={imageUrl}
-          onChange={(e) => setImageUrl(e.target.value)}
-        />
-        <div className="flex flex-row justify-center gap-4">
-          <DateFrom
-            value={dateFrom}
-            onChange={(e) => setDateFrom(e.target.value)}
-          />
-          <DateTo value={dateTo} onChange={(e) => setDateTo(e.target.value)} />
+        <InputTitle value={title} onChange={(editEvent) => setTitle(editEvent.target.value)} />
+        <InputPrice value={price} onChange={(editEvent) => setPrice(editEvent.target.value)} />
+        <div className=" flex flex-row gap-4">
+          <div className="w-1/2">
+            <InputMaxGuests
+              value={maxGuests}
+              onChange={(editEvent) => setMaxGuests(editEvent.target.value)}
+            />
+          </div>
+          <div className="w-1/2">
+            <InputCountry
+              value={country}
+              onChange={(editEvent) => setCountry(editEvent.target.value)}
+            />
+          </div>
         </div>
+        <p className="text-[#ffffff] -mb-0.5">Add Image URLs:</p>
+        {imageUrls.map((url, idx) => (
+          <InputUrlImage
+            key={idx}
+            value={url}
+            onChange={(e) => handleImageUrlChange(idx, e.target.value)}
+          />
+        ))}
         <InputDescription
           value={description}
-          onChange={(e) => setDescription(e.target.value)}
+          onChange={(editEvent) => setDescription(editEvent.target.value)}
         />
-        <div className="flex flex-row gap-2 justify-center">
-          <button
-            type="button"
-            className="secundary-button flex items-center gap-2 pl-3 pr-3"
-            onClick={() => setWifi((prev) => !prev)}
-            aria-pressed={wifi}
-            style={{
-              backgroundColor: wifi ? "#02B2DE" : "#FFFFFF",
-              color: wifi ? "#FFFFFF" : "#02B2DE",
-            }}
-          >
-            <p>Wifi</p>
-          </button>
-          <button
-            type="button"
-            className="secundary-button flex items-center gap-2 transition-all pl-2 pr-2"
-            onClick={() => setBreakfast((prev) => !prev)}
-            aria-pressed={breakfast}
-            style={{
-              backgroundColor: breakfast ? "#02B2DE" : "#FFFFFF",
-              color: breakfast ? "#FFFFFF" : "#02B2DE",
-            }}
-          >
-            <p>Breakfast</p>
-          </button>
-          <button
-            type="button"
-            className="secundary-button flex items-center gap-2 pl-2 pr-2"
-            onClick={() => setPets((prev) => !prev)}
-            aria-pressed={pets}
-            style={{
-              backgroundColor: pets ? "#02B2DE" : "#FFFFFF",
-              color: pets ? "#FFFFFF" : "#02B2DE",
-            }}
-          >
-            <p>Pets</p>
-          </button>
+        <div className="flex flex-col items-start mt-2">
+          <label className="text-white text-sm mb-1">Rating</label>
+          <div className="flex gap-1">
+            {Array.from({ length: 5 }).map((_, i) => (
+              <button
+                key={i}
+                type="button"
+                onClick={() => setRating(i + 1)}
+                aria-label={`Set rating to ${i + 1}`}
+                className="bg-transparent border-none p-0 m-0 cursor-pointer"
+              >
+                <StarIcon
+                  className={`h-6 w-6 ${
+                    i < rating ? "text-[#02B2DE]" : "text-[#F5F5F5]"
+                  }`}
+                  fill={i < rating ? "#02B2DE" : "none"}
+                />
+              </button>
+            ))}
+          </div>
         </div>
-        <div className="flex justify-center ">
-          <DefaultButton type="submit" text="Update Venue" />
+        <div className="flex flex-row w-full justify-between items-center mt-4">
+          <div className="flex flex-row gap-2">
+            <button
+              type="button"
+              className="secundary-button flex items-center gap-2 pl-3 pr-3"
+              onClick={() => setWifi((prev) => !prev)}
+              aria-pressed={wifi}
+              style={{
+                backgroundColor: wifi ? "#02B2DE" : "#FFFFFF",
+                color: wifi ? "#FFFFFF" : "#02B2DE",
+              }}
+            >
+              <p>Wifi</p>
+            </button>
+            <button
+              type="button"
+              className="secundary-button flex items-center gap-2 transition-all pl-2 pr-2"
+              onClick={() => setBreakfast((prev) => !prev)}
+              aria-pressed={breakfast}
+              style={{
+                backgroundColor: breakfast ? "#02B2DE" : "#FFFFFF",
+                color: breakfast ? "#FFFFFF" : "#02B2DE",
+              }}
+            >
+              <p>Breakfast</p>
+            </button>
+            <button
+              type="button"
+              className="secundary-button flex items-center gap-2 pl-2 pr-2"
+              onClick={() => setPets((prev) => !prev)}
+              aria-pressed={pets}
+              style={{
+                backgroundColor: pets ? "#02B2DE" : "#FFFFFF",
+                color: pets ? "#FFFFFF" : "#02B2DE",
+              }}
+            >
+              <p>Pets</p>
+            </button>
+          </div>
+          <div>
+            <DefaultButton type="submit" text="Update Venue" />
+          </div>
         </div>
         <div className="text-center">
           {showSuccess && <SuccessMessage text="Venue updated" />}

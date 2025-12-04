@@ -19,8 +19,7 @@ export interface VenuesData {
     address: string;
     country: string;
   };
-  dateFrom?: string;
-  dateTo?: string;
+  rating?: number;
 }
 
 export interface AdminVenueBooking {
@@ -172,7 +171,8 @@ export async function fetchAdminVenueBookings(
         },
       }
     );
-    if (!res.ok) throw new Error(`could not fetch admin venue bookings (${res.status})`);
+    if (!res.ok)
+      throw new Error(`could not fetch admin venue bookings (${res.status})`);
     const data = await res.json();
     const allBookings: AdminVenueBooking[] = [];
     const now = new Date().toISOString();
@@ -202,7 +202,9 @@ export async function fetchAdminVenueBookings(
 }
 
 export async function fetchVenueWithBookings(venueId: string) {
-  const res = await fetch(`https://v2.api.noroff.dev/holidaze/venues/${venueId}?_bookings=true`);
+  const res = await fetch(
+    `https://v2.api.noroff.dev/holidaze/venues/${venueId}?_bookings=true`
+  );
   if (!res.ok) throw new Error("Failed to fetch venue");
   const result = await res.json();
   return result.data;

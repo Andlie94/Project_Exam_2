@@ -140,7 +140,7 @@ export const UserMenu = () => {
           )}
           <button
             onClick={handleLogout}
-            className=" px-3 py-2 hover:underline text-left md:text-[#02B2DE]"
+            className=" px-3 py-2 hover:underline text-left md:text-[#02B2DE] cursor-pointer"
           >
             Logout
           </button>
