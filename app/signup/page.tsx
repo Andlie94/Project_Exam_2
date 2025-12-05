@@ -10,6 +10,7 @@ import {
 import { Error } from "../../components/ui/message";
 import { fetchSignUp } from "../../lib/api/auth";
 import { LoadingGlobal } from "../../components/ui/loading";
+import { useEffect } from "react";
 
 export default function SignupPage() {
   const router = useRouter();
@@ -20,11 +21,34 @@ export default function SignupPage() {
   const [venueManager, setVenueManager] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [alreadyLoggedIn, setAlreadyLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      Promise.resolve().then(() => {
+        setAlreadyLoggedIn(true);
+        setTimeout(() => {
+          router.push("/");
+        }, 4000);
+      });
+    }
+  }, [router]);
+
+  if (alreadyLoggedIn) {
+    return (
+      <div className="text-[#FFFFFF] text-center text-xl bg-[#026B8D] rounded-sm flex items-center justify-center min-h-screen">
+        <p> you are already logged in. Redirecting</p>
+        <div className=" animate-bounce">.</div>
+        <div className="animate-bounce">.</div>
+        <div className="animate-bounce">.</div>
+      </div>
+    );
+  }
 
   async function handleSignup(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setError(null);
-
 
     if (
       name.trim() === "" ||
@@ -62,26 +86,26 @@ export default function SignupPage() {
         router.push("/login");
       }, 3000);
     } catch (err: unknown) {
-  setLoading(false);
+      setLoading(false);
 
-  // Sjekk om err er objekt og har 'message'
-  const errorMessage =
-    err && typeof err === "object" && "message" in err
-      ? (err as { message: string }).message
-      : "Signup failed";
+      // Sjekk om err er objekt og har 'message'
+      const errorMessage =
+        err && typeof err === "object" && "message" in err
+          ? (err as { message: string }).message
+          : "Signup failed";
 
-  const lowerMessage = errorMessage.toLowerCase();
+      const lowerMessage = errorMessage.toLowerCase();
 
-  if (lowerMessage.includes("already exists")) {
-    setError("User already exists with this email");
-  } else if (lowerMessage.includes("invalid")) {
-    setError("Invalid input, please check your fields");
-  } else {
-    setError(errorMessage);
-  }
+      if (lowerMessage.includes("already exists")) {
+        setError("User already exists with this email");
+      } else if (lowerMessage.includes("invalid")) {
+        setError("Invalid input, please check your fields");
+      } else {
+        setError(errorMessage);
+      }
 
-  console.error("Signup error:", err);
-}
+      console.error("Signup error:", err);
+    }
   }
 
   return (
@@ -114,8 +138,14 @@ export default function SignupPage() {
 
         <div className="w-full max-w-sm mx-auto space-y-4">
           <InputName value={name} onChange={(e) => setName(e.target.value)} />
-          <InputEmail value={email} onChange={(e) => setEmail(e.target.value)} />
-          <InputPassword value={password} onChange={(e) => setPassword(e.target.value)} />
+          <InputEmail
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <InputPassword
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
           <InputConfirmPassword
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
