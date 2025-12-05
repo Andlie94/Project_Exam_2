@@ -72,7 +72,7 @@ export default function AccountInformation() {
         />
       )}
 
-      <div className="relative w-40 mx-auto lg:ml-10 -mt-28 mb-4">
+      <div className="relative w-40 mx-auto lg:ml-10 -mt-28">
         {profile.avatar?.url && profile.avatar.url !== "string" ? (
           <Image
             src={profile.avatar.url}
@@ -108,7 +108,7 @@ export default function AccountInformation() {
 
       <div className="h-px w-full bg-[#414141] my-4 block lg:hidden"></div>
 
-      <div className="text-[#414141] gap-6 flex flex-row text-l sm:text-3xl justify-center text-center lg:ml-80 mb-6">
+      <div className="text-[#414141] gap-6 flex flex-row text-l font-bold lg:text-xl justify-center text-center lg:gap-20 lg:ml-80">
         <button onClick={() => setActiveTab("addVenue")} className="cursor-pointer hover:scale-105">ADD VENUE</button>
         <button onClick={() => setActiveTab("venues")} className="cursor-pointer hover:scale-105">MY VENUES</button>
         <button onClick={() => setActiveTab("orders")} className="cursor-pointer hover:scale-105">MY BOOKINGS</button>
