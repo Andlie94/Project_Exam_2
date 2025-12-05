@@ -5,8 +5,8 @@
   --background: #f5f5f5;
   --background-dark_bule: #036b8d;
   --background-light_bule: #02b2de;
-  --buttonback: #f5f5f5; /* bakgrunnsfarge for vanlig modus */
-  --buttonback-2: #02b2de; /* bakgrunnsfarge for knapp 2 */
+  --buttonback: #f5f5f5; 
+  --buttonback-2: #02b2de; 
   --foreground: #414141;
 
   --color-text: #ffffff;
@@ -38,7 +38,7 @@ footer {
   color: var(--color-text);
   padding: 0.5rem 1rem;
   border-radius: 0.2rem;
-  font-family: "Montserrat", "Roboto", Arial, Helvetica, sans-serif; /* Bruk fontene også her */
+  font-family: "Montserrat", "Roboto", Arial, Helvetica, sans-serif; 
   font-weight: light;
   transition: background-color 0.2s;
   cursor: pointer;

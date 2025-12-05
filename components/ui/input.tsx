@@ -105,7 +105,6 @@ export function InputSearch({ value, onChange }: AuthInputProps) {
   );
 }
 
-// Input for adminuser *//
 
 export function InputTitle({ value, onChange }: InputProps) {
   return (

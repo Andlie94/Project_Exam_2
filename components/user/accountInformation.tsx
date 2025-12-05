@@ -2,7 +2,7 @@
 import { useRouter } from "next/navigation";
 import { fetchProfile } from "../../lib/api/profile";
 import { useState, useEffect } from "react";
-import { Loading } from "../ui/loading";
+import { LoadingGlobal } from "../ui/loading";
 import UpdateForm from "../settings";
 import { PencilIcon } from "@heroicons/react/24/outline";
 import Bookings from "./bookings";
@@ -48,7 +48,7 @@ export default function AccountInformation() {
   }, [router]);
 
   if (profile === null) {
-    return <Loading />;
+    return <LoadingGlobal />;
   }
 
   return (
