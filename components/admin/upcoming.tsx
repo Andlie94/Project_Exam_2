@@ -80,7 +80,7 @@ export default function VenueBookings({ name }: VenueBookingsProps) {
                 )}
               </button>
               {isOpen && (
-                <div className="flex flex-row items-center justify-between gap-4 p-4 bg-[#036B8D] rounded-b-lg">
+                <div className="flex flex-col md:flex-row justify-between gap-4 p-4 bg-[#036B8D] rounded-b-lg">
                   <div className="flex-1 space-y-2">
                     <p>
                       From {new Date(booking.dateFrom).toLocaleDateString()} -
