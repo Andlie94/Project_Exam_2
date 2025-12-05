@@ -5,7 +5,7 @@ import Image from "next/image";
 import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/outline";
 import { DeleteButton, EditButton } from "../ui/button";
 import { EditVenueForm } from "@/components/admin/forms";
-import {CloseButton} from "../ui/button";
+import { CloseButton } from "../ui/button";
 
 interface Venue {
   id: string;
@@ -42,11 +42,11 @@ export function UserVenueList({ profileName }: { profileName: string }) {
   if (error) return <div>{error}</div>;
 
   return (
-    <div className="w-full md:w-lvh p-4 bg-[#036B8D] rounded-lg shadow-lg mt-4 md:mt-10">
-      <h2 className="text-2xl font-bold text-white mb-8 mt-4 text-center">
+    <div className="w-full max-w-5xl mx-auto p-3 bg-[#036B8D] rounded-lg shadow-lg mt-3 md:mt-8">
+      <h2 className="text-xl font-bold text-white mb-6 mt-3 text-center">
         MY LISTINGS
       </h2>
-      <div className="space-y-4">
+      <div className="space-y-3">
         {venues.map((venue) => {
           const isOpen = openIds.includes(venue.id);
           const isEditing = editingId === venue.id;
@@ -54,7 +54,7 @@ export function UserVenueList({ profileName }: { profileName: string }) {
           return (
             <div key={venue.id} className="rounded-lg">
               <button
-                className="flex items-center justify-between w-full p-3 bg-[#02B2DE] rounded text-white"
+                className="flex items-center justify-between w-full p-2 bg-[#02B2DE] rounded text-white sm:text-sm md:text-base"
                 onClick={() =>
                   setOpenIds((ids) =>
                     isOpen
@@ -63,19 +63,21 @@ export function UserVenueList({ profileName }: { profileName: string }) {
                   )
                 }
               >
-                <h3 className="font-bold text-xl">{venue.name}</h3>
+                <h3 className="font-bold text-lg sm:text-base md:text-lg">
+                  {venue.name}
+                </h3>
                 {isOpen ? (
-                  <ChevronUpIcon className="w-5 h-5" />
+                  <ChevronUpIcon className="w-4 h-4" />
                 ) : (
-                  <ChevronDownIcon className="w-5 h-5" />
+                  <ChevronDownIcon className="w-4 h-4" />
                 )}
               </button>
 
               {isOpen && (
-                <div className="flex flex-col gap-4 p-4 bg-[#036B8D] text-white rounded-b-lg sm:p-3">
-                  <div className="flex flex-row gap-4">
+                <div className="flex flex-col gap-3 p-3 bg-[#036B8D] text-white rounded-b-lg sm:p-2">
+                  <div className="flex flex-col md:flex-row gap-3">
                     <div className="flex-1 space-y-1">
-                      <h4 className="font-bold text-2xl sm:text-xl">
+                      <h4 className="font-bold text-xl sm:text-lg">
                         {venue.name}
                       </h4>
                       <p>
@@ -99,9 +101,9 @@ export function UserVenueList({ profileName }: { profileName: string }) {
                         <Image
                           src={venue.media[0].url}
                           alt={venue.media[0].alt || venue.name}
-                          width={170}
-                          height={150}
-                          className="object-cover"
+                          width={250} 
+                          height={100} 
+                          className="object-cover max-w-full h-auto"
                         />
                       )}
                     </div>
@@ -125,10 +127,10 @@ export function UserVenueList({ profileName }: { profileName: string }) {
 
                   {isEditing && (
                     <div className="fixed inset-0 backdrop-blur-sm flex items-center justify-center z-50">
-                      <div className="bg-[#036B8D] p-6 rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-lg relative text-[#414141]">
+                      <div className="bg-[#036B8D] p-5 rounded-lg max-w-xl w-full max-h-[85vh] overflow-y-auto shadow-lg relative text-[#414141]">
                         <div className="flex justify-end">
-                        <CloseButton onClick={() => setEditingId(null)} />
-                          </div>
+                          <CloseButton onClick={() => setEditingId(null)} />
+                        </div>
                         <EditVenueForm
                           venue={{
                             ...venue,

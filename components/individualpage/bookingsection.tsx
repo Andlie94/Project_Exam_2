@@ -55,7 +55,7 @@ export default function Booking() {
     if (venue === null) return;
 
     if (startDate === null || endDate === null || guests === null) {
-      setError("Du må velge dato og antall gjester.");
+      setError("You must select a date and number of guests.");
       return;
     }
 
@@ -78,7 +78,7 @@ export default function Booking() {
 
       router.push("/user");
     } catch (error) {
-      setError("Kunne ikke opprette booking. Prøv igjen.");
+      setError("coud not create booking. Please try again.");
       setBooking(false);
     }
   };

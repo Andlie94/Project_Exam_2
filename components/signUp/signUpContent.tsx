@@ -88,7 +88,6 @@ export default function SignupPage() {
     } catch (err: unknown) {
       setLoading(false);
 
-      // Sjekk om err er objekt og har 'message'
       const errorMessage =
         err && typeof err === "object" && "message" in err
           ? (err as { message: string }).message
@@ -119,9 +118,6 @@ export default function SignupPage() {
                      bg-[--background-dark_blue] bg-opacity-70 backdrop-blur-md"
         >
           <LoadingGlobal />
-          <h4 className="mt-4 text-[--color-text] p-4 text-center text-xl">
-            Creating your account, please wait...
-          </h4>
         </div>
       )}
 
