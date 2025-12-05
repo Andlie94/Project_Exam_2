@@ -12,7 +12,7 @@ interface AuthInputProps {
 }
 
 const baseInputStyle =
-  "bg-[#ffffff] border border-gray-300 rounded-lg p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition";
+  "bg-[#ffffff] border border-gray-300 rounded-sm p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition";
 
 const textStyle = "text-white text-sm mb-1";
 
@@ -131,7 +131,7 @@ export function InputDescription({ value, onChange }: TextareaProps) {
         name="description"
         placeholder="Enter description"
         value={value}
-        className="bg-[#ffffff] border border-gray-300 rounded-lg p-2 w-full min-h-[100px] resize-y"
+        className="bg-[#ffffff] border border-gray-300 rounded-sm p-2 w-full min-h-[100px] resize-y"
         onChange={onChange}
       />
     </div>

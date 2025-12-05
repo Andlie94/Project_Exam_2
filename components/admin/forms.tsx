@@ -13,8 +13,6 @@ import { createVenues, VenuesData, updateVenues } from "../../lib/api/venues";
 import { SuccessMessage, Error } from "../ui/message";
 import { DefaultButton } from "../ui/button";
 
-
-
 interface MakeANewVenueProps {
   onCreated?: () => void;
 }
@@ -92,7 +90,7 @@ export function MakeANewVenue({ onCreated }: MakeANewVenueProps) {
     <>
       <form
         onSubmit={handleSubmit}
-        className="space-y-2 bg-[#036B8D] p-4 rounded-lg w-full max-w-xl"
+        className="space-y-2 bg-[#036B8D] p-4 rounded-lg w-full max-w-full sm:max-w-xl px-2 sm:px-4 overflow-hide"
       >
         <h2 className=" text-[#FFFFFF] text-center text-2xl font-bold mt-6">
           ADD NEW LISTING
@@ -109,7 +107,9 @@ export function MakeANewVenue({ onCreated }: MakeANewVenueProps) {
           <InputUrlImage
             key={idx}
             value={url}
-            onChange={(newEvent) => handleImageUrlChange(idx, newEvent.target.value)}
+            onChange={(newEvent) =>
+              handleImageUrlChange(idx, newEvent.target.value)
+            }
           />
         ))}
         <button
@@ -138,7 +138,7 @@ export function MakeANewVenue({ onCreated }: MakeANewVenueProps) {
           value={description}
           onChange={(newEvent) => setDescription(newEvent.target.value)}
         />
-        <div className="flex flex-col items-start mt-2">
+        <div className="flex flex-col items-center sm:items-start mt-2">
           <label className="text-white text-sm mb-1">Rating</label>
           <div className="flex gap-1">
             {Array.from({ length: 5 }).map((_, i) => (
@@ -159,7 +159,7 @@ export function MakeANewVenue({ onCreated }: MakeANewVenueProps) {
             ))}
           </div>
         </div>
-        <div className="flex flex-row w-full justify-between items-center mt-4">
+        <div className="flex flex-col sm:flex-row w-full justify-between items-center mt-4 gap-2">
           <div className="flex flex-row gap-2">
             <button
               type="button"
@@ -198,7 +198,7 @@ export function MakeANewVenue({ onCreated }: MakeANewVenueProps) {
               <p>Pets</p>
             </button>
           </div>
-          <div>
+          <div className="w-full flex items-center sm:items-end justify-center sm:justify-end">
             <DefaultButton type="submit" text="Publish" />
           </div>
         </div>
@@ -276,13 +276,19 @@ export function EditVenueForm({ venue, onUpdated }: EditVenueFormProps) {
     <>
       <form
         onSubmit={handleSubmit}
-        className="space-y-2 bg-[#036B8D] p-4 rounded-lg w-full max-w-xl mr-2 ml-2"
+        className="space-y-2 bg-[#036B8D] p-4 rounded-lg w-full max-w-xl mr-2 ml-2 px-2 sm:px-4"
       >
         <h2 className=" text-[#FFFFFF] text-center text-2xl font-bold">
           EDIT LISTING
         </h2>
-        <InputTitle value={title} onChange={(editEvent) => setTitle(editEvent.target.value)} />
-        <InputPrice value={price} onChange={(editEvent) => setPrice(editEvent.target.value)} />
+        <InputTitle
+          value={title}
+          onChange={(editEvent) => setTitle(editEvent.target.value)}
+        />
+        <InputPrice
+          value={price}
+          onChange={(editEvent) => setPrice(editEvent.target.value)}
+        />
         <div className=" flex flex-row gap-4">
           <div className="w-1/2">
             <InputMaxGuests
@@ -309,7 +315,7 @@ export function EditVenueForm({ venue, onUpdated }: EditVenueFormProps) {
           value={description}
           onChange={(editEvent) => setDescription(editEvent.target.value)}
         />
-        <div className="flex flex-col items-start mt-2">
+        <div className="flex flex-col items-center sm:items-start mt-2">
           <label className="text-white text-sm mb-1">Rating</label>
           <div className="flex gap-1">
             {Array.from({ length: 5 }).map((_, i) => (
@@ -330,7 +336,7 @@ export function EditVenueForm({ venue, onUpdated }: EditVenueFormProps) {
             ))}
           </div>
         </div>
-        <div className="flex flex-row w-full justify-between items-center mt-4">
+        <div className="flex flex-col sm:flex-row w-full justify-between items-center mt-4 gap-2">
           <div className="flex flex-row gap-2">
             <button
               type="button"
@@ -369,7 +375,7 @@ export function EditVenueForm({ venue, onUpdated }: EditVenueFormProps) {
               <p>Pets</p>
             </button>
           </div>
-          <div>
+          <div className="w-full flex items-center sm:items-end justify-center sm:justify-end">
             <DefaultButton type="submit" text="Update Venue" />
           </div>
         </div>
