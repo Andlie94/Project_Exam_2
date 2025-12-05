@@ -1,15 +1,3 @@
-export function Loading() {
-  return (
-    <div className="loading flex items-center justify-center space-x-2">
-      <div className="loading-spinner"></div>
-      <div>Loading</div>
-      <div className=" animate-bounce">.</div>
-      <div className="animate-bounce">.</div>
-      <div className="animate-bounce">.</div>
-    </div>
-  );
-}
-
 export function LoadingGlobal() {
   return (
     <div className="fixed inset-0 flex items-center justify-center">
@@ -56,31 +44,6 @@ export function LoadingGlobal() {
             strokeLinecap="round"
           />
         </svg>
-      </div>
-    </div>
-  );
-}
-
-
-// ikke i bruk kan fjernes senere
-export function LoadingSkeleton() {
-  return (
-    <div className="flex flex-row justify-center space-x-4 mt-4 ">
-      <div className="skeleton-loading animate-pulse flex flex-col space-y-2">
-        <div className="skeleton-header h-20 w-30 bg-amber-100 opacity-30"></div>
-        <div className="skeleton-body h-5 w-30 bg-amber-100 opacity-30"></div>
-        <div className="skeleton-footer h-5 w-30 bg-amber-100 opacity-30"></div>
-      </div>
-
-      <div className="skeleton-loading animate-pulse flex flex-col space-y-2">
-        <div className="skeleton-header h-20 w-30 bg-amber-100 opacity-30"></div>
-        <div className="skeleton-body h-5 w-30 bg-amber-100 opacity-30"></div>
-        <div className="skeleton-footer h-5 w-30 bg-amber-100 opacity-30"></div>
-      </div>
-      <div className="skeleton-loading animate-pulse flex flex-col space-y-2">
-        <div className="skeleton-header h-20 w-30 bg-amber-100 opacity-30"></div>
-        <div className="skeleton-body h-5 w-30 bg-amber-100 opacity-30"></div>
-        <div className="skeleton-footer h-5 w-30 bg-amber-100 opacity-30"></div>
       </div>
     </div>
   );
