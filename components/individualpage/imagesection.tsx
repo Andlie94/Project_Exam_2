@@ -47,13 +47,8 @@ export default function ProductImage() {
     loadProduct();
   }, [params.id]);
 
-  const {
-    images,
-    currentIndex,
-    showArrows,
-    handlePrev,
-    handleNext,
-  } = useImageCarousel(product);
+  const { images, currentIndex, showArrows, handlePrev, handleNext } =
+    useImageCarousel(product);
   if (!product || !images || images.length === 0) return null;
 
   return (
@@ -87,7 +82,7 @@ export default function ProductImage() {
       </div>
       {showArrows && (
         <div className="hidden md:flex gap-2 mt-4">
-          {images.map((img, idx) => (
+          {images.slice(0, 4).map((img, idx) => (
             <Image
               key={idx}
               src={img.url}

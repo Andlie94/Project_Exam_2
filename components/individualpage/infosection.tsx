@@ -45,7 +45,6 @@ export default function InfoIndividual() {
   return (
     <div className="md:px-16 lg:px-32 xl:px-48 text-center md:text-left">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        
         {/* LEFT SIDE */}
         <div>
           <div className="flex flex-col md:flex-row md:items-baseline text-center md:text-left gap-2 md:gap-4 mb-6">
@@ -57,26 +56,21 @@ export default function InfoIndividual() {
             </h3>
           </div>
 
-          <p className="text-[#414141] hidden md:block">
-            {venue.description}
-          </p>
+          <p className="text-[#414141] hidden md:block">{venue.description}</p>
         </div>
 
         {/* RIGHT SIDE */}
         <div className="md:ml-auto md:max-w-md text-[#414141] flex flex-col items-center md:items-start">
-
           {/* TAGS */}
-          <div className="mb-4 flex flex-wrap gap-2 justify-center md:justify-start -mt-10 md:mt-0">
+          <div className="mb-4 flex flex-wrap gap-2 justify-center md:justify-start -mt-10 md:mt-0 cursor-pointer">
             {venue.meta.wifi && (
-              <span className="secundary-button px-3 py-1 text-xs">WiFi</span>
+              <span className="bg-[#FFFFFF] border-2 text-[#02B2DE] border-[#02B2DE] rounded px-3 py-2 text-xs">WiFi</span>
             )}
             {venue.meta.breakfast && (
-              <span className="secundary-button px-3 py-1 text-xs">
-                Breakfast
-              </span>
+              <span className="bg-[#FFFFFF] border-2 text-[#02B2DE] border-[#02B2DE] rounded px-3 py-2 text-xs">Breakfast</span>
             )}
             {venue.meta.pets && (
-              <span className="secundary-button px-3 py-1 text-xs">Pets</span>
+              <span className="bg-[#FFFFFF] border-2 text-[#02B2DE] border-[#02B2DE] rounded px-3 py-2 text-xs">Pets</span>
             )}
           </div>
 

@@ -37,35 +37,35 @@ footer {
   background-color: var(--buttonback-2);
   color: var(--color-text);
   padding: 0.5rem 1rem;
-  border-radius: 0.5rem;
+  border-radius: 0.2rem;
   font-family: 'Montserrat', 'Roboto', Arial, Helvetica, sans-serif; /* Bruk fontene også her */
-  font-weight: bold;
+  font-weight: light;
   transition: background-color 0.2s;
   cursor: pointer;
-  border: 3px solid var(--color-border_button_2);
+  border: 2px solid var(--color-border_button_2);
 }
 
 .button-primary:hover {
   background-color: var(--color-hover-bg-button-1);
   color: var(--color-border_button_1);
-  border: 3px solid var(--color-border_button_1);
+  border: 2px solid var(--color-border_button_1);
 }
 
  .secundary-button{
   background-color: var(--buttonback);
   color: var(--color-text-button-2);
   font-family: 'Montserrat', 'Roboto', Arial, Helvetica, sans-serif;
-  font-weight: bold;
+  font-weight: light;
   transition: background-color 0.2s;
   cursor: pointer;
-  border: 3px solid var(--color-border_button_1);
-  border-radius: 0.5rem;
+  border: 2px solid var(--color-border_button_1);
+  border-radius: 0.2rem;
 }
 
 .secundary-button:hover {
   background-color: var(--color-hover-bg-button-2);
   color: var(--color-text);
-  border: 3px solid var(--color-border_button_2);
+  border: 2px solid var(--color-border_button_2);
 }
 .desktop-menu {
   background-color: var(--background);

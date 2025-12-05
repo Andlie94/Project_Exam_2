@@ -30,11 +30,11 @@ interface TextareaProps {
 export function InputName({ value, onChange }: AuthInputProps) {
   return (
     <div>
-      <h3 className={textStyle}>Name</h3>
+      <h3 className={textStyle}>UserName</h3>
       <input
         type="text"
         name="name"
-        placeholder="Enter your name"
+        placeholder="Enter your Username"
         value={value}
         onChange={onChange}
         className={baseInputStyle}

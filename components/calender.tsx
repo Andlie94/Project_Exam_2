@@ -58,17 +58,33 @@ export default function VenueCalendar({
   }, [venueId]);
 
   return (
-    <DatePicker
-      selectsRange
-      startDate={startDate}
-      endDate={endDate}
-      onChange={(update) => setDateRange(update as [Date | null, Date | null])}
-      excludeDates={bookedDates}
-      placeholderText="dd.mm.yyyy"
-      dateFormat="dd.MM.yyyy"
-      className="w-full rounded-md bg-white px-4 py-3 text-base text-green placeholder:text-[#8C929F] focus:outline-none"
-      calendarClassName="bg-green border border-green/10 rounded-lg"
-      popperClassName="z-50"
-    />
+    <>
+      <DatePicker
+        selectsRange
+        startDate={startDate}
+        endDate={endDate}
+        onChange={(update) =>
+          setDateRange(update as [Date | null, Date | null])
+        }
+        excludeDates={bookedDates}
+        minDate={new Date()}
+        placeholderText="dd.mm.yyyy"
+        dateFormat="dd.MM.yyyy"
+        className="w-full rounded-md bg-white px-4 py-3 text-base text-green placeholder:text-[#8C929F] focus:outline-none"
+        calendarClassName="bg-green border border-green/10 rounded-lg custom-datepicker"
+        popperClassName="z-50"
+      />
+      <style jsx global>{`
+        .custom-datepicker .react-datepicker__day {
+          border-radius: 50% !important;
+        }
+        .custom-datepicker .react-datepicker__day--selected,
+        .custom-datepicker .react-datepicker__day--in-selecting-range,
+        .custom-datepicker .react-datepicker__day--in-range {
+          background-color: #02b2de !important;
+          color: #f5f5f5 !important;
+        }
+      `}</style>
+    </>
   );
 }
