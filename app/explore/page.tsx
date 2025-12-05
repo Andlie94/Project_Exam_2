@@ -1,12 +1,8 @@
-import React from "react";
-import ProductSection from "../../components/expolrepage/productsection";
-import HeroSection from "../../components/expolrepage/herosection";
+import ExplorePage from "@/components/expolrepage/exploreContent";
+import { exportedMetadata } from "@/components/meta_data/metadata";
 
-export default function ExplorePage() {
-  return (
-    <div>
-      <HeroSection />
-      <ProductSection />
-    </div>
-  );
+export const metadata = exportedMetadata();
+
+export default function Page() {
+  return <ExplorePage />;
 }
