@@ -78,8 +78,7 @@ export default function SignupPage() {
     try {
       setLoading(true);
 
-      const userData = await fetchSignUp(email, password, name, venueManager);
-      console.log("Signup success:", userData);
+      await fetchSignUp(email, password, name, venueManager);
 
       setTimeout(() => {
         setLoading(false);

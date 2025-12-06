@@ -29,6 +29,7 @@ export function MakeANewVenue({ onCreated }: MakeANewVenueProps) {
   const [imageUrls, setImageUrls] = useState<string[]>([""]);
   const [showSuccess, setShowSuccess] = useState(false);
   const [rating, setRating] = useState(0);
+  const [error, setError] = useState("");
 
   const handleImageUrlChange = (index: number, value: string) => {
     const newUrls = [...imageUrls];
@@ -43,10 +44,40 @@ export function MakeANewVenue({ onCreated }: MakeANewVenueProps) {
   const handleSubmit = async (formEvent: React.FormEvent) => {
     formEvent.preventDefault();
 
+    if (Number(price) < 1) {
+      setError("Price must be at least 1 kr");
+      setTimeout(() => setError(""), 2000);
+      return;
+    }
+
+    if (title.trim() === "" || price.trim() === "") {
+      setError("Title and Price are required");
+      setTimeout(() => setError(""), 2000);
+      return;
+    }
+
+    if (imageUrls.every((url) => url.trim() === "")) {
+      setError("At least one image URL is required");
+      setTimeout(() => setError(""), 2000);
+      return;
+    }
+
+    if (country.trim() === "") {
+      setError("Country is required");
+      setTimeout(() => setError(""), 2000);
+      return;
+    }
+
+    if (Number(maxGuests) < 1) {
+      setError("Max Guests must be at least 1");
+      setTimeout(() => setError(""), 2000);
+      return;
+    }
+
     const venueData: VenuesData = {
       name: title,
       description,
-      price: Number(price) || 0,
+      price: Number(price),
       maxGuests: Number(maxGuests) || 0,
       media: imageUrls
         .filter((url) => url.trim() !== "")
@@ -64,7 +95,6 @@ export function MakeANewVenue({ onCreated }: MakeANewVenueProps) {
     };
 
     try {
-      console.log("Sending venue data to API:", venueData);
       await createVenues(venueData);
 
       setShowSuccess(true);
@@ -82,6 +112,7 @@ export function MakeANewVenue({ onCreated }: MakeANewVenueProps) {
       if (onCreated) onCreated();
       setTimeout(() => setShowSuccess(false), 1000);
     } catch (error) {
+      setError("Error creating venue. Please try again.");
       console.error("Error creating venue:", error);
     }
   };
@@ -204,6 +235,7 @@ export function MakeANewVenue({ onCreated }: MakeANewVenueProps) {
         </div>
         <div className="text-center">
           {showSuccess && <SuccessMessage text="Venue created successfully!" />}
+          {error && <Error text={error} />}
         </div>
       </form>
     </>
@@ -229,6 +261,7 @@ export function EditVenueForm({ venue, onUpdated }: EditVenueFormProps) {
   );
   const [rating, setRating] = useState(venue.rating || 0);
   const [showSuccess, setShowSuccess] = useState(false);
+  const [error, setError] = useState("");
 
   const handleImageUrlChange = (index: number, value: string) => {
     const newUrls = [...imageUrls];
@@ -239,19 +272,48 @@ export function EditVenueForm({ venue, onUpdated }: EditVenueFormProps) {
   const handleSubmit = async (formEvent: React.FormEvent) => {
     formEvent.preventDefault();
 
+    if (Number(price) < 1) {
+      setError("Price must be at least 1 kr");
+      setTimeout(() => setError(""), 2000);
+      return;
+    }
+
+    if (title.trim() === "" || price.trim() === "") {
+      setError("Title and Price are required");
+      setTimeout(() => setError(""), 2000);
+      return;
+    }
+
+    if (imageUrls.every((url) => url.trim() === "")) {
+      setError("you must have at least one image");
+      setTimeout(() => setError(""), 2000);
+      return;
+    }
+    if (country.trim() === "") {
+      setError("Country is required");
+      setTimeout(() => setError(""), 2000);
+      return;
+    }
+
+    if (Number(maxGuests) < 1) {
+      setError("Max Guests must be at least 1");
+      setTimeout(() => setError(""), 2000);
+      return;
+    }
+
     const updatedVenue: VenuesData = {
       ...venue,
       name: title,
       description,
-      price: Number(price) || 0,
+      price: Number(price),
       maxGuests: Number(maxGuests) || 0,
       media: imageUrls
         .filter((url) => url.trim() !== "")
         .map((url) => ({ url, alt: description || "" })),
       meta: {
-        wifi,
-        breakfast,
-        pets,
+        wifi: wifi || false,
+        breakfast: breakfast || false,
+        pets: pets || false,
       },
       location: {
         address: "",
@@ -268,6 +330,7 @@ export function EditVenueForm({ venue, onUpdated }: EditVenueFormProps) {
         if (onUpdated) onUpdated();
       }, 1000);
     } catch (error) {
+      setError("Error updating venue. Please try again.");
       console.error(error);
     }
   };
@@ -381,6 +444,7 @@ export function EditVenueForm({ venue, onUpdated }: EditVenueFormProps) {
         </div>
         <div className="text-center">
           {showSuccess && <SuccessMessage text="Venue updated" />}
+          {error && <Error text={error} />}
         </div>
       </form>
     </>
