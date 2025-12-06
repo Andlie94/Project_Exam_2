@@ -2,23 +2,29 @@
 import Image from "next/image";
 
 export default function HeroSection() {
-
   return (
-    <div className="relative">
+    <div className="relative h-[550px] w-full">
       <Image
-        src="https://images.unsplash.com/photo-1507501336603-6e31db2be093?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=2074"
-        alt="view over the ocean with a white classic greece building in the front"
+        src="https://images.unsplash.com/photo-1610731191056-b1014f6cb4a3?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        alt="Boat house in northern Europe in a calm body of water the water reflecting the house and the surrounding nature"
         width={2074}
         height={1826}
-        className="w-full h-48 md:h-96 object-cover"
+        className="w-full h-full object-cover"
       />
-      <div className="absolute top-[50%] md:top-[45%] left-[50%] md:left-[25%] transform -translate-x-1/2 -translate-y-1/2 w-[70%] max-w-xs md:max-w-sm lg:max-w-md rounded-lg overflow-hidden">
-        <div className="absolute inset-0 bg-[#02B2DE] opacity-50"></div>
-        <div className="relative z-10 px-1.5 md:px-3 pt-1.5 pb-0 md:pt-2 md:pb-1 text-xs md:text-sm">
-          <h1 className="text-xs md:text-base lg:text-xl font-bold text-center text-white mb-1 md:mb-2">
-            Find a date to stay with us
-          </h1>
-        </div>
+      <div className="absolute top-0 right-0 bottom-0 left-0">
+        <div
+          className="w-full h-full bg-[#022C39]"
+          style={{ opacity: 0.5 }}
+        ></div>
+      </div>
+      <div className="absolute top-0 right-0 bottom-0 left-0 flex flex-col justify-center items-center text-center text-white px-4">
+        <h1 className="text-3xl md:text-5xl font-bold">
+          Explore Your Next Adventure
+        </h1>
+        <p className="mt-4 text-lg md:text-2xl">
+          Discover unique stays and unforgettable experiences around the world
+        </p>
+        <div className="w-full max-w-md mt-6"></div>
       </div>
     </div>
   );
