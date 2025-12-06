@@ -19,12 +19,7 @@ export interface CreateBookingData {
   guests: number;
   venueId: string;
 }
-export interface CreateBookingData {
-  dateFrom: string;
-  dateTo: string;
-  guests: number;
-  venueId: string;
-}
+
 
 export async function fetchProfile(token: string, name: string) {
   try {
@@ -115,12 +110,6 @@ export async function fetchProfileBookings(token: string, name: string) {
   }
 }
 
-export interface CreateBookingData {
-  dateFrom: string;
-  dateTo: string;
-  guests: number;
-  venueId: string;
-}
 
 export async function createBooking(
   token: string,

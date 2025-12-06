@@ -1,5 +1,4 @@
 "use client";
-import { useRouter } from "next/navigation";
 import { fetchProfile } from "../../lib/api/profile";
 import { useState, useEffect } from "react";
 import { LoadingGlobal } from "../ui/loading";
@@ -22,7 +21,6 @@ interface Profile {
 }
 
 export default function AccountInformation() {
-  const router = useRouter();
   const [profile, setProfile] = useState<Profile | null>(null);
   const [showEditForm, setShowEditForm] = useState(false);
 
@@ -30,7 +28,7 @@ export default function AccountInformation() {
     const loadProfile = async () => {
       const token = localStorage.getItem("token");
       const userDataString = localStorage.getItem("User");
-      if (!token || !userDataString) {
+      if (token === null || userDataString === null) {
         return;
       }
 
@@ -45,7 +43,7 @@ export default function AccountInformation() {
     };
 
     loadProfile();
-  }, [router]);
+  }, []);
 
   if (profile === null) {
     return <LoadingGlobal />;

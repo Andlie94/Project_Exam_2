@@ -24,7 +24,6 @@ interface Booking {
 
 export default function ProfileBookings() {
   const [bookings, setBookings] = useState<Booking[]>([]);
-  const [error, setError] = useState<string | null>(null);
   const [openIds, setOpenIds] = useState<string[]>([]);
 
   useEffect(() => {
@@ -32,8 +31,7 @@ export default function ProfileBookings() {
       try {
         const token = localStorage.getItem("token");
         const userDataString = localStorage.getItem("User");
-        if (!token || !userDataString) {
-          setError("Missing user authentication info");
+        if (token === null || userDataString === null) {
           setBookings([]);
           return;
         }
@@ -41,9 +39,7 @@ export default function ProfileBookings() {
         const result = await fetchProfileBookings(token, userData.name);
         setBookings(result.data || []);
       } catch (error) {
-        setError(
-          error instanceof Error ? error.message : "Failed to load bookings"
-        );
+        setBookings([]);
       }
     };
 

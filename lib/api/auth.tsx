@@ -56,7 +56,6 @@ export async function fetchSignUp(
   });
 
   const result = await response.json();
-  console.log("Signup API result:", result);
 
   if (!response.ok) {
     const errorMessage =
