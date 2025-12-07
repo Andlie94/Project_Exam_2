@@ -21,11 +21,11 @@ export function SearchProduct({ Search }: SearchProductProps) {
   return (
     <div className=" flex flex-col max-w-md mx-auto mb-8 gap-2">
       <div>
-      <InputSearch value={searchTerm} onChange={handleInputChange} />
+        <InputSearch value={searchTerm} onChange={handleInputChange} />
       </div>
       <div className="flex items-center justify-end">
         <DefaultButton text="Search" onClick={handleSearchClick} />
       </div>
     </div>
   );
-};
+}

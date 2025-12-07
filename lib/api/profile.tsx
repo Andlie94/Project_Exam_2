@@ -20,7 +20,6 @@ export interface CreateBookingData {
   venueId: string;
 }
 
-
 export async function fetchProfile(token: string, name: string) {
   try {
     const response = await fetch(
@@ -109,7 +108,6 @@ export async function fetchProfileBookings(token: string, name: string) {
     throw error;
   }
 }
-
 
 export async function createBooking(
   token: string,

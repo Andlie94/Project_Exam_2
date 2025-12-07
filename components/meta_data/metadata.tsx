@@ -45,7 +45,12 @@ export function signUpMetadata(): Metadata {
       "Join Holidaze today and unlock a world of unique venues and unforgettable experiences. Sign up now to start booking your dream holidays!",
     authors: [{ name: "André Lier Strøm" }],
     keywords: [
-      "holidaze", "signup", "create account", "booking", "travel", "Noroff",
+      "holidaze",
+      "signup",
+      "create account",
+      "booking",
+      "travel",
+      "Noroff",
     ],
     openGraph: {
       title: "Holidaze | Create your account",
@@ -66,7 +71,13 @@ export function adminMetadata(): Metadata {
       "Secure admin login for Holidaze. Access the admin panel to manage venues, bookings, and user accounts.",
     authors: [{ name: "André Lier Strøm" }],
     keywords: [
-      "holidaze", "admin", "login", "manage", "venues", "bookings", "Noroff",
+      "holidaze",
+      "admin",
+      "login",
+      "manage",
+      "venues",
+      "bookings",
+      "Noroff",
     ],
     openGraph: {
       title: "Holidaze | Admin Login",
@@ -86,7 +97,12 @@ export function userMetadata(): Metadata {
     description: "View and manage your bookings.",
     authors: [{ name: "André Lier Strøm" }],
     keywords: [
-      "holidaze", "profile", "bookings", "favorites", "account", "Noroff",
+      "holidaze",
+      "profile",
+      "bookings",
+      "favorites",
+      "account",
+      "Noroff",
     ],
     openGraph: {
       title: "Holidaze | User Profile",

@@ -64,17 +64,22 @@ export default function InfoIndividual() {
           {/* TAGS */}
           <div className="mb-4 flex flex-wrap gap-2 justify-center md:justify-start -mt-10 md:mt-0 cursor-pointer">
             {venue.meta.wifi && (
-              <span className="bg-[#FFFFFF] border-2 text-[#02B2DE] border-[#02B2DE] rounded px-3 py-2 text-xs">WiFi</span>
+              <span className="bg-[#FFFFFF] border-2 text-[#02B2DE] border-[#02B2DE] rounded px-3 py-2 text-xs">
+                WiFi
+              </span>
             )}
             {venue.meta.breakfast && (
-              <span className="bg-[#FFFFFF] border-2 text-[#02B2DE] border-[#02B2DE] rounded px-3 py-2 text-xs">Breakfast</span>
+              <span className="bg-[#FFFFFF] border-2 text-[#02B2DE] border-[#02B2DE] rounded px-3 py-2 text-xs">
+                Breakfast
+              </span>
             )}
             {venue.meta.pets && (
-              <span className="bg-[#FFFFFF] border-2 text-[#02B2DE] border-[#02B2DE] rounded px-3 py-2 text-xs">Pets</span>
+              <span className="bg-[#FFFFFF] border-2 text-[#02B2DE] border-[#02B2DE] rounded px-3 py-2 text-xs">
+                Pets
+              </span>
             )}
           </div>
 
-          {/* INFO */}
           <div className="flex flex-row md:flex-col gap-4 md:gap-2 ml-6 md:ml-0">
             <p className="flex flex-col md:flex-row justify-center md:justify-start items-center gap-1">
               <span>Rating:</span>
@@ -98,7 +103,6 @@ export default function InfoIndividual() {
             <p>Price: {venue.price}</p>
           </div>
 
-          {/* Description for mobile */}
           <p className="text-[#414141] block md:hidden mt-4 mx-2">
             {venue.description}
           </p>

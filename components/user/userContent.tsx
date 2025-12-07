@@ -4,7 +4,6 @@ import { useRouter } from "next/navigation";
 import AccountInformation from "../../components/user/accountInformation";
 import { LoadingGlobal } from "@/components/ui/loading";
 
-
 export default function UserPage() {
   const [loading, setLoading] = useState(true);
   const router = useRouter();
@@ -35,7 +34,5 @@ export default function UserPage() {
     return <LoadingGlobal />;
   }
 
-  return (
-        <AccountInformation/>
-  );
+  return <AccountInformation />;
 }

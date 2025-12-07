@@ -109,9 +109,24 @@ export default function AccountInformation() {
       <div className="h-px w-full bg-[#414141] my-4 block lg:hidden"></div>
 
       <div className="text-[#414141] gap-6 flex flex-row text-l font-bold lg:text-xl justify-center text-center lg:gap-20 lg:ml-80">
-        <button onClick={() => setActiveTab("addVenue")} className="cursor-pointer hover:scale-105">ADD VENUE</button>
-        <button onClick={() => setActiveTab("venues")} className="cursor-pointer hover:scale-105">MY VENUES</button>
-        <button onClick={() => setActiveTab("orders")} className="cursor-pointer hover:scale-105">MY BOOKINGS</button>
+        <button
+          onClick={() => setActiveTab("addVenue")}
+          className="cursor-pointer hover:scale-105"
+        >
+          <p>ADD VENUE</p>
+        </button>
+        <button
+          onClick={() => setActiveTab("venues")}
+          className="cursor-pointer hover:scale-105"
+        >
+          <p>MY VENUES</p>
+        </button>
+        <button
+          onClick={() => setActiveTab("orders")}
+          className="cursor-pointer hover:scale-105"
+        >
+          <p>MY BOOKINGS</p>
+        </button>
       </div>
 
       <div className="h-px w-full bg-[#414141] my-4"></div>
