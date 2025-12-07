@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import { useState } from "react";
 import { DeleteVenues } from "../../lib/api/venues";
 
 interface CloseButtonProps {
@@ -49,7 +49,7 @@ export function DeleteButton({
 export function EditButton({ onClick }: EditButtonProps) {
   return (
     <button onClick={onClick} className="button-primary">
-      Edit
+     <p>Edit</p> 
     </button>
   );
 }

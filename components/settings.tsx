@@ -43,7 +43,6 @@ export default function UpdateForm({ showForm, setShowForm }: UpdateFormProps) {
 
   return (
     <>
-      {/* Form Overlay */}
       {showForm && (
         <div className="fixed inset-0 backdrop-blur-sm flex items-center justify-center z-50">
           <div className="bg-[#036B8D] p-6 rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-lg">
@@ -61,7 +60,6 @@ export default function UpdateForm({ showForm, setShowForm }: UpdateFormProps) {
             )}
 
             <form onSubmit={handleSubmit} className="space-y-6">
-              {/* Avatar Section */}
               <div>
                 <h3 className="text-lg text-[#F5F5F5]">Avatar</h3>
                 <div>
@@ -72,7 +70,6 @@ export default function UpdateForm({ showForm, setShowForm }: UpdateFormProps) {
                 </div>
               </div>
 
-              {/* Banner Section */}
               <div>
                 <h3 className="text-lg text-[#F5F5F5]">Banner</h3>
                 <div>
@@ -83,7 +80,6 @@ export default function UpdateForm({ showForm, setShowForm }: UpdateFormProps) {
                 </div>
               </div>
 
-              {/* Submit Buttons */}
               <div className="flex justify-end gap-3">
                 <button
                   type="submit"

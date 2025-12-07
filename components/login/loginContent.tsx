@@ -6,36 +6,37 @@ import { loginUser } from "@/lib/api/auth";
 import { Error } from "@/components/ui/message";
 import { LoadingGlobal } from "@/components/ui/loading";
 
+
 export default function LoginPage() {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-  const [alreadyLoggedIn, setAlreadyLoggedIn] = useState(false);
-
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      Promise.resolve().then(() => {
-        setAlreadyLoggedIn(true);
-        setTimeout(() => {
-          router.push("/");
-        }, 4000);
-      });
+    const [alreadyLoggedIn, setAlreadyLoggedIn] = useState(false);
+  
+    useEffect(() => {
+      const token = localStorage.getItem("token");
+      if (token) {
+        Promise.resolve().then(() => {
+          setAlreadyLoggedIn(true);
+          setTimeout(() => {
+            router.push("/");
+          }, 4000);
+        });
+      }
+    }, [router]);
+  
+    if (alreadyLoggedIn) {
+      return (
+        <div className="text-[#FFFFFF] text-center text-xl bg-[#026B8D] rounded-sm flex items-center justify-center min-h-screen">
+          <p>You are already logged in. Redirecting</p>
+      <div className=" animate-bounce">.</div>
+      <div className="animate-bounce">.</div>
+      <div className="animate-bounce">.</div>
+        </div>
+      );
     }
-  }, [router]);
-
-  if (alreadyLoggedIn) {
-    return (
-      <div className="text-[#FFFFFF] text-center text-xl bg-[#026B8D] rounded-sm flex items-center justify-center min-h-screen">
-        <p>You are already logged in. Redirecting</p>
-        <div className=" animate-bounce">.</div>
-        <div className="animate-bounce">.</div>
-        <div className="animate-bounce">.</div>
-      </div>
-    );
-  }
 
   async function handleLogin(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();

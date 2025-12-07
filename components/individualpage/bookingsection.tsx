@@ -93,7 +93,7 @@ export default function Booking() {
           <div className="flex flex-row gap-4 w-full sm:flex-1">
             <div className="flex flex-1 min-w-[180px] flex-col">
               <label className="mb-2 text-xs font-semibold text-[#414141]">
-                Choose date:
+                <p>Choose date:</p>
               </label>
               <VenueCalendar
                 venueId={venue.id}
@@ -104,7 +104,7 @@ export default function Booking() {
 
             <div className="flex flex-col flex-1 min-w-[140px]">
               <label className="mb-2 text-xs font-semibold text-[#414141]">
-                Guests
+                <p>Guests</p>
               </label>
               <input
                 type="number"

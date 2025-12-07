@@ -80,7 +80,6 @@ export default function InfoIndividual() {
             )}
           </div>
 
-          {/* INFO */}
           <div className="flex flex-row md:flex-col gap-4 md:gap-2 ml-6 md:ml-0">
             <p className="flex flex-col md:flex-row justify-center md:justify-start items-center gap-1">
               <span>Rating:</span>
@@ -104,7 +103,6 @@ export default function InfoIndividual() {
             <p>Price: {venue.price}</p>
           </div>
 
-          {/* Description for mobile */}
           <p className="text-[#414141] block md:hidden mt-4 mx-2">
             {venue.description}
           </p>

@@ -113,19 +113,19 @@ export default function AccountInformation() {
           onClick={() => setActiveTab("addVenue")}
           className="cursor-pointer hover:scale-105"
         >
-          ADD VENUE
+          <p>ADD VENUE</p>
         </button>
         <button
           onClick={() => setActiveTab("venues")}
           className="cursor-pointer hover:scale-105"
         >
-          MY VENUES
+          <p>MY VENUES</p>
         </button>
         <button
           onClick={() => setActiveTab("orders")}
           className="cursor-pointer hover:scale-105"
         >
-          MY BOOKINGS
+          <p>MY BOOKINGS</p>
         </button>
       </div>
 
