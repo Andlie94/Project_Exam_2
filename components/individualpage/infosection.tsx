@@ -64,13 +64,19 @@ export default function InfoIndividual() {
           {/* TAGS */}
           <div className="mb-4 flex flex-wrap gap-2 justify-center md:justify-start -mt-10 md:mt-0 cursor-pointer">
             {venue.meta.wifi && (
-              <span className="bg-[#FFFFFF] border-2 text-[#02B2DE] border-[#02B2DE] rounded px-3 py-2 text-xs">WiFi</span>
+              <span className="bg-[#FFFFFF] border-2 text-[#02B2DE] border-[#02B2DE] rounded px-3 py-2 text-xs">
+                WiFi
+              </span>
             )}
             {venue.meta.breakfast && (
-              <span className="bg-[#FFFFFF] border-2 text-[#02B2DE] border-[#02B2DE] rounded px-3 py-2 text-xs">Breakfast</span>
+              <span className="bg-[#FFFFFF] border-2 text-[#02B2DE] border-[#02B2DE] rounded px-3 py-2 text-xs">
+                Breakfast
+              </span>
             )}
             {venue.meta.pets && (
-              <span className="bg-[#FFFFFF] border-2 text-[#02B2DE] border-[#02B2DE] rounded px-3 py-2 text-xs">Pets</span>
+              <span className="bg-[#FFFFFF] border-2 text-[#02B2DE] border-[#02B2DE] rounded px-3 py-2 text-xs">
+                Pets
+              </span>
             )}
           </div>
 

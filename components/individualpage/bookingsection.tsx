@@ -86,52 +86,52 @@ export default function Booking() {
   };
   if (venue === null) return null;
 
-return (
-  <div className="p-4 flex justify-center mt-8 mb-8">
-    <div className="flex flex-col max-w-lg w-full">
-      <div className="flex flex-col md:flex-row md:items-end gap-4 w-full">
-        <div className="flex flex-row gap-4 w-full sm:flex-1">
-          <div className="flex flex-1 min-w-[180px] flex-col">
-            <label className="mb-2 text-xs font-semibold text-[#414141]">
-              Choose date:
-            </label>
-            <VenueCalendar
-              venueId={venue.id}
-              dateRange={dateRange}
-              setDateRange={setDateRange}
-            />
+  return (
+    <div className="p-4 flex justify-center mt-8 mb-8">
+      <div className="flex flex-col max-w-lg w-full">
+        <div className="flex flex-col md:flex-row md:items-end gap-4 w-full">
+          <div className="flex flex-row gap-4 w-full sm:flex-1">
+            <div className="flex flex-1 min-w-[180px] flex-col">
+              <label className="mb-2 text-xs font-semibold text-[#414141]">
+                Choose date:
+              </label>
+              <VenueCalendar
+                venueId={venue.id}
+                dateRange={dateRange}
+                setDateRange={setDateRange}
+              />
+            </div>
+
+            <div className="flex flex-col flex-1 min-w-[140px]">
+              <label className="mb-2 text-xs font-semibold text-[#414141]">
+                Guests
+              </label>
+              <input
+                type="number"
+                min={1}
+                max={venue.maxGuests}
+                value={guests}
+                onChange={(e) => setGuests(Number(e.target.value))}
+                className="w-full rounded-md bg-white px-4 py-3 text-base placeholder:text-[#8C929F] focus:outline-none h-12 lg:h-12"
+                placeholder={`1-${venue.maxGuests}`}
+              />
+            </div>
           </div>
 
-          <div className="flex flex-col flex-1 min-w-[140px]">
-            <label className="mb-2 text-xs font-semibold text-[#414141]">
-              Guests
-            </label>
-            <input
-              type="number"
-              min={1}
-              max={venue.maxGuests}
-              value={guests}
-              onChange={(e) => setGuests(Number(e.target.value))}
-              className="w-full rounded-md bg-white px-4 py-3 text-base placeholder:text-[#8C929F] focus:outline-none h-12 lg:h-12"
-              placeholder={`1-${venue.maxGuests}`}
+          <div className="w-full flex flex-col justify-end sm:w-auto sm:ml-4">
+            <DefaultButton
+              type="button"
+              text={booking ? "BOOKING..." : "BOOK NOW"}
+              onClick={handleCheckout}
             />
           </div>
         </div>
-
-        <div className="w-full flex flex-col justify-end sm:w-auto sm:ml-4">
-          <DefaultButton
-            type="button"
-            text={booking ? "BOOKING..." : "BOOK NOW"}
-            onClick={handleCheckout}
-          />
-        </div>
+        {error && (
+          <div className="w-full mt-4">
+            <Error text={error} />
+          </div>
+        )}
       </div>
-      {error && (
-        <div className="w-full mt-4">
-          <Error text={error} />
-        </div>
-      )}
     </div>
-  </div>
-);
+  );
 }

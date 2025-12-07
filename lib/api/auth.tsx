@@ -21,7 +21,10 @@ export interface LoginResponse {
   meta?: Record<string, unknown>;
 }
 
-export async function loginUser(email: string, password: string): Promise<LoginData> {
+export async function loginUser(
+  email: string,
+  password: string
+): Promise<LoginData> {
   const response = await fetch(`${API_BASE}/auth/login`, {
     method: "POST",
     headers: {
@@ -34,7 +37,9 @@ export async function loginUser(email: string, password: string): Promise<LoginD
   const result: LoginResponse = await response.json();
 
   if (!response.ok) {
-    throw new Error(result?.data ? "Unexpected login error" : "Invalid credentials");
+    throw new Error(
+      result?.data ? "Unexpected login error" : "Invalid credentials"
+    );
   }
 
   return result.data;

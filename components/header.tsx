@@ -166,7 +166,13 @@ export function Header() {
         <div className="desktop-menu hidden md:flex items-center justify-between p-4">
           <div className="text-lg">
             <Link href="/">
-              <Image src="/img/logo.png" alt="Logo" width={96} height={24} className="h-6 -mt-2" />
+              <Image
+                src="/img/logo.png"
+                alt="Logo"
+                width={96}
+                height={24}
+                className="h-6 -mt-2"
+              />
             </Link>
           </div>
 
@@ -191,7 +197,13 @@ export function Header() {
         <div className="mobile-menu-burger md:hidden flex items-center justify-between p-4">
           <div className="text-lg">
             <Link href="/">
-              <Image src="/img/logo.png" alt="Logo" width={96} height={24} className="h-6 -mt-2" />
+              <Image
+                src="/img/logo.png"
+                alt="Logo"
+                width={96}
+                height={24}
+                className="h-6 -mt-2"
+              />
             </Link>
           </div>
           <button

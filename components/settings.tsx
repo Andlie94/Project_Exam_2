@@ -33,7 +33,9 @@ export default function UpdateForm({ showForm, setShowForm }: UpdateFormProps) {
       await updateProfile(token, userData.name, profileData);
       window.location.reload();
     } catch (error) {
-      setError(error instanceof Error ? error.message : "Failed to update profile");
+      setError(
+        error instanceof Error ? error.message : "Failed to update profile"
+      );
     } finally {
       setSaving(false);
     }
@@ -49,7 +51,7 @@ export default function UpdateForm({ showForm, setShowForm }: UpdateFormProps) {
               <h2 className="text-2xl font-bold text-[#F5F5F5]">
                 UPDATE PROFILE IMAGES
               </h2>
-              < CloseButton onClick={() => setShowForm(false)} />
+              <CloseButton onClick={() => setShowForm(false)} />
             </div>
 
             {error && (
@@ -61,9 +63,7 @@ export default function UpdateForm({ showForm, setShowForm }: UpdateFormProps) {
             <form onSubmit={handleSubmit} className="space-y-6">
               {/* Avatar Section */}
               <div>
-                <h3 className="text-lg text-[#F5F5F5]">
-                  Avatar
-                </h3>
+                <h3 className="text-lg text-[#F5F5F5]">Avatar</h3>
                 <div>
                   <InputUrlImage
                     value={avatarUrl}
@@ -74,9 +74,7 @@ export default function UpdateForm({ showForm, setShowForm }: UpdateFormProps) {
 
               {/* Banner Section */}
               <div>
-                <h3 className="text-lg text-[#F5F5F5]">
-                  Banner
-                </h3>
+                <h3 className="text-lg text-[#F5F5F5]">Banner</h3>
                 <div>
                   <InputUrlImage2
                     value={bannerUrl}

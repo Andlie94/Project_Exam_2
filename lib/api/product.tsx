@@ -1,11 +1,13 @@
 import { API_BASE } from "./config";
 export async function fetchProducts() {
   try {
-    const response = await fetch(`${API_BASE}/holidaze/venues?sort=created&sortOrder=desc`);
+    const response = await fetch(
+      `${API_BASE}/holidaze/venues?sort=created&sortOrder=desc`
+    );
     if (!response.ok) throw new Error("Failed to fetch products");
 
     const result = await response.json();
-    return result.data; 
+    return result.data;
   } catch (error: unknown) {
     if (error instanceof Error) {
       console.error("Error fetching products:", error.message);
@@ -22,7 +24,7 @@ export async function fetchProductById(id: string) {
     if (!response.ok) throw new Error("Failed to fetch product");
 
     const result = await response.json();
-    return result.data; 
+    return result.data;
   } catch (error: unknown) {
     if (error instanceof Error) {
       console.error(`Error fetching product with id ${id}:`, error.message);

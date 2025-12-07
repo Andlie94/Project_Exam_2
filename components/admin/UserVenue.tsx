@@ -101,8 +101,8 @@ export function UserVenueList({ profileName }: { profileName: string }) {
                         <Image
                           src={venue.media[0].url}
                           alt={venue.media[0].alt || venue.name}
-                          width={250} 
-                          height={100} 
+                          width={250}
+                          height={100}
                           className="object-cover max-w-full h-auto"
                         />
                       )}

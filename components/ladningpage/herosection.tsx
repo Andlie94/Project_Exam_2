@@ -14,11 +14,16 @@ export default function HeroSection() {
         className="w-full h-full object-cover"
       />
       <div className="absolute top-0 right-0 bottom-0 left-0">
-        <div className="w-full h-full bg-[#022C39]" style={{ opacity: 0.5 }}></div>
+        <div
+          className="w-full h-full bg-[#022C39]"
+          style={{ opacity: 0.5 }}
+        ></div>
       </div>
       <div className="absolute top-0 right-0 bottom-0 left-0 flex flex-col justify-center items-center text-center text-white px-4">
         <h1 className="text-3xl md:text-5xl font-bold">Welcome to Holidaze</h1>
-        <p className="mt-4 text-lg md:text-2xl">One page to guide them all, one click to find them</p>
+        <p className="mt-4 text-lg md:text-2xl">
+          One page to guide them all, one click to find them
+        </p>
       </div>
       <div className="absolute top-[90%] left-[50%] transform -translate-x-1/2 -translate-y-1/2 w-auto rounded-lg overflow-hidden">
         <div className="absolute top-0 left-0 right-0 bottom-0 bg-[#02B2DE] opacity-50"></div>

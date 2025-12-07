@@ -8,7 +8,6 @@ import InfoCardSection from "@/components/ladningpage/InfocardSection";
 import { getMetadataMain } from "@/components/meta_data/metadata";
 export const metadata = getMetadataMain();
 
-
 export default function Home() {
   return (
     <div>

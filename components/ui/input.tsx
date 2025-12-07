@@ -105,7 +105,6 @@ export function InputSearch({ value, onChange }: AuthInputProps) {
   );
 }
 
-
 export function InputTitle({ value, onChange }: InputProps) {
   return (
     <div>
